@@ -116,7 +116,7 @@ const HeroCarousel: React.FC = () => {
                   >
                     {item.description}
                   </p>
-                  <button
+                  <a href="/appointment" 
                     className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg animate-fadeInUp"
                     style={{
                       animationDelay: "0.7s",
@@ -124,7 +124,8 @@ const HeroCarousel: React.FC = () => {
                     }}
                   >
                     {item.buttonText}
-                  </button>
+
+                  </a>
                 </div>
               </div>
             </div>

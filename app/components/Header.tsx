@@ -43,6 +43,8 @@ const Header = () => {
     setActiveDropdown(activeDropdown === name ? null : name);
   };
 
+
+
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/About" },
@@ -243,7 +245,9 @@ const Header = () => {
               </div>
             ))}
             <div className="mt-4 pt-2">
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg">
+              <Button
+              onClick={() => NavigationHistoryEntry}
+               className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg">
                 <Calendar className="mr-2 h-5 w-5" />
                 Book Appointment
               </Button>
