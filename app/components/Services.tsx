@@ -15,43 +15,43 @@ import {
 export default function HealthcareServices() {
   const services = [
     {
-      icon: <Stethoscope className="w-6 h-6 text-[#00A651]" />,
+      icon: <Stethoscope className="w-6 h-6 text-[#0E74FC]" />,
       title: "Emergency Care",
       description: "24/7 emergency medical services for urgent health concerns",
     },
     {
-      icon: <Flask className="w-6 h-6 text-[#00A651]" />,
+      icon: <Flask className="w-6 h-6 text-[#0E74FC]" />,
       title: "Laboratory",
       description: "Comprehensive testing and diagnostic laboratory services",
     },
     {
-      icon: <Clipboard className="w-6 h-6 text-[#00A651]" />,
+      icon: <Clipboard className="w-6 h-6 text-[#0E74FC]" />,
       title: "Medical Check Up",
       description: "Complete health assessments and preventive screenings",
     },
     {
-      icon: <Pill className="w-6 h-6 text-[#00A651]" />,
+      icon: <Pill className="w-6 h-6 text-[#0E74FC]" />,
       title: "Pharmacy",
       description:
         "Full-service pharmacy with prescription and OTC medications",
     },
     {
-      icon: <Ambulance className="w-6 h-6 text-[#00A651]" />,
+      icon: <Ambulance className="w-6 h-6 text-[#0E74FC]" />,
       title: "Ambulance",
       description: "Rapid response emergency transportation services",
     },
     {
-      icon: <Syringe className="w-6 h-6 text-[#00A651]" />,
+      icon: <Syringe className="w-6 h-6 text-[#0E74FC]" />,
       title: "Vaccination",
       description: "Preventive immunizations for all age groups",
     },
     {
-      icon: <Heart className="w-6 h-6 text-[#00A651]" />,
+      icon: <Heart className="w-6 h-6 text-[#0E74FC]" />,
       title: "Cardiology",
       description: "Specialized heart care and cardiovascular treatments",
     },
     {
-      icon: <Tooth className="w-6 h-6 text-[#00A651]" />,
+      icon: <Tooth className="w-6 h-6 text-[#0E74FC]" />,
       title: "Dental Care",
       description: "Complete dental services for oral health maintenance",
     },
@@ -62,7 +62,7 @@ export default function HealthcareServices() {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md mb-4">
-            <h3 className="text-[#00A651] font-medium">Our Services</h3>
+            <h3 className="text-[#0E74FC] font-medium">Our Services</h3>
           </div>
           <h2 className="text-3xl font-bold mb-4 text-gray-800">
             Comprehensive Healthcare Services

@@ -1,11 +1,10 @@
-import Image from "next/image";
-import HeroSection from "./components/HeroSection";
+import HeroCarousel from "./components/HeroSection";
 import Others from "./components/Home";
 
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      <HeroCarousel />
       <Others />
     </>
   );

@@ -1,212 +1,170 @@
-"use client"; // This will make the component a Client Component
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ChevronRight, Phone, Calendar, MapPin } from "lucide-react";
+export const carouselItems = [
+  {
+    id: 1,
+    title: "Advanced Care for Your Health",
+    description:
+      "Our state-of-the-art facilities and expert medical team are dedicated to providing exceptional healthcare.",
+    buttonText: "Book an Appointment",
+    image:
+      "https://images.pexels.com/photos/247786/pexels-photo-247786.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  },
+  {
+    id: 2,
+    title: "Personalized Medical Care",
+    description:
+      "We believe in patient-centered care tailored to your unique health needs and goals.",
+    buttonText: "Our Services",
+    image:
+      "https://images.pexels.com/photos/3259629/pexels-photo-3259629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  },
+  {
+    id: 3,
+    title: "Cutting-Edge Medical Technology",
+    description:
+      "Utilizing the latest innovations to deliver precise diagnoses and effective treatments.",
+    buttonText: "Learn More",
+    image:
+      "https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  },
+];
 
-function HeroSection() {
-  // Form submission handler
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const HeroCarousel: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-    const form = e.target as HTMLFormElement;
-    const fullName = (form.elements.namedItem("fullName") as HTMLInputElement)
-      .value;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value;
-    const doctor = (form.elements.namedItem("doctor") as HTMLSelectElement)
-      .value;
-    const date = (form.elements.namedItem("date") as HTMLInputElement).value;
-    const time = (form.elements.namedItem("time") as HTMLInputElement).value;
+  const nextSlide = useCallback(() => {
+    if (isTransitioning) return;
 
-    if (!fullName || !email || !phone || !doctor || !date || !time) {
-      alert("Please fill in all the fields.");
-      return;
-    }
+    setIsTransitioning(true);
+    setCurrentSlide((prev) =>
+      prev === carouselItems.length - 1 ? 0 : prev + 1
+    );
 
-    // Construct the WhatsApp message
-    const whatsappMessage = `Hello, I would like to request a consultation. \n\nName: ${fullName} \nEmail: ${email} \nPhone: ${phone} \nDoctor: ${doctor} \nDate: ${date} \nTime: ${time}`;
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 1000);
+  }, [isTransitioning]);
 
-    // WhatsApp URL with the message
-    const whatsappUrl = `https://wa.me/+252617006650?text=${encodeURIComponent(
-      whatsappMessage
-    )}`;
+  const prevSlide = useCallback(() => {
+    if (isTransitioning) return;
 
-    // Open WhatsApp chat with the message
-    window.open(whatsappUrl, "_blank");
-  };
+    setIsTransitioning(true);
+    setCurrentSlide((prev) =>
+      prev === 0 ? carouselItems.length - 1 : prev - 1
+    );
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 1000);
+  }, [isTransitioning]);
+
+  // Auto-slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [nextSlide]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
-      {/* Top navigation bar */}
-
-      {/* Background Image with Gradient Overlay */}
-      <div className="absolute inset-0 z-0">
-        <div
-          className="h-full w-full bg-cover bg-center"
-          style={{
-            backgroundImage:
-              'url("https://www.verywellhealth.com/thmb/MOc8kb0DWRXV91nSWZ5QT2B7gXQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/86510637-56a9126d5f9b58b7d0f7db0e.JPG")',
-          }}
-        />
-        {/* Enhanced gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/40"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 flex pt-40 items-center">
-        <div className="container mx-auto px-4 md:px-8 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            <div className="md:col-span-7 space-y-8">
-              {/* Quick contact info */}
-              <div className="flex flex-wrap gap-4 md:gap-6">
-                <div className="flex items-center gap-2 text-green-500">
-                  <Phone className="h-4 w-4" />
-                  <span className="text-white text-sm">+25261XXXXXX</span>
-                </div>
-                <div className="flex items-center gap-2 text-green-500">
-                  <Calendar className="h-4 w-4" />
-                  <span className="text-white text-sm">Saturday-Fri: 24/7</span>
-                </div>
-                <div className="flex items-center gap-2 text-green-500">
-                  <MapPin className="h-4 w-4" />
-                  <span className="text-white text-sm">
-                    Holwadaag, Mogadisho Somalia
-                  </span>
-                </div>
-              </div>
-
-              {/* Main content */}
-              <div className="space-y-6">
-                <div>
-                  <h2 className="text-white text-2xl md:text-4xl font-bold leading-tight">
-                    Your Health, Our Promise of
-                  </h2>
-                  <h2 className="text-green-500 text-2xl md:text-4xl font-bold leading-tight">
-                    Quality and Care.
-                  </h2>
-                </div>
-
-                <div className="h-1 w-24 bg-green-500 rounded-full"></div>
-
-                <p className="text-gray-300 text-lg max-w-xl">
-                  At our clinic, we prioritize your health and well-being. Our
-                  team of experienced specialists is dedicated to providing
-                  personalized care and advanced medical treatments tailored to
-                  your needs.
-                </p>
-
-                <div className="flex flex-wrap gap-4 pt-4">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-green-500 hover:bg-green-500 text-black font-medium rounded-full px-8 shadow-lg shadow-green-500/20"
-                  >
-                    <Link href="/services" className="flex items-center gap-2">
-                      View Services
-                      <ChevronRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="text-green-500 border-white hover:bg-white/10 rounded-full px-8"
-                  >
-                    <Link href="/appointment">Book Appointment</Link>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="mt-28">
-                <div className="grid grid-cols-3 gap-4 pt-14 border-t border-white/20">
-                  <div className="text-center">
-                    <div className="text-green-500 text-3xl font-bold">25+</div>
-                    <div className="text-white text-sm">Years Experience</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-green-500 text-3xl font-bold">
-                      100k+
-                    </div>
-                    <div className="text-white text-sm">Patients Treated</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-green-500 text-3xl font-bold">50+</div>
-                    <div className="text-white text-sm">Specialists</div>
-                  </div>
-                </div>
-              </div>
+    <div className="relative h-[600px] md:h-[650px] lg:h-[700px overflow-hidden">
+      {/* Carousel Slides */}
+      <div className="absolute inset-0">
+        {carouselItems.map((item, index) => (
+          <div
+            key={item.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide
+                ? "opacity-100"
+                : "opacity-0 pointer-events-none"
+            }`}
+          >
+            {/* Image with overlay */}
+            <div className="absolute inset-0">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
             </div>
 
-            {/* Right side - Appointment card */}
-            <div className="hidden md:block md:col-span-5">
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 shadow-xl">
-                <h3 className="text-white text-xl font-medium mb-4">
-                  Request a Consultation
-                </h3>
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 gap-4">
-                    <input
-                      type="text"
-                      name="fullName"
-                      placeholder="Full Name"
-                      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email Address"
-                      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="Phone Number"
-                      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                    <select
-                      name="doctor"
-                      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white/60 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    >
-                      <option value="">Select Doctor</option>
-                      <option value="dr_amini">Dr. Amin</option>
-                      <option value="dr_muna_ahmed">Dr. Muna Ahmed</option>
-                      <option value="dr_hussein_abshir">
-                        Dr. Hussein Abshir
-                      </option>
-                    </select>
-                    <input
-                      type="date"
-                      name="date"
-                      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                    <input
-                      type="time"
-                      name="time"
-                      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                  </div>
-                  <Button className="w-full bg-green-500 hover:bg-green-500 text-black font-medium">
-                    Request Appointment
-                  </Button>
-                  <p className="text-white/70 text-xs text-center">
-                    We&#39;ll contact you within 24 hours to confirm your
-                    appointment
+            {/* Content */}
+            <div className="relative h-full flex items-center">
+              <div className="ml-44 px-4 md:px-6">
+                <div className="max-w-2xl text-left ml-8 md:ml-16">
+                  <h1
+                    className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 animate-fadeInUp"
+                    style={{
+                      animationDelay: "0.3s",
+                      animationFillMode: "forwards",
+                    }}
+                  >
+                    {item.title}
+                  </h1>
+                  <p
+                    className="text-lg md:text-xl text-white/90 mb-6 animate-fadeInUp"
+                    style={{
+                      animationDelay: "0.5s",
+                      animationFillMode: "forwards",
+                    }}
+                  >
+                    {item.description}
                   </p>
-                </form>
+                  <button
+                    className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg animate-fadeInUp"
+                    style={{
+                      animationDelay: "0.7s",
+                      animationFillMode: "forwards",
+                    }}
+                  >
+                    {item.buttonText}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
-      {/* Bottom decorative element */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white p-2 rounded-full transition-colors duration-200 z-10"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft size={24} />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white p-2 rounded-full transition-colors duration-200 z-10"
+        aria-label="Next slide"
+      >
+        <ChevronRight size={24} />
+      </button>
+
+      {/* Indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+        {carouselItems.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentSlide
+                ? "bg-white w-8"
+                : "bg-white/50 hover:bg-white/70"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
-export default HeroSection;
+export default HeroCarousel;

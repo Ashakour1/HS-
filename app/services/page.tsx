@@ -59,7 +59,7 @@ export default function ServicesPage() {
       title: "Emergency",
       content: "+1 234 567 890",
       icon: Phone,
-      color: "bg-[#00A651]",
+      color: "bg-[#0E74FC]",
       text: "text-white",
     },
     {
@@ -112,7 +112,7 @@ export default function ServicesPage() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="h-[300px] bg-gray-100 flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-[#00A651]">Our Services</h1>
+        <h1 className="text-4xl font-bold text-[#0E74FC]">Our Services</h1>
       </section>
 
       {/* Services Section */}
@@ -121,15 +121,15 @@ export default function ServicesPage() {
           {services.map((service, idx) => (
             <Card
               key={idx}
-              className="text-center shadow-md border-t-4 border-[#00A651]"
+              className="text-center shadow-md border-t-4 border-[#0E74FC]"
             >
               <CardContent className="p-6">
-                <service.icon className="w-10 h-10 text-[#00A651] mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-[#00A651] mb-2">
+                <service.icon className="w-10 h-10 text-[#0E74FC] mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-[#0E74FC] mb-2">
                   {service.title}
                 </h3>
                 <p className="text-sm text-gray-600">{service.description}</p>
-                <Button className="mt-4 bg-[#00A651] hover:bg-[#008c44] text-white">
+                <Button className="mt-4 bg-[#0E74FC] hover:bg-[#008c44] text-white">
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -142,7 +142,7 @@ export default function ServicesPage() {
       {/* Contact Section */}
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-center text-3xl font-bold text-[#00A651] mb-12">
+          <h2 className="text-center text-3xl font-bold text-[#0E74FC] mb-12">
             Contact Us
           </h2>
           <div className="grid md:grid-cols-4 gap-6">
@@ -168,8 +168,8 @@ export default function ServicesPage() {
           {features.map((feature, idx) => (
             <Card key={idx} className="text-center shadow-sm border">
               <CardContent className="p-6">
-                <feature.icon className="w-8 h-8 text-[#00A651] mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-[#00A651] mb-2">
+                <feature.icon className="w-8 h-8 text-[#0E74FC] mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-[#0E74FC] mb-2">
                   {feature.title}
                 </h3>
                 <p className="text-gray-600 text-sm">{feature.description}</p>
@@ -187,7 +187,7 @@ export default function ServicesPage() {
             Our emergency team is always ready to assist you in urgent
             situations.
           </p>
-          <Button className="bg-white text-[#00A651] hover:bg-gray-100 font-semibold">
+          <Button className="bg-white text-[#0E74FC] hover:bg-gray-100 font-semibold">
             Contact Emergency
           </Button>
         </div>

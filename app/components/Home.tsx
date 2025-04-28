@@ -22,7 +22,7 @@ export default function Others() {
             </div>
             <div>
               <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md mb-4">
-                <h3 className="text-[#00A651] font-medium">About Us</h3>
+                <h3 className="text-[#0E74FC] font-medium">About Us</h3>
               </div>
               <h2 className="text-3xl font-bold mb-6 text-gray-800">
                 Hospital Director Message
@@ -39,7 +39,7 @@ export default function Others() {
                 the highest standards of medical care while ensuring patient
                 comfort and satisfaction remain our top priorities.
               </p>
-              <Button className="border-2 border-[#00A651] text-[#00A651] hover:bg-[#00A651] hover:text-white px-8 py-2.5 rounded-md bg-transparent group">
+              <Button className="border-2 border-[#0E74FC] text-[#0E74FC] hover:bg-[#0E74FC] hover:text-white px-8 py-2.5 rounded-md bg-transparent group">
                 Read More
                 <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -56,12 +56,12 @@ export default function Others() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md mb-4">
-              <h3 className="text-[#00A651] font-medium">Our Team</h3>
+              <h3 className="text-[#0E74FC] font-medium">Our Doctors</h3>
             </div>
             <h2 className="text-3xl font-bold mb-4 text-gray-800">
-              Meet Our Specialists
+              Meet Our Specialist Doctors
             </h2>
-            <p className="text-gray-600">
+            <p className=" text-[#0E74FC]">
               Experienced healthcare professionals dedicated to providing
               exceptional care
             </p>
@@ -105,7 +105,7 @@ export default function Others() {
                         {[1, 2, 3, 4, 5].map((star) => (
                           <div
                             key={star}
-                            className="w-2 h-2 rounded-full bg-[#00A651]"
+                            className="w-2 h-2 rounded-full bg-[#0E74FC]"
                           />
                         ))}
                       </div>
@@ -123,7 +123,7 @@ export default function Others() {
                     {[1, 2, 3].map((dot) => (
                       <div
                         key={dot}
-                        className="w-2 h-2 rounded-full bg-[#00A651]"
+                        className="w-2 h-2 rounded-full bg-[#0E74FC]"
                       />
                     ))}
                   </div>
@@ -141,7 +141,7 @@ export default function Others() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md mb-4">
-              <h3 className="text-[#00A651] font-medium">Latest Updates</h3>
+              <h3 className="text-[#0E74FC] font-medium">Latest Updates</h3>
             </div>
             <h2 className="text-3xl font-bold mb-4 text-gray-800">
               Hospital News & Articles
@@ -169,15 +169,15 @@ export default function Others() {
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-3">
                     <div className="flex items-center text-sm text-gray-500">
-                      <Calendar className="h-4 w-4 mr-1 text-[#00A651]" />
+                      <Calendar className="h-4 w-4 mr-1 text-[#0E74FC]" />
                       <span>February 13, 2025</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-500">
-                      <Clock className="h-4 w-4 mr-1 text-[#00A651]" />
+                      <Clock className="h-4 w-4 mr-1 text-[#0E74FC]" />
                       <span>5 min read</span>
                     </div>
                   </div>
-                  <h3 className="font-semibold text-lg mb-3 line-clamp-2 group-hover:text-[#00A651] transition-colors">
+                  <h3 className="font-semibold text-lg mb-3 line-clamp-2 group-hover:text-[#0E74FC] transition-colors">
                     Latest Medical Technology
                   </h3>
                   <p className="text-gray-600 line-clamp-3 mb-4">
@@ -186,7 +186,7 @@ export default function Others() {
                   </p>
                   <Link
                     href="#"
-                    className="text-[#00A651] font-medium flex items-center hover:underline"
+                    className="text-[#0E74FC] font-medium flex items-center hover:underline"
                   >
                     Read More <ChevronRight className="ml-1 h-4 w-4" />
                   </Link>

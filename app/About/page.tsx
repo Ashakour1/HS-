@@ -9,7 +9,7 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h1 className="text-4xl font-bold text-[#00A651] mb-6">
+            <h1 className="text-4xl font-bold text-[#0E74FC]  mb-6">
               WE CARE FOR YOU
             </h1>
             <p className="text-gray-600 leading-relaxed">
@@ -39,7 +39,7 @@ export default function AboutPage() {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[#00A651]/90">
+        <div className="absolute inset-0 bg-[#0E74FC]/90">
           <div className="container mx-auto px-4 h-full flex items-center justify-center">
             <div className="max-w-3xl text-center text-white">
               <p className="text-2xl italic mb-8">
@@ -86,7 +86,7 @@ export default function AboutPage() {
                   />
                 </div>
                 <CardContent className="p-4">
-                  <p className="text-sm text-[#00A651] mb-2">
+                  <p className="text-sm text-[#0E74FC] mb-2">
                     February 13, 2025
                   </p>
                   <h3 className="font-medium line-clamp-2">
@@ -101,7 +101,7 @@ export default function AboutPage() {
               <button
                 key={dot}
                 className={`w-3 h-3 rounded-full ${
-                  dot === 1 ? "bg-[#00A651]" : "bg-gray-300"
+                  dot === 1 ? "bg-[#0E74FC]" : "bg-gray-300"
                 }`}
               />
             ))}
@@ -119,7 +119,7 @@ export default function AboutPage() {
                 title: "Emergency",
                 content: "+1 234 567 890",
                 icon: Phone,
-                color: "bg-[#00A651]",
+                color: "bg-[#0E74FC]",
               },
               {
                 title: "Location",
@@ -149,7 +149,7 @@ export default function AboutPage() {
                 <CardContent className="p-6">
                   <item.icon
                     className={`w-8 h-8 mx-auto mb-4 ${
-                      index === 0 ? "text-white" : "text-[#00A651]"
+                      index === 0 ? "text-white" : "text-[#0E74FC]"
                     }`}
                   />
                   <h3 className="font-bold mb-2">{item.title}</h3>
