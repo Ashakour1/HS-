@@ -96,7 +96,7 @@ const HeroCarousel: React.FC = () => {
 
             {/* Content */}
             <div className="relative h-full flex items-center justify-center px-4">
-              <div className="max-w-2xl text-left sm:text-center">
+              <div className="max-w-2xl text-left">
                 <h1
                   className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-4 animate-fadeInUp"
                   style={{
@@ -132,7 +132,7 @@ const HeroCarousel: React.FC = () => {
       </div>
 
       {/* Navigation Arrows */}
-      <button
+      {/* <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white p-2 rounded-full transition-colors duration-200 z-10"
         aria-label="Previous slide"
@@ -145,7 +145,7 @@ const HeroCarousel: React.FC = () => {
         aria-label="Next slide"
       >
         <ChevronRight size={24} />
-      </button>
+      </button> */}
 
       {/* Indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
