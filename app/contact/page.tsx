@@ -10,82 +10,61 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#00A651]/90 to-[#008c44]/90 text-white">
-        <div className="absolute inset-0 z-0 opacity-10">
-          <Image
-            src="/placeholder.svg?height=600&width=1920"
-            alt="Background pattern"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Get in Touch
-            </h1>
-            <p className="text-lg md:text-xl opacity-90 mb-8">
-              We are here to help with any questions about our services,
-              appointments, or medical information
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button className="bg-white text-[#00A651] hover:bg-gray-100 px-6 py-6">
-                Book an Appointment
-              </Button>
-              <Button
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 px-6 py-6"
-              >
-                Emergency Contact
-              </Button>
-            </div>
-          </div>
+      <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+        <Image
+          src="/hero.png"
+          alt="Hospital Management"
+          fill
+          className="object-cover brightness-50"
+          priority
+        />
+        <div className="absolute inset-0 flex items-center justify-start">
+          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start">
+            Contact Us
+          </h1>
         </div>
       </section>
-
       {/* Contact Options Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-[#00A651]/10 flex items-center justify-center mb-4">
-                  <Phone className="h-8 w-8 text-[#00A651]" />
+                <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                  <Phone className="h-8 w-8 text-green-500" />
                 </div>
                 <h3 className="font-bold text-xl mb-2">Call Us</h3>
                 <p className="text-gray-600 mb-4">
                   Our friendly team is here to help
                 </p>
-                <p className="text-[#00A651] font-medium text-lg">
-                  +1 (234) 567-8900
-                </p>
+                <p className="text-green-500 font-medium text-lg">252XXXXXXX</p>
               </CardContent>
             </Card>
 
             <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-[#00A651]/10 flex items-center justify-center mb-4">
-                  <Mail className="h-8 w-8 text-[#00A651]" />
+                <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                  <Mail className="h-8 w-8 text-green-500" />
                 </div>
                 <h3 className="font-bold text-xl mb-2">Email Us</h3>
                 <p className="text-gray-600 mb-4">
                   We will respond as soon as possible
                 </p>
-                <p className="text-[#00A651] font-medium text-lg">
-                  info@hospital.com
+                <p className="text-green-500 font-medium text-lg">
+                  info@hospitaluniso.com
                 </p>
               </CardContent>
             </Card>
 
             <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-[#00A651]/10 flex items-center justify-center mb-4">
-                  <MapPin className="h-8 w-8 text-[#00A651]" />
+                <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                  <MapPin className="h-8 w-8 text-green-500" />
                 </div>
                 <h3 className="font-bold text-xl mb-2">Visit Us</h3>
                 <p className="text-gray-600 mb-4">Come see us in person</p>
-                <p className="text-[#00A651] font-medium text-lg">
-                  123 Medical Center Drive
+                <p className="text-green-500 font-medium text-lg">
+                  Hospital Uniso
                 </p>
               </CardContent>
             </Card>
@@ -117,7 +96,7 @@ export default function ContactPage() {
                   <CardContent className="p-0">
                     <div className="grid md:grid-cols-2">
                       <div className="bg-white p-8 md:p-12">
-                        <h2 className="text-2xl font-bold text-[#00A651] mb-6">
+                        <h2 className="text-2xl font-bold text-[#0E74FC] mb-6">
                           Submit Your Request
                         </h2>
                         <form className="space-y-5">
@@ -146,12 +125,12 @@ export default function ContactPage() {
                               className="border-gray-300 p-4 rounded-md min-h-[180px] resize-none"
                             />
                           </div>
-                          <Button className="w-full bg-[#00A651] hover:bg-[#008c44] text-white py-6 rounded-md">
+                          <Button className="w-full bg-[#0E74FC] hover:bg-[#0A5FD4] text-white py-6 rounded-md">
                             Send Message
                           </Button>
                         </form>
                       </div>
-                      <div className="bg-[#00A651] text-white p-8 md:p-12 flex flex-col justify-center">
+                      <div className="bg-[#0E74FC] text-white p-8 md:p-12 flex flex-col justify-center">
                         <h3 className="text-2xl font-bold mb-6">
                           We are Here For You
                         </h3>
@@ -164,14 +143,16 @@ export default function ContactPage() {
                             <Phone className="h-6 w-6 mt-1 flex-shrink-0" />
                             <div>
                               <h4 className="font-medium">Phone</h4>
-                              <p className="opacity-90">+1 (234) 567-8900</p>
+                              <p className="opacity-90">252XXXXXXX</p>
                             </div>
                           </div>
                           <div className="flex items-start gap-4">
                             <Mail className="h-6 w-6 mt-1 flex-shrink-0" />
                             <div>
                               <h4 className="font-medium">Email</h4>
-                              <p className="opacity-90">info@hospital.com</p>
+                              <p className="opacity-90">
+                                info@hospitaluniso.com
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-start gap-4">
@@ -179,7 +160,7 @@ export default function ContactPage() {
                             <div>
                               <h4 className="font-medium">Address</h4>
                               <p className="opacity-90">
-                                123 Medical Center Drive, New York, NY 10001
+                                Hospital Uniso, New York, NY 10001
                               </p>
                             </div>
                           </div>
@@ -207,7 +188,7 @@ export default function ContactPage() {
                   <CardContent className="p-0">
                     <div className="grid md:grid-cols-3">
                       <div className="bg-white p-8 md:p-12 md:col-span-1">
-                        <h2 className="text-2xl font-bold text-[#00A651] mb-6">
+                        <h2 className="text-2xl font-bold text-[#0E74FC] mb-6">
                           Our Location
                         </h2>
                         <div className="space-y-6">
@@ -216,7 +197,7 @@ export default function ContactPage() {
                               Main Hospital
                             </h3>
                             <p className="text-gray-600">
-                              123 Medical Center Drive
+                              Hospital Uniso
                               <br />
                               New York, NY 10001
                             </p>
@@ -231,7 +212,7 @@ export default function ContactPage() {
                             </p>
                             <Button
                               variant="outline"
-                              className="border-[#00A651] text-[#00A651] hover:bg-[#00A651]/10"
+                              className="border-[#0E74FC] text-[#0E74FC] hover:bg-[#0E74FC]/10"
                             >
                               Get Directions
                             </Button>
@@ -269,7 +250,7 @@ export default function ContactPage() {
                   <CardContent className="p-0">
                     <div className="grid md:grid-cols-2">
                       <div className="bg-white p-8 md:p-12">
-                        <h2 className="text-2xl font-bold text-[#00A651] mb-6">
+                        <h2 className="text-2xl font-bold text-[#0E74FC] mb-6">
                           Working Hours
                         </h2>
                         <div className="space-y-6">
@@ -301,14 +282,14 @@ export default function ContactPage() {
                               Our emergency department is open 24 hours a day, 7
                               days a week.
                             </p>
-                            <Button className="bg-[#00A651] hover:bg-[#008c44] text-white">
+                            <Button className="bg-[#0E74FC] hover:bg-[#0A5FD4] text-white">
                               Emergency Contact
                             </Button>
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#00A651]/10 p-8 md:p-12 flex flex-col justify-center">
-                        <h3 className="text-2xl font-bold text-[#00A651] mb-6">
+                      <div className="bg-green-500/10 p-8 md:p-12 flex flex-col justify-center">
+                        <h3 className="text-2xl font-bold text-green-600 mb-6">
                           Schedule an Appointment
                         </h3>
                         <p className="text-gray-700 mb-6">
@@ -317,8 +298,8 @@ export default function ContactPage() {
                         </p>
                         <div className="bg-white rounded-lg p-6 shadow-md mb-6">
                           <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 rounded-full bg-[#00A651]/10 flex items-center justify-center">
-                              <Calendar className="h-6 w-6 text-[#00A651]" />
+                            <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                              <Calendar className="h-6 w-6 text-green-500" />
                             </div>
                             <div>
                               <h4 className="font-medium">Online Booking</h4>
@@ -327,14 +308,14 @@ export default function ContactPage() {
                               </p>
                             </div>
                           </div>
-                          <Button className="w-full bg-[#00A651] hover:bg-[#008c44] text-white">
+                          <Button className="w-full bg-[#0E74FC] hover:bg-[#0A5FD4] text-white">
                             Book Now
                           </Button>
                         </div>
                         <div className="bg-white rounded-lg p-6 shadow-md">
                           <div className="flex items-center gap-4 mb-4">
-                            <div className="w-12 h-12 rounded-full bg-[#00A651]/10 flex items-center justify-center">
-                              <Phone className="h-6 w-6 text-[#00A651]" />
+                            <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+                              <Phone className="h-6 w-6 text-green-500" />
                             </div>
                             <div>
                               <h4 className="font-medium">Phone Booking</h4>
@@ -345,9 +326,9 @@ export default function ContactPage() {
                           </div>
                           <Button
                             variant="outline"
-                            className="w-full border-[#00A651] text-[#00A651] hover:bg-[#00A651]/10"
+                            className="w-full border-[#0E74FC] text-[#0E74FC] hover:bg-[#0E74FC]/10"
                           >
-                            +1 (234) 567-8900
+                            252XXXXXXX
                           </Button>
                         </div>
                       </div>
@@ -379,21 +360,25 @@ export default function ContactPage() {
                 title: "Latest Medical Technology Breakthrough",
                 date: "February 13, 2025",
                 category: "Technology",
+                image: "All-4.jpg",
               },
               {
                 title: "Understanding Preventive Healthcare",
                 date: "February 10, 2025",
                 category: "Wellness",
+                image: "All.jpg",
               },
               {
                 title: "Nutrition Tips for Heart Health",
                 date: "February 5, 2025",
                 category: "Nutrition",
+                image: "All-2.jpg",
               },
               {
                 title: "Mental Health Awareness Month",
                 date: "February 1, 2025",
                 category: "Mental Health",
+                image: "All-3.jpg",
               },
             ].map((item, index) => (
               <Card
@@ -402,21 +387,21 @@ export default function ContactPage() {
               >
                 <div className="relative h-56 overflow-hidden">
                   <Image
-                    src={`/placeholder.svg?height=300&width=400`}
+                    src={`/${item.image}`}
                     alt={item.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 left-4 bg-[#00A651] text-white text-xs font-medium px-2 py-1 rounded">
+                  <div className="absolute top-4 left-4 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded">
                     {item.category}
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <p className="text-sm text-[#00A651] mb-2">{item.date}</p>
-                  <h3 className="font-medium text-lg mb-3 line-clamp-2 group-hover:text-[#00A651] transition-colors">
+                  <p className="text-sm text-[#0E74FC] mb-2">{item.date}</p>
+                  <h3 className="font-medium text-lg mb-3 line-clamp-2 group-hover:text-[#0E74FC] transition-colors">
                     {item.title}
                   </h3>
-                  <div className="flex items-center text-sm text-gray-600 hover:text-[#00A651] transition-colors cursor-pointer">
+                  <div className="flex items-center text-sm text-gray-600 hover:text-[#0E74FC] transition-colors cursor-pointer">
                     <span>Read more</span>
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
@@ -424,37 +409,16 @@ export default function ContactPage() {
               </Card>
             ))}
           </div>
-
-          <div className="flex justify-center gap-2 mt-12">
-            <Button
-              variant="outline"
-              className="rounded-full w-10 h-10 p-0 border-[#00A651] text-[#00A651] hover:bg-[#00A651] hover:text-white"
-            >
-              1
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-full w-10 h-10 p-0 border-gray-300 text-gray-600 hover:bg-[#00A651] hover:text-white hover:border-[#00A651]"
-            >
-              2
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-full w-10 h-10 p-0 border-gray-300 text-gray-600 hover:bg-[#00A651] hover:text-white hover:border-[#00A651]"
-            >
-              3
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-[#00A651]/10">
+      <section className="py-16 bg-green-500/10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="grid md:grid-cols-2">
               <div className="p-8 md:p-12">
-                <h2 className="text-2xl font-bold text-[#00A651] mb-4">
+                <h2 className="text-2xl font-bold text-[#0E74FC] mb-4">
                   Subscribe to Our Newsletter
                 </h2>
                 <p className="text-gray-600 mb-6">
@@ -466,12 +430,12 @@ export default function ContactPage() {
                     placeholder="Enter your email"
                     className="flex-grow py-6 px-4 rounded-md"
                   />
-                  <Button className="bg-[#00A651] hover:bg-[#008c44] text-white py-6 px-6 whitespace-nowrap">
+                  <Button className="bg-[#0E74FC] hover:bg-[#0A5FD4] text-white py-6 px-6 whitespace-nowrap">
                     Subscribe
                   </Button>
                 </div>
               </div>
-              <div className="bg-[#00A651] text-white p-8 md:p-12 flex items-center">
+              <div className="bg-[#0E74FC] text-white p-8 md:p-12 flex items-center">
                 <div>
                   <h3 className="text-xl font-bold mb-4">Why Subscribe?</h3>
                   <ul className="space-y-3">

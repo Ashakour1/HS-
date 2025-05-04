@@ -27,6 +27,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Doctor from "../components/Doctor";
+import Doctors from "../components/Doctors";
 
 // Doctor data
 const doctors = [
@@ -135,88 +137,23 @@ export default function DoctorsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative h-[400px] bg-gradient-to-r from-[#00A651] to-[#00A651]/80">
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <h1 className="text-5xl font-bold mb-4">Our Doctors</h1>
-          <p className="text-xl max-w-2xl text-center">
-            Meet our team of experienced healthcare professionals dedicated to
-            providing you with the best medical care.
-          </p>
+      <section className=" relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+        <Image
+          src="/hero.png"
+          alt="Hospital Management"
+          fill
+          className="object-cover brightness-50"
+          priority
+        />
+        <div className="absolute inset-0 flex items-center justify-start">
+          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start ">
+            Doctors & Specialists
+          </h1>
         </div>
-        <div
-          className="absolute bottom-0 left-0 w-full h-16 bg-white"
-          style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%)" }}
-        ></div>
       </section>
 
       {/* Doctors Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Expert Medical Professionals
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Our doctors are leaders in their fields with years of experience
-              and a commitment to excellence in patient care.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {doctors.map((doctor) => (
-              <Card
-                key={doctor.id}
-                className="overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer group"
-                onClick={() => openDoctorDetails(doctor)}
-              >
-                <div className="relative h-[400px] overflow-hidden">
-                  <Image
-                    src={
-                      doctor.image || "/placeholder.svg?height=400&width=300"
-                    }
-                    alt={doctor.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 flex items-center text-white">
-                    <Star
-                      className="w-4 h-4 text-yellow-400 mr-1"
-                      fill="#FACC15"
-                    />
-                    <span>
-                      {doctor.ratings} ({doctor.reviewCount} reviews)
-                    </span>
-                  </div>
-                </div>
-                <CardContent className="p-6 bg-white">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-bold text-xl text-gray-800 mb-2">
-                        {doctor.name}
-                      </h3>
-                      <p className="text-[#00A651] font-medium mb-2">
-                        {doctor.specialty}
-                      </p>
-                      <p className="text-gray-600 text-sm">
-                        {doctor.experience} Experience
-                      </p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-full bg-gray-100 hover:bg-[#00A651] hover:text-white"
-                    >
-                      <ChevronRight className="h-5 w-5" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      <Doctors />
       {/* Testimonial Section */}
       <section className="py-20 bg-[#00A651]/5">
         <div className="container mx-auto px-4">

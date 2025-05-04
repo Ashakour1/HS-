@@ -1,56 +1,101 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Stethoscope,
-  ShieldCheck,
-  HeartPulse,
-  Syringe,
-  Baby,
-  User,
-  Microscope,
-  Phone,
-  MapPin,
-  Mail,
-  Clock,
-  ArrowRight,
-} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { Phone, MapPin, Mail, Clock, ArrowRight } from "lucide-react";
 
 export default function ServicesPage() {
   const services = [
     {
-      title: "General Checkup",
+      title: "Inpatient Department (IPD)",
       description:
-        "Regular health checkups for early diagnosis and prevention.",
-      icon: Stethoscope,
+        "Comprehensive care for patients requiring overnight hospital stays with 24/7 monitoring.",
+      image: "/All.jpg",
+      slug: "inpatient-department",
     },
     {
-      title: "Emergency Services",
+      title: "Maternity Services",
+      description:
+        "Complete prenatal, delivery, and postnatal care in a comfortable and safe environment.",
+      image: "/All.jpg",
+      slug: "maternity-services",
+    },
+    {
+      title: "Operation Theater (OT)",
+      description:
+        "State-of-the-art surgical facilities with advanced equipment and skilled surgeons.",
+      image: "/All.jpg",
+      slug: "operation-theater",
+    },
+    {
+      title: "Pharmacy Services",
+      description:
+        "24/7 pharmacy providing prescribed medications and health products.",
+      image: "/All-2.jpg",
+      slug: "pharmacy-services",
+    },
+    {
+      title: "Day Care Services",
+      description:
+        "Medical procedures and treatments that don't require overnight stays.",
+      image: "/All-3.jpg",
+      slug: "day-care-services",
+    },
+    {
+      title: "Emergency Medicine",
       description:
         "24/7 emergency care for urgent health conditions and accidents.",
-      icon: ShieldCheck,
+      image: "/All-4.jpg",
+      slug: "emergency-medicine",
+    },
+    {
+      title: "Laboratory and Diagnostic Services",
+      description:
+        "Comprehensive testing and diagnostic services with quick and accurate results.",
+      image: "/All.jpg",
+      slug: "laboratory-and-diagnostic-services",
+    },
+    {
+      title: "Oncology Department",
+      description:
+        "Specialized cancer care with advanced treatment options and supportive care.",
+      image: "/All-2.jpg",
+      slug: "oncology-department",
+    },
+    {
+      title: "Internal Medicine",
+      description:
+        "Diagnosis and treatment of adult diseases by specialized physicians.",
+      image: "/internal.jpg",
+      slug: "internal-medicine",
     },
     {
       title: "Cardiology",
       description:
         "Heart-related diagnosis and treatments by expert cardiologists.",
-      icon: HeartPulse,
+      image: "/All.jpg",
+      slug: "cardiology",
     },
     {
-      title: "Vaccinations",
-      description: "Get vaccinated safely and timely for all age groups.",
-      icon: Syringe,
+      title: "General Surgery",
+      description:
+        "Surgical procedures for a wide range of conditions by skilled surgeons.",
+      image: "/general-surgery.jpg",
+      slug: "general-surgery",
+    },
+    {
+      title: "Obstetrics and Gynecology (OBG)",
+      description:
+        "Specialized care for women's reproductive health and pregnancy.",
+      image: "/All-3.jpg",
+      slug: "obstetrics-and-gynecology",
     },
     {
       title: "Pediatrics",
       description: "Complete child healthcare in a caring environment.",
-      icon: Baby,
-    },
-    {
-      title: "Dental Care",
-      description: "Full dental services for prevention and treatment.",
-      icon: User,
+      image: "/pediatric.jpg",
+      slug: "pediatrics",
     },
   ];
 
@@ -59,7 +104,7 @@ export default function ServicesPage() {
       title: "Emergency",
       content: "+1 234 567 890",
       icon: Phone,
-      color: "bg-[#0E74FC]",
+      color: "bg-[#00A651]",
       text: "text-white",
     },
     {
@@ -89,67 +134,84 @@ export default function ServicesPage() {
     {
       title: "Modern Equipment",
       description: "Advanced tools for accurate diagnosis and treatment.",
-      icon: Microscope,
     },
     {
       title: "Trusted Doctors",
       description: "Highly skilled and experienced medical professionals.",
-      icon: ShieldCheck,
     },
     {
       title: "Patient First",
       description: "Our services revolve around your comfort and care.",
-      icon: HeartPulse,
     },
     {
       title: "24/7 Access",
       description: "We are here for you anytime, day or night.",
-      icon: Clock,
     },
   ];
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="h-[300px] bg-gray-100 flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-[#0E74FC]">Our Services</h1>
+      <section className=" relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+        <Image
+          src="/hero.png"
+          alt="Hospital Management"
+          fill
+          className="object-cover brightness-50"
+          priority
+        />
+        <div className="absolute inset-0 flex items-center justify-start">
+          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start ">
+            Our Services
+          </h1>
+        </div>
       </section>
 
       {/* Services Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4 grid md:grid-cols-3 gap-6">
-          {services.map((service, idx) => (
-            <Card
-              key={idx}
-              className="text-center shadow-md border-t-4 border-[#0E74FC]"
-            >
-              <CardContent className="p-6">
-                <service.icon className="w-10 h-10 text-[#0E74FC] mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-[#0E74FC] mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-gray-600">{service.description}</p>
-                <Button className="mt-4 bg-[#0E74FC] hover:bg-[#008c44] text-white">
-                  Learn More
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, idx) => (
+              <Card
+                key={idx}
+                className="overflow-hidden group hover:shadow-xl transition-all duration-300"
+              >
+                <div className="relative h-48 w-full overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-3 bg-gradient-to-r from-[#0E74FC] to-[#00A651] bg-clip-text text-transparent">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4">{service.description}</p>
+                  <Link href={`/centers/${service.slug}`}>
+                    <p className="text-[#00A651] font-medium flex items-center hover:underline transition-all">
+                      Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                    </p>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-center text-3xl font-bold text-[#0E74FC] mb-12">
+          <h2 className="text-center text-3xl font-bold mb-12 bg-gradient-to-r from-[#0E74FC] to-[#00A651] bg-clip-text text-transparent">
             Contact Us
           </h2>
           <div className="grid md:grid-cols-4 gap-6">
             {contacts.map((item, i) => (
               <Card
                 key={i}
-                className={`text-center ${item.color} ${item.text}`}
+                className={`text-center ${item.color} ${item.text} hover:shadow-lg transition-all`}
               >
                 <CardContent className="p-6">
                   <item.icon className={`w-8 h-8 mx-auto mb-4 ${item.text}`} />
@@ -164,32 +226,44 @@ export default function ServicesPage() {
 
       {/* Features Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, idx) => (
-            <Card key={idx} className="text-center shadow-sm border">
-              <CardContent className="p-6">
-                <feature.icon className="w-8 h-8 text-[#0E74FC] mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-[#0E74FC] mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="container mx-auto px-4">
+          <h2 className="text-center text-3xl font-bold mb-12 bg-gradient-to-r from-[#0E74FC] to-[#00A651] bg-clip-text text-transparent">
+            Why Choose Us
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, idx) => (
+              <Card
+                key={idx}
+                className="text-center shadow-sm border hover:shadow-lg transition-all"
+              >
+                <CardContent className="p-6">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#0E74FC] to-[#00A651] flex items-center justify-center text-white text-2xl font-bold">
+                    {idx + 1}
+                  </div>
+                  <h3 className="text-lg font-bold text-[#00A651] mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-[#1983ed] text-white py-16 text-center">
+      <section className="bg-gradient-to-r from-[#0E74FC] to-[#00A651] text-white py-16 text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4">Need Emergency Care?</h2>
           <p className="max-w-xl mx-auto mb-6">
             Our emergency team is always ready to assist you in urgent
             situations.
           </p>
-          <Button className="bg-white text-[#0E74FC] hover:bg-gray-100 font-semibold">
-            Contact Emergency
-          </Button>
+          <Link href="/contact">
+            <span className="inline-block bg-white text-[#00A651] hover:bg-gray-100 font-semibold py-3 px-8 rounded-full transition-all hover:shadow-lg">
+              Contact Emergency
+            </span>
+          </Link>
         </div>
       </section>
     </div>

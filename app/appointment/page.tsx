@@ -1,12 +1,23 @@
 "use client";
 
+import type React from "react";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, Clock, MapPin } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  Clock,
+  MapPin,
+  Calendar,
+  ArrowRight,
+  CheckCircle,
+} from "lucide-react";
 import Image from "next/image";
+import { Label } from "@/components/ui/label";
 
 export default function AppointmentPage() {
   const [name, setName] = useState("");
@@ -35,190 +46,349 @@ export default function AppointmentPage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[300px]">
+      <section className="relative h-[150px]">
+        <div className="absolute inset-0 bg-[#0E74FC]/90 z-10"></div>
         <Image
           src="/background.jpg"
           alt="Medical Appointment"
           fill
-          className="object-cover brightness-50"
+          className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-4xl font-bold text-white">Book An Appointment</h1>
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
+          <div className="absolute inset-0 flex items-center justify-start">
+            <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start ">
+              Book Your Appointment
+            </h1>
+          </div>
         </div>
       </section>
 
       {/* Appointment Form Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <div className="text-center mb-12">
-            <p className="text-gray-600 max-w-xl mx-auto">
-              Please fill out the form below to schedule your appointment. Our
-              team will contact you to confirm the details.
-            </p>
-          </div>
+      <section className="py-20" id="appointment-form">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-8">
+              {/* Left Column - Form */}
+              <div className="lg:col-span-8">
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                    Request Your Appointment
+                  </h2>
+                  <div className="w-20 h-1 bg-[#0E74FC] rounded-full mb-6"></div>
+                  <p className="text-gray-600">
+                    Fill out the form below to schedule your appointment. Our
+                    team will contact you shortly to confirm.
+                  </p>
+                </div>
 
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-[#00A651] mb-8 text-center">
-              SUBMIT A REQUEST
-            </h2>
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <Input
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-3 border rounded-md"
-                required
-              />
+                <Card className="border-none shadow-lg overflow-hidden rounded-xl">
+                  <CardContent className="p-8">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="name"
+                            className="text-gray-700 font-medium"
+                          >
+                            Full Name
+                          </Label>
+                          <Input
+                            id="name"
+                            placeholder="Enter your full name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
+                            required
+                          />
+                        </div>
 
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 border rounded-md"
-                required
-              />
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="email"
+                            className="text-gray-700 font-medium"
+                          >
+                            Email Address
+                          </Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
+                            required
+                          />
+                        </div>
+                      </div>
 
-              <Input
-                placeholder="Enter your subject"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                className="w-full p-3 border rounded-md"
-                required
-              />
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="subject"
+                          className="text-gray-700 font-medium"
+                        >
+                          Subject
+                        </Label>
+                        <Input
+                          id="subject"
+                          placeholder="Reason for appointment"
+                          value={subject}
+                          onChange={(e) => setSubject(e.target.value)}
+                          className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
+                          required
+                        />
+                      </div>
 
-              <select
-                className="w-full p-3 border rounded-md text-gray-700"
-                value={doctor}
-                onChange={(e) => setDoctor(e.target.value)}
-                required
-              >
-                <option value="" disabled>
-                  Select a doctor
-                </option>
-                <option>Dr. Aamiin</option>
-                <option>Dr. Muna</option>
-                <option>Dr. Hussein</option>
-              </select>
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="doctor"
+                          className="text-gray-700 font-medium"
+                        >
+                          Select Doctor
+                        </Label>
+                        <select
+                          id="doctor"
+                          className="w-full rounded-lg border-gray-200 h-12 focus:ring-[#00A651] focus:border-[#00A651]"
+                          value={doctor}
+                          onChange={(e) => setDoctor(e.target.value)}
+                          required
+                        >
+                          <option value="" disabled>
+                            Select a doctor
+                          </option>
+                          <option>Dr. Amiin</option>
+                          <option>Dr. Muna</option>
+                          <option>Dr. Hussein</option>
+                        </select>
+                      </div>
 
-              <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full p-3 border rounded-md"
-                required
-              />
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="date"
+                            className="text-gray-700 font-medium"
+                          >
+                            Preferred Date
+                          </Label>
+                          <Input
+                            id="date"
+                            type="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
+                            required
+                          />
+                        </div>
 
-              <Input
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                className="w-full p-3 border rounded-md"
-                required
-              />
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="time"
+                            className="text-gray-700 font-medium"
+                          >
+                            Preferred Time
+                          </Label>
+                          <Input
+                            id="time"
+                            type="time"
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
+                            required
+                          />
+                        </div>
+                      </div>
 
-              <Textarea
-                placeholder="Write your message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="w-full p-3 border rounded-md min-h-[150px]"
-                required
-              />
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="message"
+                          className="text-gray-700 font-medium"
+                        >
+                          Additional Information
+                        </Label>
+                        <Textarea
+                          id="message"
+                          placeholder="Please provide any additional details about your appointment request"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          className="rounded-lg border-gray-200 focus-visible:ring-[#00A651] focus-visible:border-[#00A651] min-h-[120px]"
+                          required
+                        />
+                      </div>
 
-              <Button
-                type="submit"
-                className="w-full bg-[#00A651] hover:bg-[#008c44] text-white py-6"
-              >
-                Send via WhatsApp
-              </Button>
-            </form>
+                      <Button
+                        type="submit"
+                        className="w-full bg-[#00A651] hover:bg-[#008c44] text-white py-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg group"
+                      >
+                        <span>Send via WhatsApp</span>
+                        <ArrowRight className="ml-2 h-5 w-5 inline-block transition-transform group-hover:translate-x-1" />
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Right Column - Contact Info & Schedule */}
+              <div className="lg:col-span-4 space-y-8">
+                {/* Contact Info Card */}
+                <Card className="border-none shadow-lg overflow-hidden rounded-xl">
+                  <div className="bg-[#0E74FC] px-6 py-4">
+                    <h3 className="text-xl font-bold text-white">
+                      Contact Information
+                    </h3>
+                  </div>
+                  <CardContent className="p-0">
+                    {[
+                      {
+                        title: "Emergency",
+                        content: "252XXXXXXX",
+                        icon: Phone,
+                      },
+                      {
+                        title: "Location",
+                        content: "Holwadaag, Banaadir Somalia",
+                        icon: MapPin,
+                      },
+                      {
+                        title: "Email",
+                        content: "info@hospitaluniso.com",
+                        icon: Mail,
+                      },
+                      {
+                        title: "Working Hours",
+                        content: "Sat-Fri: 9AM-5PM",
+                        icon: Clock,
+                      },
+                    ].map((item, index) => (
+                      <div
+                        key={index}
+                        className={`flex items-center gap-4 p-5 ${
+                          index !== 3 ? "border-b border-gray-100" : ""
+                        }`}
+                      >
+                        <div className="bg-[#00A651]/10 rounded-full p-3">
+                          <item.icon className="w-5 h-5 text-[#00A651]" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-gray-900">
+                            {item.title}
+                          </h4>
+                          <p className="text-gray-600">{item.content}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                {/* Schedule Hours Card */}
+                <Card className="border-none shadow-lg overflow-hidden rounded-xl">
+                  <div className="bg-[#0E74FC] px-6 py-4">
+                    <h3 className="text-xl font-bold text-white">
+                      Schedule Hours
+                    </h3>
+                  </div>
+                  <CardContent className="p-6">
+                    <div className="space-y-3">
+                      {[
+                        { day: "Monday", hours: "08:00 - 5:00" },
+                        { day: "Tuesday", hours: "08:00 - 5:00" },
+                        { day: "Wednesday", hours: "08:00 - 5:00" },
+                        { day: "Thursday", hours: "08:00 - 5:00" },
+                        { day: "Friday", hours: "08:00 - 5:00" },
+                        { day: "Saturday", hours: "08:00 - 5:00" },
+                        { day: "Sunday", hours: "8:00 - 5:00" },
+                      ].map((schedule, index) => (
+                        <div
+                          key={index}
+                          className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0"
+                        >
+                          <span className="font-medium text-gray-800">
+                            {schedule.day}
+                          </span>
+                          <span
+                            className={`px-3 py-1 rounded-full text-sm ${
+                              schedule.hours === "Emergency Only"
+                                ? "bg-red-100 text-red-700"
+                                : "bg-[#00A651]/10 text-[#00A651]"
+                            }`}
+                          >
+                            {schedule.hours}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-gray-200">
+                      <div className="flex items-center gap-3 bg-red-50 p-4 rounded-lg">
+                        <div className="bg-red-100 rounded-full p-2">
+                          <Phone className="w-5 h-5 text-red-600" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-red-700">
+                            Emergency Services:
+                          </h4>
+                          <p className="text-gray-700">Available 24/7</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact and Schedule Section */}
+      {/* Features Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Contact Cards */}
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                {
-                  title: "Emergency",
-                  content: "+1 234 567 890",
-                  icon: Phone,
-                  color: "bg-blue-100",
-                },
-                {
-                  title: "Location",
-                  content: "123 Medical Center Dr",
-                  icon: MapPin,
-                  color: "bg-[#00A651]",
-                },
-                {
-                  title: "Email",
-                  content: "info@hospital.com",
-                  icon: Mail,
-                  color: "bg-blue-100",
-                },
-                {
-                  title: "Working Hours",
-                  content: "Mon-Fri: 9AM-5PM",
-                  icon: Clock,
-                  color: "bg-blue-100",
-                },
-              ].map((item, index) => (
-                <Card
-                  key={index}
-                  className={`text-center ${item.color} ${
-                    index === 1 ? "text-white" : "text-gray-800"
-                  }`}
-                >
-                  <CardContent className="p-6">
-                    <item.icon
-                      className={`w-8 h-8 mx-auto mb-4 ${
-                        index === 1 ? "text-white" : "text-[#00A651]"
-                      }`}
-                    />
-                    <h3 className="font-bold mb-2">{item.title}</h3>
-                    <p className="text-sm">{item.content}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Why Choose Us
+            </h2>
+            <div className="w-20 h-1 bg-[#00A651] rounded-full mx-auto mb-6"></div>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We provide exceptional healthcare services with a focus on patient
+              comfort and advanced medical treatments.
+            </p>
+          </div>
 
-            {/* Schedule Hours */}
-            <Card className="bg-[#00A651] text-white">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-bold mb-6">Schedule Hours</h3>
-                <div className="space-y-4">
-                  {[
-                    { day: "Monday", hours: "09:00 - 18:00" },
-                    { day: "Tuesday", hours: "09:00 - 18:00" },
-                    { day: "Wednesday", hours: "09:00 - 18:00" },
-                    { day: "Thursday", hours: "09:00 - 18:00" },
-                    { day: "Friday", hours: "09:00 - 18:00" },
-                    { day: "Saturday", hours: "10:00 - 15:00" },
-                    { day: "Sunday", hours: "Emergency Only" },
-                  ].map((schedule, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center"
-                    >
-                      <span>{schedule.day}</span>
-                      <span>{schedule.hours}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-8 pt-6 border-t border-white/20">
-                  <h4 className="font-bold mb-2">Emergency:</h4>
-                  <p>24/7 Available</p>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                title: "Expert Doctors",
+                description:
+                  "Our team consists of highly qualified medical professionals with years of experience.",
+                icon: CheckCircle,
+              },
+              {
+                title: "24/7 Support",
+                description:
+                  "We offer round-the-clock emergency services to ensure you get care when you need it most.",
+                icon: Phone,
+              },
+              {
+                title: "Modern Facilities",
+                description:
+                  "Our hospital is equipped with state-of-the-art technology for accurate diagnosis and treatment.",
+                icon: Calendar,
+              },
+            ].map((feature, index) => (
+              <Card
+                key={index}
+                className="border-none shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
+              >
+                <CardContent className="p-6">
+                  <div className="bg-[#00A651]/10 w-14 h-14 rounded-full flex items-center justify-center mb-4">
+                    <feature.icon className="w-6 h-6 text-[#00A651]" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

@@ -43,21 +43,34 @@ const Header = () => {
     setActiveDropdown(activeDropdown === name ? null : name);
   };
 
-
-
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/About" },
     { name: "Services", href: "/services" },
     {
       name: "Center of Excellence",
       href: "#",
       dropdown: true,
       items: [
-        { name: "Internal Medicine", href: "/excellence/internal-medicine" },
-        { name: "Pediatrician", href: "/excellence/pediatrician" },
-        { name: "Surgeon", href: "/excellence/surgeon" },
-        { name: "Oncologist", href: "/excellence/oncologist" },
+        { name: "Internal Medicine", href: "/centers/internal-medicine" },
+        { name: "General Surgery", href: "/centers/general-surgery" },
+        { name: "Pediatrics", href: "/centers/pediatrics" },
+        { name: "Cardiology", href: "/centers/cardiology" },
+        { name: "Oncology", href: "/centers/oncology" },
+        { name: "Maternity Services", href: "/centers/maternity" },
+        {
+          name: "Inpatient Department (IPD)",
+          href: "/centers/inpatient-department",
+        },
+        { name: "Operation Theater (OT)", href: "/centers/ot" },
+        { name: "Pharmacy Services", href: "/centers/pharmacy" },
+        { name: "Day Care Services", href: "/centers/daycare" },
+        { name: "Emergency Medicine", href: "/centers/emergency" },
+
+        {
+          name: "Laboratory and Diagnostic Services",
+          href: "/centers/diagnostics",
+        },
+        { name: "Obstetrics and Gynecology (OBG)", href: "/centers/obg" },
       ],
     },
     {
@@ -147,7 +160,10 @@ const Header = () => {
 
           {/* Book Appointment Button - Desktop */}
           <div className="hidden lg:block">
-            <Button className="group relative overflow-hidden rounded-md bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-2 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg">
+            <Button
+              onClick={() => (window.location.href = "/appointment")}
+              className="group relative overflow-hidden rounded-md bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-2 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
+            >
               <span className="relative z-10 flex items-center">
                 <Calendar className="mr-2 h-5 w-5" />
                 Book Appointment
@@ -159,6 +175,7 @@ const Header = () => {
           {/* Mobile Navigation */}
           <div className="flex items-center gap-4 lg:hidden">
             <Button
+              onClick={() => (window.location.href = "/appointment")}
               className="group relative overflow-hidden rounded-md bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-1 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
               asChild
             >
@@ -246,8 +263,9 @@ const Header = () => {
             ))}
             <div className="mt-4 pt-2">
               <Button
-              onClick={() => NavigationHistoryEntry}
-               className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg">
+                onClick={() => NavigationHistoryEntry}
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
+              >
                 <Calendar className="mr-2 h-5 w-5" />
                 Book Appointment
               </Button>

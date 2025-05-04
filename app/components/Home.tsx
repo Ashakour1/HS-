@@ -1,48 +1,59 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, ChevronRight, Clock } from "lucide-react";
+import { ArrowRight, Calendar, ChevronRight, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import HealthcareServices from "./Services";
+import DoctorCards from "./DoctorCom";
 
 export default function Others() {
   return (
     <main className="min-h-screen">
       {/* Director's Message */}
-      <section className="py-20 bg-white">
+      <section className="w-full py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/dr2.jpg"
-                alt="Hospital Director"
-                fill
-                className="object-cover object-center transition-transform hover:scale-105 duration-500"
-              />
-            </div>
-            <div>
-              <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md mb-4">
-                <h3 className="text-[#0E74FC] font-medium">About Us</h3>
+          <div className="flex flex-col  lg:flex-row justify-center gap-8 items-start">
+            <div className="relative w-full lg:w-1/4 max-w-xl mx-auto lg:mx-0">
+              {/* Teal border frame */}
+              <div className="relative border-4 border-[#0E74FC] overflow-hidden shadow-lg">
+                <Image
+                  src="/dr2.jpg"
+                  alt="Director Image"
+                  width={300}
+                  height={500}
+                  className="w-full object-cover rounded-lg"
+                />
+
+                {/* Yellow quote decoration */}
               </div>
-              <h2 className="text-3xl font-bold mb-6 text-gray-800">
-                Hospital Director Message
+            </div>
+
+            <div className="w-full lg:w-1/2 pt-12 lg:pt-8">
+              <h2 className="text-xl md:text-xl font-semibold text-[#0E74FC] mb-1">
+                Director's Message
               </h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Welcome to our state-of-the-art medical facility. Our commitment
-                to excellence in healthcare is reflected in every aspect of our
-                operations. We combine cutting-edge technology with
-                compassionate care to ensure the best possible outcomes for our
-                patients.
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                Prof. Dr. Mohamed Amiin Abdikarim Nur
+              </h3>
+              <p className="text-xl font-semibold text-gray-700 mb-6">
+                Executive Director & Surgeon
               </p>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Our team of dedicated professionals works tirelessly to maintain
-                the highest standards of medical care while ensuring patient
-                comfort and satisfaction remain our top priorities.
+              <p className="text-base text-gray-600 mb-4">
+                Welcome to the Hospital UNISO, where we are dedicated to
+                providing exceptional healthcare services. As the Executive
+                Director, I am proud to lead a team of highly skilled
+                professionals committed to excellence in patient care and
+                ensuring that every patient receives the highest quality of
+                care.
               </p>
-              <Button className="border-2 border-[#0E74FC] text-[#0E74FC] hover:bg-[#0E74FC] hover:text-white px-8 py-2.5 rounded-md bg-transparent group">
-                Read More
-                <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <p className="text-base text-gray-600 mb-4">
+                At Hospital UNISO, we believe in a patient-centered approach,
+                where your health and well-being are our top priorities. Our
+                state-of-the-art facilities and advanced medical technologies
+                enable us to offer a wide range of services, from routine
+                check-ups to complex surgeries. We are dedicated to staying at
+                the forefront of medical advancements and innovations.
+              </p>
             </div>
           </div>
         </div>
@@ -67,72 +78,7 @@ export default function Others() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                id: 2,
-                name: "Dr. Amiin",
-                role: "Director & Surgeon",
-                image: "/dr2.jpg",
-              },
-              {
-                id: 1,
-                name: "Dr. Muna",
-                role: "Pediatrician",
-                image: "/dr.jpg",
-              },
-              {
-                id: 3,
-                name: "Dr. Hussein",
-                role: "Oncologist",
-                image: "/dr1.jpg",
-              },
-            ].map((doctor) => (
-              <Card
-                key={doctor.id}
-                className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 group"
-              >
-                <div className="relative h-[350px] overflow-hidden">
-                  <Image
-                    src={doctor.image || "/dr.jpg"}
-                    alt={doctor.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-6 w-full">
-                      <div className="flex justify-center gap-3 mb-3">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <div
-                            key={star}
-                            className="w-2 h-2 rounded-full bg-[#0E74FC]"
-                          />
-                        ))}
-                      </div>
-                      <Button
-                        variant="outline"
-                        className="w-full text-white border-white hover:bg-white hover:text-gray-800"
-                      >
-                        Book Appointment
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                <CardContent className="text-center p-6 bg-white">
-                  <div className="flex justify-center gap-2 mb-4">
-                    {[1, 2, 3].map((dot) => (
-                      <div
-                        key={dot}
-                        className="w-2 h-2 rounded-full bg-[#0E74FC]"
-                      />
-                    ))}
-                  </div>
-                  <h3 className="font-bold text-xl mb-2">{doctor.name}</h3>
-                  <p className="text-gray-600">{doctor.role}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <DoctorCards />
         </div>
       </section>
 
@@ -152,44 +98,57 @@ export default function Others() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((news) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: "Latest Medical Technology Breakthrough",
+                date: "February 13, 2025",
+                category: "Technology",
+                image: "All-4.jpg",
+              },
+              {
+                title: "Understanding Preventive Healthcare",
+                date: "February 10, 2025",
+                category: "Wellness",
+                image: "All.jpg",
+              },
+              {
+                title: "Nutrition Tips for Heart Health",
+                date: "February 5, 2025",
+                category: "Nutrition",
+                image: "All-2.jpg",
+              },
+              {
+                title: "Mental Health Awareness Month",
+                date: "February 1, 2025",
+                category: "Mental Health",
+                image: "All-3.jpg",
+              },
+            ].map((item, index) => (
               <Card
-                key={news}
-                className="overflow-hidden bg-white border-none shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                key={index}
+                className="overflow-hidden group hover:shadow-lg transition-all duration-300"
               >
-                <div className="relative h-[200px] overflow-hidden">
+                <div className="relative h-56 overflow-hidden">
                   <Image
-                    src="/background.jpg"
-                    alt="Medical News"
+                    src={`/${item.image}`}
+                    alt={item.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  <div className="absolute top-4 left-4 bg-green-500 text-white text-xs font-medium px-2 py-1 rounded">
+                    {item.category}
+                  </div>
                 </div>
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Calendar className="h-4 w-4 mr-1 text-[#0E74FC]" />
-                      <span>February 13, 2025</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Clock className="h-4 w-4 mr-1 text-[#0E74FC]" />
-                      <span>5 min read</span>
-                    </div>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-3 line-clamp-2 group-hover:text-[#0E74FC] transition-colors">
-                    Latest Medical Technology
+                  <p className="text-sm text-[#0E74FC] mb-2">{item.date}</p>
+                  <h3 className="font-medium text-lg mb-3 line-clamp-2 group-hover:text-[#0E74FC] transition-colors">
+                    {item.title}
                   </h3>
-                  <p className="text-gray-600 line-clamp-3 mb-4">
-                    Discover the latest advancements in medical technology and
-                    how they are improving patient care and treatment outcomes.
-                  </p>
-                  <Link
-                    href="#"
-                    className="text-[#0E74FC] font-medium flex items-center hover:underline"
-                  >
-                    Read More <ChevronRight className="ml-1 h-4 w-4" />
-                  </Link>
+                  <div className="flex items-center text-sm text-gray-600 hover:text-[#0E74FC] transition-colors cursor-pointer">
+                    <span>Read more</span>
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </div>
                 </CardContent>
               </Card>
             ))}

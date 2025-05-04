@@ -119,3 +119,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@custom-variant hover (&:hover);
+@custom-variant focus (&:focus-visible);
+@custom-variant active (&:active);
+@custom-variant disabled (&:disabled);
+@custom-variant focus-visible (&:focus-visible);
