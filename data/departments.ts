@@ -1,4 +1,6 @@
-export const departments = {
+import { Department } from "@/type/departments";
+
+export const departments: Record<string, Department> = {
   "internal-medicine": {
     id: 1,
     name: "Internal Medicine",

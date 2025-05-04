@@ -1,31 +1,14 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import { useParams } from "next/navigation";
+import { departments } from "@/data/departments";
 
-interface centerType {
-  name: string;
-  description: string;
-  image: string;
-  doctors: {
-    id: number;
-    name: string;
-    title: string;
-    image: string;
-    exp: string;
-  }[];
-}
-
-interface CenterPageProps {
-  params: {
-    center: string;
-  };
-}
-
-import { departments } from "../../data/departments";
-
-const InternalMedicinePage = ({ params }: CenterPageProps) => {
-  const { center } = params;
+const InternalMedicinePage = () => {
+  const params = useParams();
+  const center = params.center as string;
   const centerData = departments[center as keyof typeof departments];
 
   if (!centerData) {
@@ -35,7 +18,7 @@ const InternalMedicinePage = ({ params }: CenterPageProps) => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className=" relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+      <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
         <Image
           src="/hero.png"
           alt="Hospital Management"
@@ -44,7 +27,7 @@ const InternalMedicinePage = ({ params }: CenterPageProps) => {
           priority
         />
         <div className="absolute inset-0 flex items-center justify-start">
-          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start ">
+          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start">
             {centerData.name}
           </h1>
         </div>
