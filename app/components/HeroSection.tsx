@@ -72,7 +72,7 @@ const HeroCarousel: React.FC = () => {
   }, [nextSlide]);
 
   return (
-    <div className="relative h-[600px] md:h-[650px] lg:h-[700px overflow-hidden">
+    <div className="relative h-[500px] sm:h-[600px] lg:h-[700px] overflow-hidden">
       {/* Carousel Slides */}
       <div className="absolute inset-0">
         {carouselItems.map((item, index) => (
@@ -95,38 +95,36 @@ const HeroCarousel: React.FC = () => {
             </div>
 
             {/* Content */}
-            <div className="relative h-full flex items-center">
-              <div className="ml-44 px-4 md:px-6">
-                <div className="max-w-2xl text-left ml-8 md:ml-16">
-                  <h1
-                    className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-4 animate-fadeInUp"
-                    style={{
-                      animationDelay: "0.3s",
-                      animationFillMode: "forwards",
-                    }}
-                  >
-                    {item.title}
-                  </h1>
-                  <p
-                    className="text-lg md:text-xl text-white/90 mb-6 animate-fadeInUp"
-                    style={{
-                      animationDelay: "0.5s",
-                      animationFillMode: "forwards",
-                    }}
-                  >
-                    {item.description}
-                  </p>
-                  <a href="/appointment" 
-                    className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg animate-fadeInUp"
-                    style={{
-                      animationDelay: "0.7s",
-                      animationFillMode: "forwards",
-                    }}
-                  >
-                    {item.buttonText}
-
-                  </a>
-                </div>
+            <div className="relative h-full flex items-center justify-center px-4">
+              <div className="max-w-2xl text-left sm:text-center">
+                <h1
+                  className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-4 animate-fadeInUp"
+                  style={{
+                    animationDelay: "0.3s",
+                    animationFillMode: "forwards",
+                  }}
+                >
+                  {item.title}
+                </h1>
+                <p
+                  className="text-lg sm:text-xl text-white/90 mb-6 animate-fadeInUp"
+                  style={{
+                    animationDelay: "0.5s",
+                    animationFillMode: "forwards",
+                  }}
+                >
+                  {item.description}
+                </p>
+                <a
+                  href="/appointment"
+                  className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg animate-fadeInUp"
+                  style={{
+                    animationDelay: "0.7s",
+                    animationFillMode: "forwards",
+                  }}
+                >
+                  {item.buttonText}
+                </a>
               </div>
             </div>
           </div>

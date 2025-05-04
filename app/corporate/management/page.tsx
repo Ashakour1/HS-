@@ -142,7 +142,7 @@ interface Member {
 
 function PersonCard({ member }: { member: Member }) {
   return (
-    <div className="flex flex-col w-[330px] bg-white overflow-hidden transition-all duration-300">
+    <div className="flex flex-col  bg-white overflow-hidden transition-all duration-300">
       {/* Image container with fixed height */}
       <div className="relative h-[350px] w-full overflow-hidden">
         <Image
