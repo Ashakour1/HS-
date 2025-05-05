@@ -152,7 +152,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className=" relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+      <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
         <Image
           src="/hero.png"
           alt="Hospital Management"
@@ -160,13 +160,16 @@ export default function ServicesPage() {
           className="object-cover brightness-50"
           priority
         />
-        <div className="absolute inset-0 flex items-center justify-start">
-          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start ">
-            Our Services
-          </h1>
+
+        <div className="absolute inset-0 flex items-center justify-start px-6">
+          {/* Overlay background box on the left */}
+          <div className=" px-28 py-2 rounded">
+            <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
+              Our Departments
+            </h1>
+          </div>
         </div>
       </section>
-
       {/* Services Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">

@@ -18,10 +18,14 @@ export default function ContactPage() {
           className="object-cover brightness-50"
           priority
         />
-        <div className="absolute inset-0 flex items-center justify-start">
-          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start">
-            Contact Us
-          </h1>
+
+        <div className="absolute inset-0 flex items-center justify-start px-6">
+          {/* Overlay background box on the left */}
+          <div className=" px-28 py-2 rounded">
+            <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
+              Contact Us
+            </h1>
+          </div>
         </div>
       </section>
       {/* Contact Options Section */}

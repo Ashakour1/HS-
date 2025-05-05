@@ -48,19 +48,20 @@ export default function AppointmentPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[150px]">
-        <div className="absolute inset-0 bg-[#0E74FC]/90 z-10"></div>
+      <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
         <Image
-          src="/background.jpg"
-          alt="Medical Appointment"
+          src="/hero.png"
+          alt="Hospital Management"
           fill
-          className="object-cover object-center"
+          className="object-cover brightness-50"
           priority
         />
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
-          <div className="absolute inset-0 flex items-center justify-start">
-            <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start ">
-              Book Your Appointment
+
+        <div className="absolute inset-0 flex items-center justify-start px-6">
+          {/* Overlay background box on the left */}
+          <div className=" px-28 py-2 rounded">
+            <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
+              Appointment Request
             </h1>
           </div>
         </div>

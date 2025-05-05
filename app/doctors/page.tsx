@@ -137,7 +137,7 @@ export default function DoctorsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className=" relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+      <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
         <Image
           src="/hero.png"
           alt="Hospital Management"
@@ -145,10 +145,14 @@ export default function DoctorsPage() {
           className="object-cover brightness-50"
           priority
         />
-        <div className="absolute inset-0 flex items-center justify-start">
-          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start ">
-            Doctors & Specialists
-          </h1>
+
+        <div className="absolute inset-0 flex items-center justify-start px-6">
+          {/* Overlay background box on the left */}
+          <div className=" px-28 py-2 rounded">
+            <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
+              Our Doctors & Specialists
+            </h1>
+          </div>
         </div>
       </section>
 

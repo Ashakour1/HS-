@@ -1,10 +1,11 @@
-'use client'
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { departments } from "@/data/departments";
+import { notFound } from "next/navigation";
 
 const InternalMedicinePage = () => {
   const params = useParams();
@@ -12,7 +13,7 @@ const InternalMedicinePage = () => {
   const centerData = departments[center as keyof typeof departments];
 
   if (!centerData) {
-    return <div>Department not found</div>;
+    return notFound();
   }
 
   return (
@@ -26,10 +27,14 @@ const InternalMedicinePage = () => {
           className="object-cover brightness-50"
           priority
         />
-        <div className="absolute inset-0 flex items-center justify-start">
-          <h1 className="px-28 text-3xl sm:text-4xl lg:text-xl font-semibold text-white text-start">
-            {centerData.name}
-          </h1>
+
+        <div className="absolute inset-0 flex items-center justify-start px-6">
+          {/* Overlay background box on the left */}
+          <div className=" px-28 py-2 rounded">
+            <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
+              {centerData.name} Department
+            </h1>
+          </div>
         </div>
       </section>
 
