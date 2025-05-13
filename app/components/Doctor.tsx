@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 // Define the props interface
 interface DoctorProps {
-  id: number;
+  id: string;
   name: string;
   title: string;
   image: string;
