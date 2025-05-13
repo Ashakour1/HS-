@@ -32,7 +32,7 @@ export default function AboutPage() {
 
         <div className="absolute inset-0 flex items-center justify-start px-6">
           {/* Overlay background box on the left */}
-          <div className=" px-28 py-2 rounded">
+          <div className="px-0 md:px-28 py-2 rounded">
             <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
               About Us
             </h1>
