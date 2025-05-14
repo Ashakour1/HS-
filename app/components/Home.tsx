@@ -64,7 +64,7 @@ export default function Others() {
 
       {/* Team Section */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md mb-4">
               <h3 className="text-[#0E74FC] font-medium">Our Doctors</h3>
@@ -84,7 +84,7 @@ export default function Others() {
 
       {/* News Section */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md mb-4">
               <h3 className="text-[#0E74FC] font-medium">Latest Updates</h3>

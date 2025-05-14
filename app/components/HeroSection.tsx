@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export const carouselItems = [
   {
     id: 1,
-    title: "Advanced Care for Your Health",
+    title: "Somalia First Private University Hospital",
     description:
       "Our state-of-the-art facilities and expert medical team are dedicated to providing exceptional healthcare.",
     buttonText: "Book an Appointment",
@@ -98,7 +98,7 @@ const HeroCarousel: React.FC = () => {
             <div className="max-w-[1300px] mx-auto relative h-full flex items-center justify-start px-4">
               <div className="max-w-2xl text-left">
                 <h1
-                  className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-4 animate-fadeInUp"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 animate-fadeInUp"
                   style={{
                     animationDelay: "0.3s",
                     animationFillMode: "forwards",

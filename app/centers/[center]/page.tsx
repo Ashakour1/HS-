@@ -39,7 +39,7 @@ const InternalMedicinePage = () => {
       </section>
 
       {/* Center Info Section */}
-      <section className="container mx-auto px-4 py-12 grid gap-10 md:grid-cols-2">
+      <section className="max-w-[1400px] mx-auto px-4 py-12 grid gap-10 md:grid-cols-2">
         <div className="relative w-full h-[500px] aspect-video md:aspect-square rounded-md overflow-hidden">
           <Image
             src={centerData.image}

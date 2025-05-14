@@ -30,7 +30,7 @@ export default function ContactPage() {
       </section>
       {/* Contact Options Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6 flex flex-col items-center text-center">
@@ -78,7 +78,7 @@ export default function ContactPage() {
 
       {/* Contact Form and Map Section */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <Tabs defaultValue="contact" className="w-full">
               <div className="flex justify-center mb-8">
@@ -347,7 +347,7 @@ export default function ContactPage() {
 
       {/* News Section */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">
               BETTER INFORMATION, BETTER HEALTH
@@ -418,7 +418,7 @@ export default function ContactPage() {
 
       {/* Newsletter Section */}
       <section className="py-16 bg-green-500/10">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="grid md:grid-cols-2">
               <div className="p-8 md:p-12">

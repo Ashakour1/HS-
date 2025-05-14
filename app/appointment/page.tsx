@@ -69,7 +69,7 @@ export default function AppointmentPage() {
 
       {/* Appointment Form Section */}
       <section className="py-20" id="appointment-form">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1500px] mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-12 gap-8">
               {/* Left Column - Form */}
@@ -342,7 +342,7 @@ export default function AppointmentPage() {
 
       {/* Features Section */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Why Choose Us

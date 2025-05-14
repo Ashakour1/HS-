@@ -172,7 +172,7 @@ export default function ServicesPage() {
       </section>
       {/* Services Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, idx) => (
               <Card
@@ -206,7 +206,7 @@ export default function ServicesPage() {
 
       {/* Contact Section */}
       <section className="bg-gray-50 py-16">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <h2 className="text-center text-3xl font-bold mb-12 bg-gradient-to-r from-[#0E74FC] to-[#00A651] bg-clip-text text-transparent">
             Contact Us
           </h2>
@@ -229,7 +229,7 @@ export default function ServicesPage() {
 
       {/* Features Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <h2 className="text-center text-3xl font-bold mb-12 bg-gradient-to-r from-[#0E74FC] to-[#00A651] bg-clip-text text-transparent">
             Why Choose Us
           </h2>
@@ -256,7 +256,7 @@ export default function ServicesPage() {
 
       {/* CTA */}
       <section className="bg-gradient-to-r from-[#0E74FC] to-[#00A651] text-white py-16 text-center">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4">Need Emergency Care?</h2>
           <p className="max-w-xl mx-auto mb-6">
             Our emergency team is always ready to assist you in urgent
