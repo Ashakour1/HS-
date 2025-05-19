@@ -22,9 +22,9 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5" />
                 <span>
-                  123 Medical Center Drive
+                  Hospital UNISO,
                   <br />
-                  New York, NY 10001
+                  Holwadaag, Mogadishu, Somalia
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -77,9 +77,10 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-bold text-xl mb-6">Newsletter</h3>
+            <h3 className="font-bold text-xl mb-6">Contact Us</h3>
             <p className="mb-4">
-              Subscribe to our newsletter to receive updates and news.
+              If you have any questions or inquiries, please feel free to reach
+              out to us.
             </p>
             <div className="space-y-4">
               <input
@@ -88,7 +89,7 @@ const Footer = () => {
                 className="w-full px-4 py-3 rounded text-gray-900"
               />
               <Button className="w-full bg-white text-[#00A651] hover:bg-gray-100">
-                Subscribe Now
+                Contact Us
               </Button>
             </div>
             <div className="flex gap-4 mt-6">
