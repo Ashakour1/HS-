@@ -41,7 +41,7 @@ export default function AboutPage() {
       </section>
       {/* Hero Section with Mission Statement */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0E74FC]/5 to-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="">
             <div className="grid md:grid-cols-2 gap-12">
               <div>
@@ -132,7 +132,7 @@ export default function AboutPage() {
 
       {/* Vision Statement */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className=" text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Vision</h2>
             <div className="w-20 h-1 bg-[#0E74FC] mx-auto mb-8"></div>
@@ -148,7 +148,7 @@ export default function AboutPage() {
 
       {/* Core Values */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="">
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -223,7 +223,7 @@ export default function AboutPage() {
 
       {/* Purpose */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
@@ -446,7 +446,7 @@ export default function AboutPage() {
 
       {/* Image Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="">
             <div className="grid md:grid-cols-3 gap-6">
               <div className="rounded-lg overflow-hidden shadow-sm">
@@ -483,7 +483,7 @@ export default function AboutPage() {
 
       {/* Social Responsibility */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
@@ -544,7 +544,7 @@ export default function AboutPage() {
 
       {/* Policies and Standards */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="">
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -634,7 +634,7 @@ export default function AboutPage() {
 
       {/* Conclusion */}
       <section className="py-16 bg-gradient-to-r from-[#0E74FC]/5 to-[#00A651]/5">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className=" text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
               Our Commitment

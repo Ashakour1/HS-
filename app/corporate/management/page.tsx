@@ -153,7 +153,7 @@ function DirectorCard({
 }) {
   return (
     <section className="w-full py-20 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-4">
         <div className="flex flex-col lg:flex-row justify-between gap-12 items-center">
           <div className="relative w-full lg:w-2/5 max-w-md mx-auto lg:mx-0">
             {/* Image with decorative elements */}
