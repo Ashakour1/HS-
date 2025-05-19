@@ -26,11 +26,69 @@ export default function HospitalManagementPage() {
       image: "/dr.jpg",
     },
     {
-      name: "Dr Hussein Abshir",
-      role: "Chief of Emergency",
+      name: "Abukar Ahmed",
+      role: "Hospital Administrator",
       responsibilities:
         "Management of surgical departments and operating rooms",
-      image: "/dr1.jpg",
+      image: "/image-men.jpg",
+    },
+    {
+      name: "Ubax",
+      role: "Head Of Nursing",
+      responsibilities:
+        "Management of surgical departments and operating rooms",
+      image: "/image-women.png",
+    },
+    {
+      name: "Saido",
+      role: "Head of Maternity",
+      responsibilities:
+        "Supervision of maternity ward and maternal care services",
+      image: "/image-women.png",
+    },
+    {
+      name: "Ahmed",
+      role: "Head of Pharmacy",
+      responsibilities:
+        "Management of pharmacy operations and medication supply",
+      image: "/image-men.jpg",
+    },
+    {
+      name: "Shukri",
+      role: "Head of Laboratory",
+      responsibilities: "Oversight of laboratory services and diagnostics",
+      image: "/image-women.png",
+    },
+    {
+      name: "Isna",
+      role: "Head of Emergency",
+      responsibilities: "Coordination of emergency department and acute care",
+      image: "/image-women.png",
+    },
+    {
+      name: "Abas",
+      role: "Operation Theatre Manager",
+      responsibilities:
+        "Management of operation theatre and surgical schedules",
+      image: "/image-men.jpg",
+    },
+    {
+      name: "Mahdi",
+      role: "Head of Logistics",
+      responsibilities: "Supervision of hospital logistics and supply chain",
+      image: "/image-men.jpg",
+    },
+    {
+      name: "Ugas",
+      role: "Head of Cleaning",
+      responsibilities: "Management of hospital cleaning and sanitation",
+      image: "/image-men.jpg",
+    },
+    {
+      name: "Naimo",
+      role: "Head of Finance",
+      responsibilities: "Oversight of financial operations and budgeting",
+      image: "/image-women.png",
     },
   ];
 
@@ -80,18 +138,18 @@ export default function HospitalManagementPage() {
 // Director Card Component
 // Director Card Component
 interface Director {
-  name: string
-  role: string
-  responsibilities: string
-  description: string
+  name: string;
+  role: string;
+  responsibilities: string;
+  description: string;
 }
 
 function DirectorCard({
   director,
   hospitalName,
 }: {
-  director: Director
-  hospitalName: string
+  director: Director;
+  hospitalName: string;
 }) {
   return (
     <section className="w-full py-20 bg-white">
@@ -105,7 +163,13 @@ function DirectorCard({
 
               {/* Main image */}
               <div className="relative z-10 border-4 border-white shadow-xl rounded-lg overflow-hidden">
-                <Image src="/dr2.jpg" alt="Director Image" width={500} height={700} className="w-full object-cover" />
+                <Image
+                  src="/dr2.jpg"
+                  alt="Director Image"
+                  width={500}
+                  height={700}
+                  className="w-full object-cover"
+                />
               </div>
 
               {/* Decorative pattern */}
@@ -116,27 +180,37 @@ function DirectorCard({
           </div>
 
           <div className="w-full lg:w-3/5">
-            <Badge className="mb-3 bg-blue-100 text-blue-800 hover:bg-blue-200">Executive Leadership</Badge>
-            <h2 className="text-3xl font-bold text-slate-800 mb-2">{director.name}</h2>
-            <p className="text-lg text-blue-600 font-medium mb-6">{director.role}</p>
+            <Badge className="mb-3 bg-blue-100 text-blue-800 hover:bg-blue-200">
+              Executive Leadership
+            </Badge>
+            <h2 className="text-3xl font-bold text-slate-800 mb-2">
+              {director.name}
+            </h2>
+            <p className="text-lg text-blue-600 font-medium mb-6">
+              {director.role}
+            </p>
 
             <div className="space-y-4 text-slate-700">
               <p>
-                Prof. Dr. Mohamed Amiin Abdikarim Nur is a renowned Somali surgeon and medical educator with over 25
-                years of experience in general surgery and healthcare leadership.
+                Prof. Dr. Mohamed Amiin Abdikarim Nur is a renowned Somali
+                surgeon and medical educator with over 25 years of experience in
+                general surgery and healthcare leadership.
               </p>
               <p>
-                He is the Director of the University of Somalia Hospital (UNISO), where he leads efforts in clinical
-                excellence, medical training, and hospital development.
+                He is the Director of the University of Somalia Hospital
+                (UNISO), where he leads efforts in clinical excellence, medical
+                training, and hospital development.
               </p>
               <p>
-                Prof. Dr. Amiin is also an active researcher, with published work in international journals, including
-                studies on bladder cancer. Through his roles in both healthcare and education, he continues to shape the
-                future of medicine in Somalia and inspire the next generation of medical professionals.
+                Prof. Dr. Amiin is also an active researcher, with published
+                work in international journals, including studies on bladder
+                cancer. Through his roles in both healthcare and education, he
+                continues to shape the future of medicine in Somalia and inspire
+                the next generation of medical professionals.
               </p>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            {/* <div className="mt-8 flex flex-wrap gap-4">
               <div className="flex items-center text-slate-600">
                 <Phone className="w-5 h-5 mr-2 text-blue-500" />
                 <span>+252 61 234 5678</span>
@@ -145,20 +219,20 @@ function DirectorCard({
                 <Mail className="w-5 h-5 mr-2 text-blue-500" />
                 <span>director@unisohospital.so</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // Person Card Component
 interface Member {
-  name: string
-  role: string
-  responsibilities: string
-  image: string
+  name: string;
+  role: string;
+  responsibilities: string;
+  image: string;
 }
 
 function PersonCard({ member }: { member: Member }) {
@@ -172,13 +246,7 @@ function PersonCard({ member }: { member: Member }) {
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-          <div className="p-4 w-full">
-            <span className="text-white text-sm font-medium inline-flex items-center">
-              View Profile <ChevronRight className="w-4 h-4 ml-1" />
-            </span>
-          </div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end"></div>
       </div>
 
       {/* Text content with improved styling */}
@@ -188,5 +256,5 @@ function PersonCard({ member }: { member: Member }) {
         <p className="text-slate-600 text-sm">{member.responsibilities}</p>
       </div>
     </Card>
-  )
+  );
 }
