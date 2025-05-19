@@ -5,34 +5,10 @@ import { Calendar, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {doctors} from "@/data/doctors";
 
 export default function DoctorCards() {
-  const doctors = [
-    {
-      id: 2,
-      name: "Dr. Amiin",
-      role: "Director & Surgeon",
-      image: "/dr2.jpg",
-      specialties: ["General Surgery", "Orthopedics"],
-      availability: "Mon-Fri",
-    },
-    {
-      id: 1,
-      name: "Dr. Muna",
-      role: "Pediatrician",
-      image: "/dr.jpg",
-      specialties: ["Pediatrics", "Neonatology"],
-      availability: "Tue-Sat",
-    },
-    {
-      id: 3,
-      name: "Dr. Hussein",
-      role: "Oncologist",
-      image: "/dr1.jpg",
-      specialties: ["Medical Oncology", "Hematology"],
-      availability: "Mon-Thu",
-    },
-  ];
+  
 
   return (
     <div className="grid md:grid-cols-3 gap-8">
@@ -52,14 +28,14 @@ export default function DoctorCards() {
 
             <div className="absolute top-4 left-4">
               <Badge className="bg-emerald-600 hover:bg-emerald-700 text-white border-none">
-                {doctor.role}
+                {doctor.title}
               </Badge>
             </div>
           </div>
 
           <CardContent>
             <h3 className="font-bold text-xl">{doctor.name}</h3>
-            <p className="text-muted-foreground mb-2">{doctor.role}</p>
+            <p className="text-muted-foreground mb-2">{doctor.title}</p>
             <div className="flex items-center text-sm text-muted-foreground mt-3">
               <Calendar className="h-4 w-4 mr-2" />
               <span>Available: {doctor.availability}</span>

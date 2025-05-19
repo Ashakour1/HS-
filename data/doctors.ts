@@ -5,7 +5,9 @@ export const doctors = [
       title: "Phd General Surgeon",
       image: "/dr2.jpg",
       exp: "15 years",
-      specialty: "General Surgery"
+      specialty: "General Surgery",
+            availability: "Mon-Fri",
+
     },
     {
       id: "hussein-abshir-hassan",
@@ -13,23 +15,28 @@ export const doctors = [
       title: "Gastroenterologist and Oncologist",
       image: "/dr1.jpg",
       exp: "5 years",
-      specialty: "Gastroenterology"
+      specialty: "Gastroenterology",
+            availability: "Mon-Fri",
+
     },
     {
       id: "hani-omar-wehliye",
       name: "Dr. Hani Omar Wehliye",
       title: "Obstetrician and Gynecologist",
-      image: "/dr.jpg",
+      image: "/drshani.jpg",
       exp: "10 years",
-      specialty: "Obstetrics"
+      specialty: "Obstetrics",
+            availability: "Mon-Fri",
     },
     {
       id: "mahdi-mohamud",
       name: "Dr. Mahdi Mohamud",
       title: "Cardiologist",
-      image: "/dr.jpg",
+      image: "/drmahdi.jpg",
       exp: "8 years",
-      specialty: "Cardiology"
+      specialty: "Cardiology",
+            availability: "Mon-Fri",
+      
     },
     {
       id: "muna-ahmed-aden",
@@ -37,7 +44,8 @@ export const doctors = [
       title: "Pediatrician",
       image: "/dr.jpg",
       exp: "8 years",
-      specialty: "Pediatrics"
+      specialty: "Pediatrics",
+            availability: "Mon-Fri",
     }
   ];
   
