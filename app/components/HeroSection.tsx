@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Link } from "lucide-react";
 
 export const carouselItems = [
   {
@@ -11,6 +11,7 @@ export const carouselItems = [
     buttonText: "Book an Appointment",
     image:
       "https://images.pexels.com/photos/247786/pexels-photo-247786.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    link : "/appointment",
   },
   {
     id: 2,
@@ -20,7 +21,9 @@ export const carouselItems = [
     buttonText: "Our Services",
     image:
       "https://images.pexels.com/photos/3259629/pexels-photo-3259629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    link : "/departments",
   },
+  
   {
     id: 3,
     title: "Cutting-Edge Medical Technology",
@@ -29,6 +32,7 @@ export const carouselItems = [
     buttonText: "Learn More",
     image:
       "https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      link : "/corporate/overview",
   },
 ];
 
@@ -115,7 +119,7 @@ const HeroCarousel: React.FC = () => {
                 >
                   {item.description}
                 </p>
-                <a
+                <Link
                   href="/appointment"
                   className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg animate-fadeInUp"
                   style={{
@@ -124,7 +128,7 @@ const HeroCarousel: React.FC = () => {
                   }}
                 >
                   {item.buttonText}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
