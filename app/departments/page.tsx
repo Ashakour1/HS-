@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, MapPin, Mail, Clock, ArrowRight } from "lucide-react";
+import Head from "next/head";
 
 export default function ServicesPage() {
   const services = [
@@ -151,6 +152,13 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Head>
+        <title>Our Services - Hospital Uniso</title>
+        <meta
+          name="description"
+          content="Explore the various medical services offered by Hospital Uniso, designed to meet the healthcare needs of our community."
+        />
+      </Head>
       {/* Hero */}
       <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
         <Image

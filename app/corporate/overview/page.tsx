@@ -18,213 +18,228 @@ import {
   Microscope,
 } from "lucide-react";
 
+import Head from "next/head";
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
-        <Image
-          src="/hero.png"
-          alt="Hospital Management"
-          fill
-          className="object-cover brightness-50"
-          priority
+    <div>
+      <Head>
+        <title>About Us | Hospital UNISO</title>
+        <meta
+          name="description"
+          content="Learn about Hospital UNISO, our mission, vision, and the values that guide us in providing exceptional healthcare services."
         />
+      </Head>
 
-        <div className="absolute inset-0 flex items-center justify-start px-6">
-          {/* Overlay background box on the left */}
-          <div className="px-0 md:px-28 py-2 rounded">
-            <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
-              About Us
-            </h1>
+      {/* Hero Section */}
+
+      <div className="min-h-screen">
+        <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+          <Image
+            src="/hero.png"
+            alt="Hospital Management"
+            fill
+            className="object-cover brightness-50"
+            priority
+          />
+
+          <div className="absolute inset-0 flex items-center justify-start px-6">
+            {/* Overlay background box on the left */}
+            <div className="px-0 md:px-28 py-2 rounded">
+              <h1 className="text-xl sm:text-4xl lg:text-xl font-semibold text-white">
+                About Us
+              </h1>
+            </div>
           </div>
-        </div>
-      </section>
-      {/* Hero Section with Mission Statement */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0E74FC]/5 to-white">
-        <div className="max-w-[1400px] mx-auto px-4">
-          <div className="">
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-                  Inspiring Hope, Improving Health in{" "}
-                  <span className="text-[#0E74FC]">Mogadishu</span>
-                </h1>
-                <div className="w-20 h-1 bg-[#00A651] mb-6"></div>
-                <h2 className="text-xl font-medium mb-4 text-[#00A651]">
-                  Our Mission
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  At HOSPITAL UNISO, our mission is to inspire hope and improve
-                  the health and well-being of our community by delivering
-                  exceptional, patient-centered care. We are committed to
-                  integrating clinical excellence, education, and research to
-                  provide the best possible outcomes for every patient.
-                </p>
-                <button className="bg-[#0E74FC] hover:bg-[#0E74FC]/90 text-white px-5 py-2.5 rounded-md text-sm font-medium">
-                  Learn More
-                </button>
+        </section>
+        {/* Hero Section with Mission Statement */}
+        <section className="py-16 md:py-24 bg-gradient-to-r from-[#0E74FC]/5 to-white">
+          <div className="max-w-[1400px] mx-auto px-4">
+            <div className="">
+              <div className="grid md:grid-cols-2 gap-12">
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
+                    Inspiring Hope, Improving Health in{" "}
+                    <span className="text-[#0E74FC]">Mogadishu</span>
+                  </h1>
+                  <div className="w-20 h-1 bg-[#00A651] mb-6"></div>
+                  <h2 className="text-xl font-medium mb-4 text-[#00A651]">
+                    Our Mission
+                  </h2>
+                  <p className="text-gray-700 mb-6">
+                    At HOSPITAL UNISO, our mission is to inspire hope and
+                    improve the health and well-being of our community by
+                    delivering exceptional, patient-centered care. We are
+                    committed to integrating clinical excellence, education, and
+                    research to provide the best possible outcomes for every
+                    patient.
+                  </p>
+                  <button className="bg-[#0E74FC] hover:bg-[#0E74FC]/90 text-white px-5 py-2.5 rounded-md text-sm font-medium">
+                    Learn More
+                  </button>
+                </div>
+                <div className="relative">
+                  <div className="rounded-lg overflow-hidden shadow-md">
+                    <Image
+                      src="/image-.jpg"
+                      alt="Hospital UNISO facility"
+                      width={600}
+                      height={500}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="relative">
-                <div className="rounded-lg overflow-hidden shadow-md">
+            </div>
+          </div>
+        </section>
+
+        {/* Director Message */}
+        <section className="w-full py-12">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col  lg:flex-row justify-center gap-8 items-start">
+              <div className="relative w-full lg:w-1/4 max-w-xl mx-auto lg:mx-0">
+                {/* Teal border frame */}
+                <div className="relative border-4 border-[#0E74FC] overflow-hidden shadow-lg">
                   <Image
-                    src="/image-.jpg"
-                    alt="Hospital UNISO facility"
-                    width={600}
+                    src="/dr2.jpg"
+                    alt="Director Image"
+                    width={300}
                     height={500}
-                    className="w-full h-auto object-cover"
+                    className="w-full object-cover rounded-lg"
                   />
+
+                  {/* Yellow quote decoration */}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Director Message */}
-      <section className="w-full py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col  lg:flex-row justify-center gap-8 items-start">
-            <div className="relative w-full lg:w-1/4 max-w-xl mx-auto lg:mx-0">
-              {/* Teal border frame */}
-              <div className="relative border-4 border-[#0E74FC] overflow-hidden shadow-lg">
-                <Image
-                  src="/dr2.jpg"
-                  alt="Director Image"
-                  width={300}
-                  height={500}
-                  className="w-full object-cover rounded-lg"
-                />
-
-                {/* Yellow quote decoration */}
+              <div className="w-full lg:w-1/2 pt-12 lg:pt-8">
+                <h2 className="text-xl md:text-xl font-semibold text-[#0E74FC] mb-1">
+                  Director's Message
+                </h2>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  Prof. Dr. Mohamed Amiin Abdikarim Nur
+                </h3>
+                <p className="text-xl font-semibold text-gray-700 mb-6">
+                  Executive Director & Surgeon
+                </p>
+                <p className="text-base text-gray-600 mb-4">
+                  Welcome to the Hospital UNISO, where we are dedicated to
+                  providing exceptional healthcare services. As the Executive
+                  Director, I am proud to lead a team of highly skilled
+                  professionals committed to excellence in patient care and
+                  ensuring that every patient receives the highest quality of
+                  care.
+                </p>
+                <p className="text-base text-gray-600 mb-4">
+                  At Hospital UNISO, we believe in a patient-centered approach,
+                  where your health and well-being are our top priorities. Our
+                  state-of-the-art facilities and advanced medical technologies
+                  enable us to offer a wide range of services, from routine
+                  check-ups to complex surgeries. We are dedicated to staying at
+                  the forefront of medical advancements and innovations.
+                </p>
               </div>
             </div>
-
-            <div className="w-full lg:w-1/2 pt-12 lg:pt-8">
-              <h2 className="text-xl md:text-xl font-semibold text-[#0E74FC] mb-1">
-                Director's Message
-              </h2>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                Prof. Dr. Mohamed Amiin Abdikarim Nur
-              </h3>
-              <p className="text-xl font-semibold text-gray-700 mb-6">
-                Executive Director & Surgeon
-              </p>
-              <p className="text-base text-gray-600 mb-4">
-                Welcome to the Hospital UNISO, where we are dedicated to
-                providing exceptional healthcare services. As the Executive
-                Director, I am proud to lead a team of highly skilled
-                professionals committed to excellence in patient care and
-                ensuring that every patient receives the highest quality of
-                care.
-              </p>
-              <p className="text-base text-gray-600 mb-4">
-                At Hospital UNISO, we believe in a patient-centered approach,
-                where your health and well-being are our top priorities. Our
-                state-of-the-art facilities and advanced medical technologies
-                enable us to offer a wide range of services, from routine
-                check-ups to complex surgeries. We are dedicated to staying at
-                the forefront of medical advancements and innovations.
-              </p>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Vision Statement */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[1400px] mx-auto px-4">
-          <div className=" text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Vision</h2>
-            <div className="w-20 h-1 bg-[#0E74FC] mx-auto mb-8"></div>
-            <p className="text-gray-700 text-lg max-w-3xl mx-auto">
-              HOSPITAL UNISO aspires to become the most trusted healthcare
-              provider in Mogadishu Somalia and beyond, setting the standard for
-              unparalleled patient experiences, innovative medical practices,
-              and compassionate care.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Values */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-[1400px] mx-auto px-4">
-          <div className="">
-            <div className="text-center mb-12">
+        {/* Vision Statement */}
+        <section className="py-16 bg-white">
+          <div className="max-w-[1400px] mx-auto px-4">
+            <div className=" text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                Our Core Values
+                Our Vision
               </h2>
-              <div className="w-20 h-1 bg-[#00A651] mx-auto mb-6"></div>
-              <p className="text-gray-700 max-w-3xl mx-auto">
-                Our values guide every decision we make and every action we take
-                in service of our patients and community.
+              <div className="w-20 h-1 bg-[#0E74FC] mx-auto mb-8"></div>
+              <p className="text-gray-700 text-lg max-w-3xl mx-auto">
+                HOSPITAL UNISO aspires to become the most trusted healthcare
+                provider in Mogadishu Somalia and beyond, setting the standard
+                for unparalleled patient experiences, innovative medical
+                practices, and compassionate care.
               </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-12 h-12 bg-[#0E74FC]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-5 w-5 text-[#0E74FC]" />
-                </div>
-                <h3 className="text-lg font-medium mb-2">
-                  Patient-Centered Care
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  We prioritize the needs and well-being of our patients above
-                  all else.
+          </div>
+        </section>
+
+        {/* Core Values */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-[1400px] mx-auto px-4">
+            <div className="">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                  Our Core Values
+                </h2>
+                <div className="w-20 h-1 bg-[#00A651] mx-auto mb-6"></div>
+                <p className="text-gray-700 max-w-3xl mx-auto">
+                  Our values guide every decision we make and every action we
+                  take in service of our patients and community.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-12 h-12 bg-[#00A651]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-5 w-5 text-[#00A651]" />
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+                  <div className="w-12 h-12 bg-[#0E74FC]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-5 w-5 text-[#0E74FC]" />
+                  </div>
+                  <h3 className="text-lg font-medium mb-2">
+                    Patient-Centered Care
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    We prioritize the needs and well-being of our patients above
+                    all else.
+                  </p>
                 </div>
-                <h3 className="text-lg font-medium mb-2">Excellence</h3>
-                <p className="text-gray-600 text-sm">
-                  We strive for the highest standards in medical care, service,
-                  and innovation.
-                </p>
+                <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+                  <div className="w-12 h-12 bg-[#00A651]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Shield className="h-5 w-5 text-[#00A651]" />
+                  </div>
+                  <h3 className="text-lg font-medium mb-2">Excellence</h3>
+                  <p className="text-gray-600 text-sm">
+                    We strive for the highest standards in medical care,
+                    service, and innovation.
+                  </p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+                  <div className="w-12 h-12 bg-[#0E74FC]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="h-5 w-5 text-[#0E74FC]" />
+                  </div>
+                  <h3 className="text-lg font-medium mb-2">Integrity</h3>
+                  <p className="text-gray-600 text-sm">
+                    We uphold ethical practices, transparency, and
+                    accountability in all our operations.
+                  </p>
+                </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-12 h-12 bg-[#0E74FC]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="h-5 w-5 text-[#0E74FC]" />
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+                  <div className="w-12 h-12 bg-[#00A651]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <HeartPulse className="h-5 w-5 text-[#00A651]" />
+                  </div>
+                  <h3 className="text-lg font-medium mb-2">Compassion</h3>
+                  <p className="text-gray-600 text-sm">
+                    We treat every patient with empathy, dignity, and respect.
+                  </p>
                 </div>
-                <h3 className="text-lg font-medium mb-2">Integrity</h3>
-                <p className="text-gray-600 text-sm">
-                  We uphold ethical practices, transparency, and accountability
-                  in all our operations.
-                </p>
-              </div>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8 mt-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-12 h-12 bg-[#00A651]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <HeartPulse className="h-5 w-5 text-[#00A651]" />
+                <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+                  <div className="w-12 h-12 bg-[#0E74FC]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-5 w-5 text-[#0E74FC]" />
+                  </div>
+                  <h3 className="text-lg font-medium mb-2">
+                    Social Responsibility
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    We are committed to serving our community and addressing
+                    healthcare disparities.
+                  </p>
                 </div>
-                <h3 className="text-lg font-medium mb-2">Compassion</h3>
-                <p className="text-gray-600 text-sm">
-                  We treat every patient with empathy, dignity, and respect.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                <div className="w-12 h-12 bg-[#0E74FC]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-5 w-5 text-[#0E74FC]" />
-                </div>
-                <h3 className="text-lg font-medium mb-2">
-                  Social Responsibility
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  We are committed to serving our community and addressing
-                  healthcare disparities.
-                </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Purpose */}
+        {/* Purpose */}
 
-      {/* What We Do */}
-      {/* <section className="py-16 bg-gray-50">
+        {/* What We Do */}
+        {/* <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="">
             <div className="text-center mb-12">
@@ -383,131 +398,132 @@ export default function AboutPage() {
         </div>
       </section> */}
 
-      {/* Image Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[1400px] mx-auto px-4">
-          <div className="">
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="rounded-lg overflow-hidden shadow-sm">
-                <Image
-                  src="/image-1.jpg"
-                  alt="Hospital facility"
-                  width={400}
-                  height={300}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="rounded-lg overflow-hidden shadow-sm">
-                <Image
-                  src="/All-2.jpg"
-                  alt="Medical professionals"
-                  width={400}
-                  height={300}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-              <div className="rounded-lg overflow-hidden shadow-sm">
-                <Image
-                  src="/All.jpg"
-                  alt="Patient care"
-                  width={400}
-                  height={300}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Responsibility */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-[1400px] mx-auto px-4">
-          <div className="">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                  Social Responsibility
-                </h2>
-                <div className="w-20 h-1 bg-[#00A651] mb-6"></div>
-                <p className="text-gray-700 mb-6">
-                  At HOSPITAL UNISO, we believe that healthcare is a fundamental
-                  human right. Our social responsibility initiatives focus on:
-                </p>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
-                    <span className="text-gray-700">
-                      Providing affordable and accessible healthcare to all,
-                      regardless of socioeconomic status.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
-                    <span className="text-gray-700">
-                      Educating the community on preventive care and healthy
-                      living.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
-                    <span className="text-gray-700">
-                      Partnering with local organizations to address public
-                      health challenges.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
-                    <span className="text-gray-700">
-                      Reducing healthcare disparities by offering specialized
-                      care to underserved populations.
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div className="relative">
-                <div className="rounded-lg overflow-hidden shadow-md">
+        {/* Image Section */}
+        <section className="py-16 bg-white">
+          <div className="max-w-[1400px] mx-auto px-4">
+            <div className="">
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-lg overflow-hidden shadow-sm">
                   <Image
-                    src="/image-2.jpg"
-                    alt="Community outreach"
-                    width={600}
-                    height={500}
+                    src="/image-1.jpg"
+                    alt="Hospital facility"
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="rounded-lg overflow-hidden shadow-sm">
+                  <Image
+                    src="/All-2.jpg"
+                    alt="Medical professionals"
+                    width={400}
+                    height={300}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+                <div className="rounded-lg overflow-hidden shadow-sm">
+                  <Image
+                    src="/All.jpg"
+                    alt="Patient care"
+                    width={400}
+                    height={300}
                     className="w-full h-auto object-cover"
                   />
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Conclusion */}
-      <section className="py-16 bg-gradient-to-r from-[#0E74FC]/5 to-[#00A651]/5">
-        <div className="max-w-[1400px] mx-auto px-4">
-          <div className=" text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Our Commitment
-            </h2>
-            <div className="w-20 h-1 bg-[#0E74FC] mx-auto mb-6"></div>
-            <p className="text-gray-700 text-lg mb-8 max-w-3xl mx-auto">
-              HOSPITAL UNISO is more than just a healthcare facility; it is a
-              beacon of hope and healing for our community. Through our
-              commitment to excellence, compassion, and social responsibility,
-              we aim to transform healthcare in Mogadishu Somalia and beyond.
-              Together, we can build a healthier, brighter future for all.
-            </p>
-            {/* <button
+        {/* Social Responsibility */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-[1400px] mx-auto px-4">
+            <div className="">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                    Social Responsibility
+                  </h2>
+                  <div className="w-20 h-1 bg-[#00A651] mb-6"></div>
+                  <p className="text-gray-700 mb-6">
+                    At HOSPITAL UNISO, we believe that healthcare is a
+                    fundamental human right. Our social responsibility
+                    initiatives focus on:
+                  </p>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
+                      <span className="text-gray-700">
+                        Providing affordable and accessible healthcare to all,
+                        regardless of socioeconomic status.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
+                      <span className="text-gray-700">
+                        Educating the community on preventive care and healthy
+                        living.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
+                      <span className="text-gray-700">
+                        Partnering with local organizations to address public
+                        health challenges.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-[#00A651] mt-0.5" />
+                      <span className="text-gray-700">
+                        Reducing healthcare disparities by offering specialized
+                        care to underserved populations.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="relative">
+                  <div className="rounded-lg overflow-hidden shadow-md">
+                    <Image
+                      src="/image-2.jpg"
+                      alt="Community outreach"
+                      width={600}
+                      height={500}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Conclusion */}
+        <section className="py-16 bg-gradient-to-r from-[#0E74FC]/5 to-[#00A651]/5">
+          <div className="max-w-[1400px] mx-auto px-4">
+            <div className=" text-center">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                Our Commitment
+              </h2>
+              <div className="w-20 h-1 bg-[#0E74FC] mx-auto mb-6"></div>
+              <p className="text-gray-700 text-lg mb-8 max-w-3xl mx-auto">
+                HOSPITAL UNISO is more than just a healthcare facility; it is a
+                beacon of hope and healing for our community. Through our
+                commitment to excellence, compassion, and social responsibility,
+                we aim to transform healthcare in Mogadishu Somalia and beyond.
+                Together, we can build a healthier, brighter future for all.
+              </p>
+              {/* <button
            
               className="bg-[#00A651] hover:bg-[#00A651]/90 text-white px-6 py-3 rounded-md font-medium"
             >
               Book an Appointment
             </button> */}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      {/* <section className="py-12 bg-white">
+        {/* CTA Section */}
+        {/* <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="">
             <div className="bg-[#0E74FC]/10 p-8 rounded-lg">
@@ -541,6 +557,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section> */}
+      </div>
     </div>
   );
 }

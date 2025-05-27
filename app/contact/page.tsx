@@ -5,10 +5,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Calendar, Clock, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
+      <Head>
+        <title>Contact Us | Hospital Uniso</title>
+        <meta
+          name="description"
+          content="Get in touch with Hospital Uniso for inquiries, appointments, and more. Contact us via phone, email, or visit our location."
+        />
+      </Head>
       {/* Hero Section */}
       <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
         <Image
