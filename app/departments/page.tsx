@@ -158,6 +158,10 @@ export default function ServicesPage() {
           name="description"
           content="Explore the various medical services offered by Hospital Uniso, designed to meet the healthcare needs of our community."
         />
+        <meta
+          property="og:image"
+          content="https://www.hospitaluniso.so/uniso-logo.png"
+        />
       </Head>
       {/* Hero */}
       <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">

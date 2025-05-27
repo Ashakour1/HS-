@@ -28,6 +28,10 @@ export default function AboutPage() {
           name="description"
           content="Learn about Hospital UNISO, our mission, vision, and the values that guide us in providing exceptional healthcare services."
         />
+        <meta
+          property="og:image"
+          content="https://www.hospitaluniso.so/uniso-logo.png"
+        />
       </Head>
 
       {/* Hero Section */}

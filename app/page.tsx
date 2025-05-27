@@ -13,6 +13,8 @@ export default function Home() {
           name="description"
           content="Hospital Uniso is the first private university hospital in Somalia, dedicated to providing high-quality healthcare and medical education."
         />
+          <meta property="og:image" content="https://www.hospitaluniso.so/uniso-logo.png" />
+
       </Head>
       <HeroCarousel />
       <Others />

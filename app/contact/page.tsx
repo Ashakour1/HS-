@@ -16,6 +16,10 @@ export default function ContactPage() {
           name="description"
           content="Get in touch with Hospital Uniso for inquiries, appointments, and more. Contact us via phone, email, or visit our location."
         />
+        <meta
+          property="og:image"
+          content="https://www.hospitaluniso.so/uniso-logo.png"
+        />
       </Head>
       {/* Hero Section */}
       <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
