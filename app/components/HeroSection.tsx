@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Link } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export const carouselItems = [
   {
@@ -10,8 +11,8 @@ export const carouselItems = [
       "Our state-of-the-art facilities and expert medical team are dedicated to providing exceptional healthcare.",
     buttonText: "Book an Appointment",
     image:
-      "https://images.pexels.com/photos/247786/pexels-photo-247786.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    link : "/appointment",
+      "https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    link: "/appointment",
   },
   {
     id: 2,
@@ -20,10 +21,10 @@ export const carouselItems = [
       "We believe in patient-centered care tailored to your unique health needs and goals.",
     buttonText: "Our Services",
     image:
-      "https://images.pexels.com/photos/3259629/pexels-photo-3259629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    link : "/departments",
+      "https://media4.manhattan-institute.org/sites/default/files/iStock-600071976.jpg",
+    link: "/departments",
   },
-  
+
   {
     id: 3,
     title: "Cutting-Edge Medical Technology",
@@ -32,7 +33,7 @@ export const carouselItems = [
     buttonText: "Learn More",
     image:
       "https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      link : "/corporate/overview",
+    link: "/corporate/overview",
   },
 ];
 
@@ -76,7 +77,7 @@ const HeroCarousel: React.FC = () => {
   }, [nextSlide]);
 
   return (
-    <div className="relative h-[500px] sm:h-[600px] lg:h-[700px] overflow-hidden">
+    <div className="relative min-h-screen sm:h-[600px] lg:h-[700px] overflow-hidden">
       {/* Carousel Slides */}
       <div className="absolute inset-0">
         {carouselItems.map((item, index) => (
@@ -120,7 +121,7 @@ const HeroCarousel: React.FC = () => {
                   {item.description}
                 </p>
                 <Link
-                  href="/appointment"
+                  href={item.link}
                   className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg animate-fadeInUp"
                   style={{
                     animationDelay: "0.7s",

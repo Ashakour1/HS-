@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,7 +20,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside [^1]
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -45,9 +44,9 @@ const Header = () => {
 
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Departments", href: "/departments" },
+    { name: "Services", href: "/departments" },
     {
-      name: "Center of Excellence",
+      name: "Our Centers",
       href: "#",
       dropdown: true,
       items: [
@@ -65,7 +64,6 @@ const Header = () => {
         { name: "Pharmacy Services", href: "/centers/pharmacy" },
         { name: "Day Care Services", href: "/centers/daycare" },
         { name: "Emergency Medicine", href: "/centers/emergency" },
-
         {
           name: "Laboratory and Diagnostic Services",
           href: "/centers/diagnostics",
@@ -74,7 +72,7 @@ const Header = () => {
       ],
     },
     {
-      name: "Corporate",
+      name: "About Us",
       href: "#",
       dropdown: true,
       items: [
@@ -90,22 +88,21 @@ const Header = () => {
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-white"
+        scrolled ? "bg-white/95 backdrop-blur-sm shadow-lg" : "bg-white"
       }`}
     >
-      <div className="container mx-auto px-4 py-3">
+      <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Image
-              src="/uniso-logo.png"
+              src="/placeholder.svg?height=60&width=60"
               width={60}
               height={60}
               alt="Uniso Logo"
               className="h-14 w-auto transition-transform duration-300 hover:scale-105"
             />
           </div>
-
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
             <ul className="flex items-center space-x-8" ref={dropdownRef}>
@@ -115,7 +112,9 @@ const Header = () => {
                     <>
                       <button
                         onClick={() => toggleDropdown(item.name)}
-                        className="flex items-center text-base font-medium text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-600"
+                        className="flex items-center text-base font-medium text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600 focus:outline-none"
+                        aria-expanded={activeDropdown === item.name}
+                        aria-haspopup="true"
                       >
                         {item.name}
                         <ChevronDown
@@ -124,16 +123,15 @@ const Header = () => {
                           }`}
                         />
                       </button>
-                      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
-
+                      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
                       {/* Dropdown Menu */}
                       {activeDropdown === item.name && (
-                        <div className="absolute left-0 top-full mt-1 w-56 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div className="absolute left-0 top-full mt-2 w-56 rounded-lg bg-white py-2 shadow-xl ring-1 ring-gray-200">
                           {item.items?.map((subItem) => (
                             <Link
                               key={subItem.name}
                               href={subItem.href}
-                              className="block px-4 py-2 text-sm text-gray-700 transition-all duration-300 ease-in-out hover:bg-blue-50 hover:text-blue-600"
+                              className="block px-4 py-2 text-sm text-gray-700 transition-all duration-300 ease-in-out hover:bg-sky-50 hover:text-sky-600"
                               onClick={() => setActiveDropdown(null)}
                             >
                               {subItem.name}
@@ -146,37 +144,35 @@ const Header = () => {
                     <>
                       <Link
                         href={item.href}
-                        className="text-base font-medium text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-600"
+                        className="text-base font-medium text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600"
                       >
                         {item.name}
                       </Link>
-                      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+                      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
                     </>
                   )}
                 </li>
               ))}
             </ul>
           </nav>
-
           {/* Book Appointment Button - Desktop */}
           <div className="hidden lg:block">
             <Button
               onClick={() => (window.location.href = "/appointment")}
-              className="group relative overflow-hidden rounded-md bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-2 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
+              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sky-500 to-sky-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <span className="relative z-10 flex items-center">
                 <Calendar className="mr-2 h-5 w-5" />
                 Book Appointment
               </span>
-              <span className="absolute bottom-0 left-0 h-full w-0 bg-gradient-to-r from-blue-600 to-blue-700 transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
             </Button>
           </div>
-
           {/* Mobile Navigation */}
           <div className="flex items-center gap-4 lg:hidden">
             <Button
               onClick={() => (window.location.href = "/appointment")}
-              className="group relative overflow-hidden rounded-md bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-1 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
+              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sky-500 to-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
               asChild
             >
               <Link href="/appointment">
@@ -184,13 +180,12 @@ const Header = () => {
                   <Calendar className="mr-1 h-4 w-4" />
                   Book
                 </span>
-                <span className="absolute bottom-0 left-0 h-full w-0 bg-gradient-to-r from-blue-600 to-blue-700 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
               </Link>
             </Button>
-
             <button
               onClick={toggleMenu}
-              className="rounded-full bg-gray-100 p-2 text-gray-700 transition-colors duration-300 hover:bg-gray-200 focus:outline-none"
+              className="rounded-full bg-gray-100 p-2 text-gray-700 transition-colors duration-300 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -201,14 +196,13 @@ const Header = () => {
             </button>
           </div>
         </div>
-
         {/* Mobile Menu Dropdown */}
         <div
-          className={`mt-2 overflow-hidden transition-all duration-300 lg:hidden ${
+          className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out lg:hidden ${
             isMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <nav className="rounded-xl bg-white p-4 shadow-lg">
+          <nav className="rounded-xl bg-white p-4 shadow-xl border border-gray-100">
             {navItems.map((item) => (
               <div
                 key={item.name}
@@ -218,7 +212,8 @@ const Header = () => {
                   <>
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className="flex w-full items-center justify-between py-3 text-lg font-medium text-gray-800 transition-colors duration-300 hover:text-blue-600"
+                      className="flex w-full items-center justify-between py-3 text-lg font-medium text-gray-800 transition-colors duration-300 hover:text-sky-600 focus:outline-none"
+                      aria-expanded={activeDropdown === item.name}
                     >
                       {item.name}
                       <ChevronDown
@@ -227,21 +222,20 @@ const Header = () => {
                         }`}
                       />
                     </button>
-
                     {/* Mobile Dropdown Items */}
                     <div
-                      className={`overflow-hidden transition-all duration-300 ${
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
                         activeDropdown === item.name
                           ? "max-h-60 opacity-100"
                           : "max-h-0 opacity-0"
                       }`}
                     >
-                      <div className="ml-4 space-y-2 border-l border-gray-100 pl-4 pb-3">
+                      <div className="ml-4 space-y-2 border-l-2 border-sky-100 pl-4 pb-3">
                         {item.items?.map((subItem) => (
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="block py-2 text-base text-gray-700 transition-all duration-300 ease-in-out hover:text-blue-600"
+                            className="block py-2 text-base text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {subItem.name}
@@ -253,7 +247,7 @@ const Header = () => {
                 ) : (
                   <Link
                     href={item.href}
-                    className="flex items-center py-3 text-lg font-medium text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-600"
+                    className="flex items-center py-3 text-lg font-medium text-gray-800 transition-all duration-300 ease-in-out hover:text-sky-600"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -263,11 +257,14 @@ const Header = () => {
             ))}
             <div className="mt-4 pt-2">
               <Button
-                onClick={() => NavigationHistoryEntry}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-base font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
+                onClick={() => (window.location.href = "/appointment")}
+                className="w-full group relative overflow-hidden rounded-full bg-gradient-to-r from-sky-500 to-sky-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
               >
-                <Calendar className="mr-2 h-5 w-5" />
-                Book Appointment
+                <span className="relative z-10 flex items-center justify-center">
+                  <Calendar className="mr-2 h-5 w-5" />
+                  Book Appointment
+                </span>
+                <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
               </Button>
             </div>
           </nav>
