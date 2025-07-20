@@ -72,13 +72,18 @@ const HeroCarousel: React.FC = () => {
               <img
                 src={item.image}
                 alt={item.title}
-                className="object-cover w-full h-full"
+                className="object-cover hidden md:block w-full h-full"
+              />
+              <img
+                src="/mobileview.jpg"
+                alt={item.title}
+                className="object-cover md:hidden w-full h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-black/30" />
             </div>
 
             {/* Content */}
-            <div className="max-w-[1250px] mx-auto relative mt-50  h-full flex items-center justify-start px-4">
+            <div className="max-w-[1250px] hidden  mx-auto relative mt-50  h-full md:flex items-center justify-start px-4">
               <div className="max-w-4xl text-left ">
                 <Link
                   href={item.link}
