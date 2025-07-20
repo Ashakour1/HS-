@@ -172,13 +172,13 @@ const Header = () => {
             <div className="flex items-center gap-4 lg:hidden">
               <Button
                 onClick={() => (window.location.href = "/appointment")}
-                className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sky-500 to-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:shadow-lg"
+                className="group relative flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
                 asChild
               >
                 <Link href="/appointment">
                   <span className="relative z-10 flex items-center">
                     <Calendar className="mr-1 h-4 w-4" />
-                    Book
+                    Book Appointment
                   </span>
                   <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
                 </Link>
@@ -258,7 +258,7 @@ const Header = () => {
               <div className="mt-4 pt-2">
                 <Button
                   onClick={() => (window.location.href = "/appointment")}
-                  className="w-full group relative overflow-hidden rounded-full bg-gradient-to-r from-sky-500 to-sky-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
+                  className="w-full group relative flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
                 >
                   <span className="relative z-10 flex items-center justify-center">
                     <Calendar className="mr-2 h-5 w-5" />
