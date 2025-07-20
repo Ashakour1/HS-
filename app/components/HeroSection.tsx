@@ -83,7 +83,7 @@ const HeroCarousel: React.FC = () => {
             </div>
 
             {/* Content */}
-            <div className="max-w-[1250px] hidden  mx-auto relative mt-50  h-full md:flex items-center justify-start px-4">
+            {/* <div className="max-w-[1250px] hidden  mx-auto relative mt-50  h-full md:flex items-center justify-start px-4">
               <div className="max-w-4xl text-left ">
                 <Link
                   href={item.link}
@@ -96,7 +96,7 @@ const HeroCarousel: React.FC = () => {
                   {item.buttonText}
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
