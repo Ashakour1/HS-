@@ -67,7 +67,7 @@ const Doctors = () => {
 
           {/* Enhanced Search Section */}
           <div className="w-full max-w-4xl mx-auto mb-12">
-            <div className="p-4 border border-white flex flex-col md:flex-row gap-4">
+            <div className="p-4  flex flex-col md:flex-row gap-4">
               <select
                 className="md:w-1/3 p-3 rounded-lg border  focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-transparent transition-all text-gray-700"
                 value={selectedSpecialty}

@@ -33,13 +33,14 @@ export default function RootLayout({
         name="google-site-verification"
         content="FSMZUkSKI-mmE83mx1lLkwi_OCJZ0FmAWMrOkH9mePs"
       />
+      <link rel="icon" type="image/svg+xml" href="/uniso-logo.png" />
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased pb-16 md:pb-0`}
       >
         <Header />
-        <StaticSideIcons />
+
         {children}
-        <MobileNav />
         <Footer />
       </body>
     </html>

@@ -10,30 +10,8 @@ export const carouselItems = [
     description:
       "Our state-of-the-art facilities and expert medical team are dedicated to providing exceptional healthcare.",
     buttonText: "Book an Appointment",
-    image:
-      "https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "/banner4.jpg",
     link: "/appointment",
-  },
-  {
-    id: 2,
-    title: "Personalized Medical Care",
-    description:
-      "We believe in patient-centered care tailored to your unique health needs and goals.",
-    buttonText: "Our Services",
-    image:
-      "https://media4.manhattan-institute.org/sites/default/files/iStock-600071976.jpg",
-    link: "/departments",
-  },
-
-  {
-    id: 3,
-    title: "Cutting-Edge Medical Technology",
-    description:
-      "Utilizing the latest innovations to deliver precise diagnoses and effective treatments.",
-    buttonText: "Learn More",
-    image:
-      "https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    link: "/corporate/overview",
   },
 ];
 
@@ -96,33 +74,15 @@ const HeroCarousel: React.FC = () => {
                 alt={item.title}
                 className="object-cover w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-black/30" />
             </div>
 
             {/* Content */}
-            <div className="max-w-[1300px] mx-auto relative h-full flex items-center justify-start px-4">
-              <div className="max-w-2xl text-left">
-                <h1
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 animate-fadeInUp"
-                  style={{
-                    animationDelay: "0.3s",
-                    animationFillMode: "forwards",
-                  }}
-                >
-                  {item.title}
-                </h1>
-                <p
-                  className="text-lg sm:text-xl text-white/90 mb-6 animate-fadeInUp"
-                  style={{
-                    animationDelay: "0.5s",
-                    animationFillMode: "forwards",
-                  }}
-                >
-                  {item.description}
-                </p>
+            <div className="max-w-[1250px] mx-auto relative mt-50  h-full flex items-center justify-start px-4">
+              <div className="max-w-4xl text-left ">
                 <Link
                   href={item.link}
-                  className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg animate-fadeInUp"
+                  className="bg-[#2521a0] hover:bg-[#36a058] text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg  animate-fadeInUp"
                   style={{
                     animationDelay: "0.7s",
                     animationFillMode: "forwards",
