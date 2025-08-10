@@ -16,6 +16,8 @@ const InternalMedicinePage = () => {
     return notFound();
   }
 
+  console.log(centerData);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -42,10 +44,15 @@ const InternalMedicinePage = () => {
       <section className="max-w-[1400px] mx-auto px-4 py-12 grid gap-10 md:grid-cols-2">
         <div className="relative w-full h-[500px] aspect-video md:aspect-square rounded-md overflow-hidden">
           <Image
-            src={centerData.image}
-            alt={`${centerData.name} Image`}
+            src={centerData.image ? centerData.image : "/hero.png"}
+            alt={
+              centerData.image
+                ? `${centerData.name} Image`
+                : "Hospital Management"
+            }
             fill
             className="object-cover"
+            priority
           />
         </div>
         <div className="flex flex-col">
@@ -64,7 +71,7 @@ const InternalMedicinePage = () => {
           Meet Our {centerData.name} Specialists
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {centerData.doctors.map((doctor) => (
+            {centerData.doctors.map((doctor :any) => (
             <div
               key={doctor.id}
               className="group relative flex flex-col border border-[#00A651] bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"

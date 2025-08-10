@@ -53,7 +53,7 @@ export default function ContactPage() {
                 <p className="text-gray-600 mb-4">
                   Our friendly team is here to help
                 </p>
-                <p className="text-green-500 font-medium text-lg">252XXXXXXX</p>
+                <p className="text-green-500 font-medium text-lg">252618332419</p>
               </CardContent>
             </Card>
 

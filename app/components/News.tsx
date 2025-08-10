@@ -51,7 +51,7 @@ export default function News() {
         </div>
         <div className="grid gap-6 py-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8">
           {blogPosts.map((post) => (
-            <Card key={post.id} className="flex flex-col overflow-hidden rounded-lg shadow-lg">
+            <Card key={post.id} className="flex flex-col  rounded-lg shadow-lg p-0">
               <div className="relative w-full h-48">
                 <Image
                   src={post.imageSrc || "/placeholder.svg"}

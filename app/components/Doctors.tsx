@@ -1,8 +1,8 @@
 import { title } from "process";
-import Doctor from "./Doctor";
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { doctors } from "@/data/doctors";
+import { DoctorCard } from "./Doctor";
 
 const specialties = [
   "Select Specialties",
@@ -115,7 +115,7 @@ const Doctors = () => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {displayedDoctors.map((doctor) => (
-                  <Doctor key={doctor.id} {...doctor} />
+                  <DoctorCard key={doctor.id} {...doctor} />
                 ))}
               </div>
             )}
