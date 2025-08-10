@@ -27,7 +27,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import Doctor from "../components/Doctor";
 import Doctors from "../components/Doctors";
 
 // Doctor data

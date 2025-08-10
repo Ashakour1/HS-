@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { DoctorCard } from "./Doctor";
+import { DoctorCard } from "./DoctorCard";
 import { doctors } from "@/data/doctors";
 
 export function DoctorsSection() {
