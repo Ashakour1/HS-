@@ -51,9 +51,19 @@ export default function AppointmentPage() {
       "We look forward to serving you. 💚",
     ].join("\n");
 
-    const phone = "252616590032";
+    const phone = "252618332419";
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
+
+    // Reset form fields after submission
+    setName("");
+    setEmail("");
+    setSubject("");
+    setDoctor("");
+    setDate("");
+    setTime("");
+    setMessage("");
+    
   };
 
   return (
