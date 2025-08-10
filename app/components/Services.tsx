@@ -102,7 +102,7 @@ export default function HealthcareServices() {
             View All Departments
             <ArrowRight className="w-4 h-4" />
           </Link>
-          </div>
+        </div>
       </div>
     </section>
   );

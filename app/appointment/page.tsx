@@ -31,14 +31,25 @@ export default function AppointmentPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const text = `*New Appointment Request*%0A
-*Name:* ${name}%0A
-*Email:* ${email}%0A
-*Subject:* ${subject}%0A
-*Doctor:* ${doctor}%0A
-*Date:* ${date}%0A
-*Time:* ${time}%0A
-*Message:* ${message}`;
+    // Enhanced WhatsApp message formatting: more engaging, clear, and user-friendly
+    const text = [
+      "*🩺 Hospital Uniso Appointment Request*",
+      "",
+      "----------------------------------",
+      `👤 *Name:* ${name}`,
+      `✉️ *Email:* ${email}`,
+      `📋 *Subject:* ${subject}`,
+      `👨‍⚕️ *Doctor:* ${doctor}`,
+      `📅 *Date:* ${date}`,
+      `⏰ *Time:* ${time}`,
+      `📝 *Additional Info:* ${message}`,
+      "----------------------------------",
+      "",
+      "✅ *Please confirm your appointment details above.*",
+      "",
+      "Thank you for choosing Hospital Uniso!",
+      "We look forward to serving you. 💚",
+    ].join("\n");
 
     const phone = "252616590032";
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
@@ -243,7 +254,7 @@ export default function AppointmentPage() {
                     {[
                       {
                         title: "Emergency",
-                        content: "252XXXXXXX",
+                        content: "252618332419",
                         icon: Phone,
                       },
                       {
