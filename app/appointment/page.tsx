@@ -63,7 +63,7 @@ export default function AppointmentPage() {
     setDate("");
     setTime("");
     setMessage("");
-    
+
   };
 
   return (
@@ -172,7 +172,7 @@ export default function AppointmentPage() {
                         </Label>
                         <select
                           id="doctor"
-                          className="w-full rounded-lg border-gray-200 h-12 focus:ring-[#00A651] focus:border-[#00A651]"
+                          className="w-full rounded-lg pl-2 border border-gray-200 h-12 focus:ring-[#00A651] focus:border-[#00A651]"
                           value={doctor}
                           onChange={(e) => setDoctor(e.target.value)}
                           required
