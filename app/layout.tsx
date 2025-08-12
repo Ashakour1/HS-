@@ -46,7 +46,7 @@ export default function RootLayout({
         
         <Footer />
         <Link
-        href="https://wa.me/616590032"
+        href="https://wa.me/252618332419"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 w-16 h-16 bg-[#00A651] hover:bg-[#0E74FC] transition-all duration-300 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl z-50 hover:scale-110 animate-pulse hover:animate-none group"
