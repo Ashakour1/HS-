@@ -1,21 +1,43 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { DoctorCard } from "./DoctorCard";
 import { doctors } from "@/data/doctors";
 
 export function DoctorsSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.3 });
+
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const fadeInVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  };
+
   return (
     <motion.section 
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      ref={ref}
+      variants={isInView ? fadeUpVariants : fadeInVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      transition={{ 
+        duration: 0.8, 
+        ease: "easeOut",
+        staggerChildren: 0.1
+      }}
       className="w-full py-12 md:py-24 lg:py-32 bg-white"
     >
       <div className="container mx-auto  px-4 md:px-6">
-        <div className="flex flex-col items-start gap-4 mb-8 md:flex-row md:items-end md:justify-between">
+        <motion.div 
+          variants={fadeUpVariants}
+          className="flex flex-col items-start gap-4 mb-8 md:flex-row md:items-end md:justify-between"
+        >
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm font-medium text-blue-600">
               <div className="w-1 h-4 bg-blue-600 rounded-full" />
@@ -32,17 +54,25 @@ export function DoctorsSection() {
             View Full Team
             <ArrowRight className="w-4 h-4" />
           </a>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto pb-4">
-          {doctors.map((doctor) => (
-            <DoctorCard
+        </motion.div>
+        <motion.div 
+          variants={fadeUpVariants}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto pb-4"
+        >
+          {doctors.map((doctor, index) => (
+            <motion.div
               key={doctor.id}
-              name={doctor.name}
-              specialty={doctor.specialty}
-              image={doctor.image}
-            />
+              variants={fadeUpVariants}
+              transition={{ delay: index * 0.1 }}
+            >
+              <DoctorCard
+                name={doctor.name}
+                specialty={doctor.specialty}
+                image={doctor.image}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );
