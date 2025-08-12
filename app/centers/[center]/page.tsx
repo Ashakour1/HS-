@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Users, Award, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { departments } from "@/data/departments";
@@ -19,94 +19,155 @@ const InternalMedicinePage = () => {
   console.log(centerData);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[200px] sm:h-[200px] md:h-[150px] lg:h-[150px]">
+    <div className="min-h-screen bg-gray-50">
+      {/* Enhanced Hero Section */}
+      <section className="relative h-[250px] overflow-hidden">
         <Image
           src="/hero.png"
           alt="Hospital Management"
           fill
-          className="object-cover brightness-50"
+          className="object-cover"
           priority
         />
-
-        <div className="absolute inset-0 flex items-center justify-start px-6">
-          {/* Overlay background box on the left */}
-          <div className="px-0 md:px-28 py-2 rounded">
-            <h1 className="text-lg sm:text-4xl lg:text-xl font-semibold text-white">
-              {centerData.name} Department
-            </h1>
+        
+        {/* Simple overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-[1400px] mx-auto px-6 w-full">
+            <div className="max-w-3xl">
+              {/* Enhanced text design */}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight drop-shadow-lg">
+                {centerData.name}
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-gray-100 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                Excellence in healthcare, delivered with compassion and expertise
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Center Info Section */}
-      <section className="max-w-[1400px] mx-auto px-4 py-12 grid gap-10 md:grid-cols-2">
-        <div className="relative w-full h-[500px] aspect-video md:aspect-square rounded-md overflow-hidden">
-          <Image
-            src={centerData.image ? centerData.image : "/hero.png"}
-            alt={
-              centerData.image
-                ? `${centerData.name} Image`
-                : "Hospital Management"
-            }
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        <div className="flex flex-col">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 text-[#0E74FC]">
-            {centerData.name} Department at HOSPITAL UNISO
-          </h2>
-          <p className="text-base sm:text-lg text-gray-600">
-            {centerData.description}
-          </p>
+      {/* Enhanced Center Info Section */}
+      <section className="max-w-[1400px] mx-auto px-6 py-16">
+        <div className="grid gap-12 lg:grid-cols-2 items-center">
+          <div className="relative">
+            <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              <Image
+                src={centerData.image ? centerData.image : "/hero.png"}
+                alt={
+                  centerData.image
+                    ? `${centerData.name} Image`
+                    : "Hospital Management"
+                }
+                fill
+                className="object-cover"
+                priority
+              />
+              {/* Decorative overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+            </div>
+            
+            {/* Floating stats card */}
+            <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-6 border border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <Users className="h-6 w-6 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">{centerData.doctors.length}</p>
+                  <p className="text-sm text-gray-600">Specialists</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium">
+              <Award className="h-4 w-4" />
+              Premier Department
+            </div>
+            
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+              {centerData.name} Department at HOSPITAL UNISO
+            </h2>
+            
+            <p className="text-lg text-gray-600 leading-relaxed">
+              {centerData.description}
+            </p>
+            
+            {/* Enhanced features */}
+            <div className="grid grid-cols-2 gap-4 pt-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-green-100 rounded-full">
+                  <Clock className="h-5 w-5 text-green-600" />
+                </div>
+                <span className="text-gray-700 font-medium">24/7 Care</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-purple-100 rounded-full">
+                  <MapPin className="h-5 w-5 text-purple-600" />
+                </div>
+                <span className="text-gray-700 font-medium">Modern Facility</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Doctors Section */}
-      <section className="max-w-[1400px] mx-auto px-4 py-12">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-10 text-[#0E74FC] text-center">
-          Meet Our {centerData.name} Specialists
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {centerData.doctors.map((doctor :any) => (
+      {/* Enhanced Doctors Section */}
+      <section className="max-w-[1400px] mx-auto px-6 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            Meet Our {centerData.name} Specialists
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Our team of experienced professionals is dedicated to providing exceptional care with the latest medical advancements
+          </p>
+        </div>
+        
+        <div className="flex flex-row flex-nowrap justify-start gap-6 overflow-x-auto">
+          {centerData.doctors.map((doctor: any) => (
             <div
               key={doctor.id}
-              className="group relative flex flex-col border border-[#00A651] bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+              className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 w-80"
             >
-              <div className="p-4 sm:p-5 flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                    <Image
-                      src={doctor.image}
-                      alt={doctor.name}
-                      fill
-                      className="object-cover"
-                    />
+              {/* Doctor image with proper height to show full face */}
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src={doctor.image}
+                  alt={doctor.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              
+              <div className="p-6">
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {doctor.name}
+                  </h3>
+                  <div className="text-green-600 font-semibold text-lg mb-2">
+                    {doctor.title}
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-sm sm:text-base">
-                      {doctor.name}
-                    </h3>
-                    <div className="text-xs text-[#00A651] font-medium">
-                      {doctor.title}
-                    </div>
-                    <div className="text-xs text-gray-500">{doctor.exp}+</div>
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Clock className="h-4 w-4 text-blue-600" />
+                    <span className="text-sm font-medium">{doctor.exp} experience</span>
                   </div>
                 </div>
 
+                {/* CTA button with redirect to appointment */}
                 <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 px-2 text-xs text-blue-600 hover:text-blue-700 bg-blue-50"
+                  onClick={() => window.location.href = '/appointment'}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-200"
                 >
                   Book Appointment
-                  <ArrowUpRight className="ml-1 h-3 w-3" />
+                  <ArrowUpRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
-              <div className="h-1 w-full bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+              
+              {/* Simple accent bar */}
+              <div className="h-1 w-full bg-blue-600"></div>
             </div>
           ))}
         </div>

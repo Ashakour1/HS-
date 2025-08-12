@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, ChevronDown, Calendar } from "lucide-react";
+import { Menu, X, ChevronDown, Calendar, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TopHeader from "./TopHeader";
 
@@ -21,7 +21,8 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside [^1]
+  
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -90,129 +91,150 @@ const Header = () => {
     <>
       <TopHeader />
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-          scrolled ? "bg-white/95 backdrop-blur-sm shadow-lg" : "bg-white"
+        className={`sticky top-0 z-50 w-full transition-all duration-500 ${
+          scrolled 
+            ? "bg-white/98 backdrop-blur-xl shadow-2xl border-b border-gray-100/50" 
+            : "bg-white"
         }`}
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Image
-                src="/uniso-logo.png"
-                width={60}
-                height={60}
-                alt="Uniso Logo"
-                className="h-14 w-auto transition-transform duration-300 hover:scale-105"
-              />
+            {/* Logo Section */}
+            <div className="flex items-center space-x-3">
+              <div className="relative">
+                <Image
+                  src="/uniso-logo.png"
+                  width={65}
+                  height={65}
+                  alt="Uniso Logo"
+                  className="h-16 w-auto transition-all duration-500 hover:scale-110 hover:rotate-2"
+                />
+                <div className="absolute -inset-2 bg-gradient-to-r from-sky-400/20 to-blue-500/20 rounded-full blur-xl opacity-0 transition-opacity duration-500 hover:opacity-100"></div>
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-sky-600 to-blue-700 bg-clip-text text-transparent">
+                  Uniso Hospital
+                </h1>
+                <p className="text-xs text-gray-500 font-medium">Excellence in Healthcare</p>
+              </div>
             </div>
+
             {/* Desktop Navigation */}
-            <nav className="hidden lg:block">
-              <ul className="flex items-center space-x-8" ref={dropdownRef}>
+            <nav className="hidden xl:block">
+              <ul className="flex items-center space-x-1" ref={dropdownRef}>
                 {navItems.map((item) => (
                   <li key={item.name} className="group relative">
                     {item.dropdown ? (
                       <>
                         <button
                           onClick={() => toggleDropdown(item.name)}
-                          className="flex items-center text-base font-medium text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600 focus:outline-none"
+                          className="flex items-center px-4 py-3 text-sm font-semibold text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600 focus:outline-none rounded-lg hover:bg-sky-50"
                           aria-expanded={activeDropdown === item.name}
                           aria-haspopup="true"
                         >
                           {item.name}
                           <ChevronDown
-                            className={`ml-1 h-4 w-4 opacity-70 transition-transform duration-300 ${
+                            className={`ml-2 h-4 w-4 opacity-70 transition-transform duration-300 ${
                               activeDropdown === item.name ? "rotate-180" : ""
                             }`}
                           />
                         </button>
-                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
                         {/* Dropdown Menu */}
                         {activeDropdown === item.name && (
-                          <div className="absolute left-0 top-full mt-2 w-56 rounded-lg bg-white py-2 shadow-xl ring-1 ring-gray-200">
-                            {item.items?.map((subItem) => (
-                              <Link
-                                key={subItem.name}
-                                href={subItem.href}
-                                className="block px-4 py-2 text-sm text-gray-700 transition-all duration-300 ease-in-out hover:bg-sky-50 hover:text-sky-600"
-                                onClick={() => setActiveDropdown(null)}
-                              >
-                                {subItem.name}
-                              </Link>
-                            ))}
+                          <div className="absolute left-0 top-full mt-1 w-64 rounded-xl bg-white/95 backdrop-blur-xl py-3 shadow-2xl ring-1 ring-gray-200/50 border border-gray-100/50">
+                            <div className="px-2">
+                              {item.items?.map((subItem) => (
+                                <Link
+                                  key={subItem.name}
+                                  href={subItem.href}
+                                  className="block px-3 py-2.5 text-sm text-gray-700 transition-all duration-300 ease-in-out hover:bg-sky-50 hover:text-sky-600 rounded-lg hover:translate-x-1"
+                                  onClick={() => setActiveDropdown(null)}
+                                >
+                                  {subItem.name}
+                                </Link>
+                              ))}
+                            </div>
                           </div>
                         )}
                       </>
                     ) : (
-                      <>
-                        <Link
-                          href={item.href}
-                          className="text-base font-medium text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600"
-                        >
-                          {item.name}
-                        </Link>
-                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
-                      </>
+                      <Link
+                        href={item.href}
+                        className="flex items-center px-4 py-3 text-sm font-semibold text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600 rounded-lg hover:bg-sky-50"
+                      >
+                        {item.name}
+                      </Link>
                     )}
                   </li>
                 ))}
               </ul>
             </nav>
-            {/* Book Appointment Button - Desktop */}
-            <div className="hidden lg:flex items-center space-x-4">
+
+            {/* Right Section - Desktop */}
+            <div className="hidden xl:flex items-center space-x-4">
+              {/* Contact Info */}
+              <div className="hidden 2xl:flex items-center space-x-4 text-sm text-gray-600">
+                <div className="flex items-center space-x-2">
+                  <Phone className="h-4 w-4 text-sky-600" />
+                  <span>+1 234 567 890</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <MapPin className="h-4 w-4 text-sky-600" />
+                  <span>123 Medical Center Dr</span>
+                </div>
+              </div>
+              
+              {/* Book Appointment Button */}
               <Button
                 onClick={() => (window.location.href = "/appointment")}
-                className="flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
+                className="group relative flex items-center space-x-3 bg-gradient-to-r from-sky-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-sky-700 hover:to-blue-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform"
               >
-                <Calendar width={20} />
-                Book Appointment
+                <Calendar className="h-5 w-5" />
+                <span>Book Appointment</span>
+                <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Button>
             </div>
-            {/* Mobile Navigation */}
-            <div className="flex items-center gap-4 lg:hidden">
+
+            {/* Mobile Navigation Toggle */}
+            <div className="flex items-center gap-3 xl:hidden">
               <Button
                 onClick={() => (window.location.href = "/appointment")}
-                className="group relative flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
-                asChild
+                className="group relative flex items-center space-x-2 bg-gradient-to-r from-sky-600 to-blue-700 text-white px-4 py-2.5 rounded-xl hover:from-sky-700 hover:to-blue-800 transition-all duration-300 font-semibold shadow-lg"
               >
-                <Link href="/appointment">
-                  <span className="relative z-10 flex items-center">
-                    <Calendar className="mr-1 h-4 w-4" />
-                    Book Appointment
-                  </span>
-                  <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-                </Link>
+                <Calendar className="h-4 w-4" />
+                <span className="hidden sm:inline">Book</span>
               </Button>
               <button
                 onClick={toggleMenu}
-                className="rounded-full bg-gray-100 p-2 text-gray-700 transition-colors duration-300 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                className="rounded-xl bg-gray-100 p-2.5 text-gray-700 transition-all duration-300 hover:bg-sky-100 hover:text-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
                 aria-label="Toggle menu"
               >
                 {isMenuOpen ? (
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5" />
                 ) : (
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-5 w-5" />
                 )}
               </button>
             </div>
           </div>
+
           {/* Mobile Menu Dropdown */}
           <div
-            className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out lg:hidden ${
-              isMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+            className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out xl:hidden ${
+              isMenuOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            <nav className="rounded-xl bg-white p-4 shadow-xl border border-gray-100">
+            <nav className="rounded-2xl bg-white/95 backdrop-blur-xl p-6 shadow-2xl border border-gray-100/50">
               {navItems.map((item) => (
                 <div
                   key={item.name}
-                  className="border-b border-gray-100 last:border-0"
+                  className="border-b border-gray-100/50 last:border-0"
                 >
                   {item.dropdown ? (
                     <>
                       <button
                         onClick={() => toggleDropdown(item.name)}
-                        className="flex w-full items-center justify-between py-3 text-lg font-medium text-gray-800 transition-colors duration-300 hover:text-sky-600 focus:outline-none"
+                        className="flex w-full items-center justify-between py-4 text-base font-semibold text-gray-800 transition-colors duration-300 hover:text-sky-600 focus:outline-none"
                         aria-expanded={activeDropdown === item.name}
                       >
                         {item.name}
@@ -226,16 +248,16 @@ const Header = () => {
                       <div
                         className={`overflow-hidden transition-all duration-300 ease-in-out ${
                           activeDropdown === item.name
-                            ? "max-h-60 opacity-100"
+                            ? "max-h-80 opacity-100"
                             : "max-h-0 opacity-0"
                         }`}
                       >
-                        <div className="ml-4 space-y-2 border-l-2 border-sky-100 pl-4 pb-3">
+                        <div className="ml-4 space-y-2 border-l-2 border-sky-200 pl-4 pb-4">
                           {item.items?.map((subItem) => (
                             <Link
                               key={subItem.name}
                               href={subItem.href}
-                              className="block py-2 text-base text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600"
+                              className="block py-2.5 text-sm text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600 hover:translate-x-1"
                               onClick={() => setIsMenuOpen(false)}
                             >
                               {subItem.name}
@@ -247,7 +269,7 @@ const Header = () => {
                   ) : (
                     <Link
                       href={item.href}
-                      className="flex items-center py-3 text-lg font-medium text-gray-800 transition-all duration-300 ease-in-out hover:text-sky-600"
+                      className="flex items-center py-4 text-base font-semibold text-gray-800 transition-all duration-300 ease-in-out hover:text-sky-600"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
@@ -255,16 +277,29 @@ const Header = () => {
                   )}
                 </div>
               ))}
-              <div className="mt-4 pt-2">
+              
+              {/* Mobile Contact Info */}
+              <div className="mt-6 pt-4 border-t border-gray-100/50">
+                <div className="space-y-3 text-sm text-gray-600">
+                  <div className="flex items-center space-x-3">
+                    <Phone className="h-4 w-4 text-sky-600" />
+                    <span>+1 234 567 890</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <MapPin className="h-4 w-4 text-sky-600" />
+                    <span>123 Medical Center Dr</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Book Appointment Button */}
+              <div className="mt-6 pt-4">
                 <Button
                   onClick={() => (window.location.href = "/appointment")}
-                  className="w-full group relative flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
+                  className="w-full group relative flex items-center justify-center space-x-3 bg-gradient-to-r from-sky-600 to-blue-700 text-white px-6 py-4 rounded-xl hover:from-sky-700 hover:to-blue-800 transition-all duration-300 font-semibold shadow-lg"
                 >
-                  <span className="relative z-10 flex items-center justify-center">
-                    <Calendar className="mr-2 h-5 w-5" />
-                    Book Appointment
-                  </span>
-                  <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+                  <Calendar className="h-5 w-5" />
+                  <span>Book Appointment</span>
                 </Button>
               </div>
             </nav>
