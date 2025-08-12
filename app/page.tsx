@@ -18,6 +18,8 @@ export default function Home() {
       </Head>
       <HeroCarousel />
       <Others />
+
+      {/* WhatsApp Floating Button */}
     </>
   );
 }

@@ -5,16 +5,14 @@ import { useEffect, useRef, useState } from "react";
 
 const DirectorMessage = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [hasAnimated, setHasAnimated] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting && !hasAnimated) {
+                if (entry.isIntersecting) {
                     setIsVisible(true);
-                    setHasAnimated(true);
-                } else if (!entry.isIntersecting && hasAnimated) {
+                } else {
                     setIsVisible(false);
                 }
             },
@@ -33,7 +31,7 @@ const DirectorMessage = () => {
                 observer.unobserve(sectionRef.current);
             }
         };
-    }, [hasAnimated]);
+    }, []);
 
     return (
         <section 

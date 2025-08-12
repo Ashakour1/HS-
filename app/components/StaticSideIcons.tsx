@@ -32,15 +32,15 @@ const StaticSideIcons = () => {
         <span className="text-xs font-bold">Packages</span>
       </Link>
 
-      {/* Waze */}
+      {/* WhatsApp */}
       <Link
-        href="https://www.waze.com/"
+        href="https://wa.me/616590032"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-[100px] h-[100px] bg-[#00A651] hover:bg-[#00A651] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
+        className="w-[100px] h-[100px] bg-[#00A651] hover:bg-[#0E74FC] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
       >
         <FaWhatsapp className="w-8 h-8 mb-1" />
-        <span className="text-xs font-bold">Whatsapp</span>
+        <span className="text-xs font-bold">WhatsApp</span>
       </Link>
     </div>
   );
