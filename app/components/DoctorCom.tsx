@@ -1,10 +1,19 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { DoctorCard } from "./DoctorCard";
 import { doctors } from "@/data/doctors";
 
 export function DoctorsSection() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
+    <motion.section 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="w-full py-12 md:py-24 lg:py-32 bg-white"
+    >
       <div className="container mx-auto  px-4 md:px-6">
         <div className="flex flex-col items-start gap-4 mb-8 md:flex-row md:items-end md:justify-between">
           <div className="space-y-2">
@@ -35,6 +44,6 @@ export function DoctorsSection() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
