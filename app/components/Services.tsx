@@ -82,10 +82,10 @@ export default function HealthcareServices() {
                   {/* Display first line of description */}
                   <Link
                     href={`/centers/${department.href}`}
-                    className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors duration-200"
+                    className="w-10 h-10 rounded-full bg-[#00A651] flex items-center justify-center text-white hover:bg-blue-700 transition-colors duration-200"
                     aria-label={`Learn more about ${department.name}`}
                   >
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-5 h-5 " />
                   </Link>
                 </CardContent>
               </Card>

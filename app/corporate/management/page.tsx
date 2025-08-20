@@ -22,60 +22,60 @@ export default function HospitalManagementPage() {
       name: "Dr. Muna Ahmed",
       role: "Medical Director",
       responsibilities:
-        "Oversight of all medical staff, clinical quality, and patient safety initiatives",
+        "Provides clinical leadership, sets strategic direction, ensures high patient care standards, oversees ethics, governance, and policy compliance.",
       image: "/dr.jpg",
     },
     {
       name: "Abukar Ahmed",
       role: "Hospital Administrator",
       responsibilities:
-        "Management of surgical departments and operating rooms",
+        "Manages hospital operations, resources, compliance, and service quality through planning, staff management, and coordination.",
       image: "/image-men.jpg",
     },
     {
       name: "Ubax",
       role: "Head Of Nursing",
       responsibilities:
-        "Management of surgical departments and operating rooms",
+        "Leads nursing staff, ensuring patient safety, staffing, professional growth, and adherence to best nursing practices.",
       image: "/image-women.png",
     },
     {
       name: "Saido",
-      role: "Head of Maternity",
+      role: "Head of Maternity Services",
       responsibilities:
-        "Supervision of maternity ward and maternal care services",
+        "Supervises maternal and neonatal care, coordinating prenatal, delivery, and postnatal services with medical teams.",
       image: "/image-women.png",
     },
     {
       name: "Ahmed",
       role: "Head of Pharmacy",
       responsibilities:
-        "Management of pharmacy operations and medication supply",
+        "Directs medication procurement, storage, dispensing, and safe use while supporting treatment protocols.",
       image: "/image-men.jpg",
     },
     {
       name: "Shukri",
       role: "Head of Laboratory",
-      responsibilities: "Oversight of laboratory services and diagnostics",
+      responsibilities: "Oversees diagnostics, ensuring accurate results, quality control, equipment management, and regulatory compliance.",
       image: "/image-women.png",
     },
     {
       name: "Isna",
       role: "Head of Emergency",
-      responsibilities: "Coordination of emergency department and acute care",
+      responsibilities: "Leads emergency and trauma services, ensuring readiness, triage efficiency, and integration with ICU and surgical teams.",
       image: "/image-women.png",
     },
     {
       name: "Abas",
       role: "Operation Theatre Manager",
       responsibilities:
-        "Management of operation theatre and surgical schedules",
+        "Manages surgical suites, equipment, and staff, ensuring safe, sterile, and efficient surgical procedures.",
       image: "/image-men.jpg",
     },
     {
       name: "Mahdi",
       role: "Head of Logistics",
-      responsibilities: "Supervision of hospital logistics and supply chain",
+      responsibilities: "Manages procurement, inventory, and supply chain to ensure timely, cost-effective, and quality resource availability",
       image: "/image-men.jpg",
     },
     {
@@ -87,7 +87,7 @@ export default function HospitalManagementPage() {
     {
       name: "Naimo",
       role: "Head of Finance",
-      responsibilities: "Oversight of financial operations and budgeting",
+      responsibilities: "Oversees budgeting, accounting, reporting, and financial planning to ensure transparency, compliance, and sustainability.",
       image: "/image-women.png",
     },
   ];

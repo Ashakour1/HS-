@@ -20,6 +20,11 @@ import {
   Ambulance,
   HeartPulse,
   ArrowRight,
+  Star,
+  Calendar,
+  CheckCircle,
+  Award,
+  Shield,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
@@ -90,6 +95,75 @@ const Services = () => {
     "Emergency Surgery",
     "Critical Care Unit",
     "Helicopter Transport",
+  ];
+  const testimonials = [
+    {
+      name: "Ahmed Hassan",
+      role: "Patient",
+      content: "The cardiology department saved my life. The doctors were incredibly skilled and caring throughout my treatment.",
+      rating: 5,
+      department: "Cardiology"
+    },
+    {
+      name: "Fatima Ali",
+      role: "Patient",
+      content: "Excellent care in the pediatric department. My child received the best treatment possible.",
+      rating: 5,
+      department: "Pediatrics"
+    },
+    {
+      name: "Omar Mohamed",
+      role: "Patient",
+      content: "The neurology team provided exceptional care. Professional, compassionate, and highly skilled.",
+      rating: 5,
+      department: "Neurology"
+    }
+  ];
+
+  const medicalSpecialties = [
+    {
+      title: "Minimally Invasive Surgery",
+      description: "Advanced surgical techniques for faster recovery and less pain",
+      icon: Stethoscope,
+      color: "bg-blue-500"
+    },
+    {
+      title: "Interventional Radiology",
+      description: "Image-guided procedures for precise diagnosis and treatment",
+      icon: Brain,
+      color: "bg-purple-500"
+    },
+    {
+      title: "Genetic Medicine",
+      description: "Personalized treatment based on genetic profiling",
+      icon: FlaskConical,
+      color: "bg-green-500"
+    },
+    {
+      title: "Regenerative Medicine",
+      description: "Cutting-edge therapies for tissue repair and regeneration",
+      icon: Heart,
+      color: "bg-red-500"
+    }
+  ];
+
+  const healthTips = [
+    {
+      tip: "Regular check-ups can prevent 80% of health issues",
+      category: "Prevention"
+    },
+    {
+      tip: "Stay hydrated - drink 8 glasses of water daily",
+      category: "Wellness"
+    },
+    {
+      tip: "Exercise 30 minutes daily for optimal health",
+      category: "Fitness"
+    },
+    {
+      tip: "Get 7-8 hours of quality sleep each night",
+      category: "Sleep"
+    }
   ];
   const cardVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
@@ -248,8 +322,106 @@ const Services = () => {
           </div>
         </div> */}
 
+        {/* Medical Specialties Showcase */}
+        <section className="py-16 md:py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={headerVariants}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+                Advanced Medical Specialties
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                We offer cutting-edge medical specialties that combine innovation with compassionate care
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {medicalSpecialties.map((specialty, index) => (
+                <motion.div
+                  key={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={cardVariants}
+                >
+                  <Card className="text-center p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 h-full">
+                    <div className={`w-16 h-16 mx-auto mb-4 rounded-full ${specialty.color} flex items-center justify-center text-white`}>
+                      <specialty.icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">
+                      {specialty.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      {specialty.description}
+                    </p>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Patient Testimonials */}
+        <section className="py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={headerVariants}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+                What Our Patients Say
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Real stories from patients who have experienced exceptional care in our departments
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={cardVariants}
+                >
+                  <Card className="p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 h-full">
+                    <div className="flex items-center mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 mb-4 italic">
+                      "{testimonial.content}"
+                    </p>
+                    <div className="border-t pt-4">
+                      <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600">{testimonial.role}</p>
+                      <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-2">
+                        {testimonial.department}
+                      </span>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Appointment Booking Section */}
+      
+
         {/* Quality & Accreditation */}
-        <section className=" py-16 md:py-24">
+    
+
+        {/* Get In Touch Section */}
+        <section className="py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-center text-3xl md:text-4xl font-extrabold mb-12 text-gray-900">
               Get In Touch
