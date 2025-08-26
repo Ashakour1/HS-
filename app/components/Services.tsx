@@ -35,21 +35,21 @@ export default function HealthcareServices() {
   const departmentList = Object.values(departments);
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-[#16204F]">
+      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <motion.p
-            className="text-sm font-semibold text-gray-500 uppercase mb-2"
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.span
+            className="inline-block px-4 py-2 bg-gradient-primary text-white text-sm font-medium rounded-full mb-4"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             variants={headerVariants}
           >
-            HEALTH SOLUTIONS
-          </motion.p>
+            HEALTH SERVICES
+          </motion.span>
           <motion.h2
-            className="text-4xl font-bold mb-4 text-gray-900"
+            className="text-4xl md:text-5xl font-bold mb-6 text-white text-heading"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -57,47 +57,70 @@ export default function HealthcareServices() {
           >
             Healthcare services for your well-being
           </motion.h2>
+          <motion.p
+            className="text-lg text-white/90 max-w-2xl mx-auto text-body"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={headerVariants}
+          >
+            Comprehensive medical care across multiple specialties, delivered with expertise and compassion
+          </motion.p>
         </div>
+        
         {/* Department Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {departmentList.slice(0, 6).map((department, index: number) => (
-            <motion.div
-              key={department.id}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={cardVariants}
-            >
-              <Card className="text-left shadow-sm rounded-xl border border-gray-200 hover:shadow-md transition-shadow duration-200">
-                <CardContent className="p-6 flex flex-col items-start">
-                  <div className="w-12 h-12 mb-4 bg-blue-600 rounded-full flex items-center justify-center">
-                    <department.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2 text-lg">
-                    {department.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {department.description.split("\n")[0]}...
-                  </p>{" "}
-                  {/* Display first line of description */}
-                  <Link
-                    href={`/centers/${department.href}`}
-                    className="w-10 h-10 rounded-full bg-[#00A651] flex items-center justify-center text-white hover:bg-blue-700 transition-colors duration-200"
-                    aria-label={`Learn more about ${department.name}`}
-                  >
-                    <ArrowRight className="w-5 h-5 " />
-                  </Link>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {departmentList.slice(0, 6).map((department, index: number) => {
+            // Use only the two specified colors alternating
+            const iconColors = [
+              "bg-[#16204F]", // First color
+              "bg-[#043A17]", // Second color
+              "bg-[#16204F]", // First color
+              "bg-[#043A17]", // Second color
+              "bg-[#16204F]", // First color
+              "bg-[#043A17]", // Second color
+            ];
+
+            return (
+              <motion.div
+                key={department.id}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={cardVariants}
+                className="h-full"
+              >
+                <Card className="bg-transparent text-left shadow-lg rounded-2xl border border-slate-700 hover:shadow-2xl hover:-translate-y-2 hover:border-accent transition-all duration-300 h-full group">
+                  <CardContent className="p-6 flex flex-col items-start h-full">
+                    <div className={`w-14 h-14 mb-4 ${iconColors[index]} rounded-2xl flex items-center justify-center transition-all duration-300`}>
+                      <department.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-white mb-3 text-lg group-hover:text-accent transition-colors duration-300 text-heading">
+                      {department.name}
+                    </h3>
+                    <p className="text-gray-300 mb-4 flex-grow leading-relaxed text-sm text-body">
+                      {department.description.split("\n")[0]}...
+                    </p>
+                    <Link
+                      href={`/centers/${department.href}`}
+                      className="inline-flex items-center gap-2 text-accent hover:text-accent-green font-medium transition-colors duration-300 mt-auto group-hover:underline"
+                      aria-label={`Learn more about ${department.name}`}
+                    >
+                      Learn more
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* View All Departments Link */}
         <div className="mt-20 text-center">
           <Link
             href="/departments"
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white font-semibold transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             View All Departments
             <ArrowRight className="w-4 h-4" />

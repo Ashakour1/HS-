@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,55 +15,110 @@ import {
   Calendar,
   ArrowRight,
   CheckCircle,
+  Loader2,
 } from "lucide-react";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
 
+interface Doctor {
+  id: string;
+  fullname: string;
+  specialist: string;
+  experience: number;
+  availability?: string[];
+}
+
 export default function AppointmentPage() {
-  const [name, setName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [doctor, setDoctor] = useState("");
+  const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [message, setMessage] = useState("");
+  const [reason, setReason] = useState("");
+  const [doctorId, setDoctorId] = useState("");
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Fetch doctors from API
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch("https://cms-hospitalunisoso-production-3ec8.up.railway.app/api/doctors");
+        if (response.ok) {
+          const data = await response.json();
+          setDoctors(data);
+        }
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    // Enhanced WhatsApp message formatting: more engaging, clear, and user-friendly
-    const text = [
-      "*🩺 Hospital Uniso Appointment Request*",
-      "",
-      "----------------------------------",
-      `👤 *Name:* ${name}`,
-      `✉️ *Email:* ${email}`,
-      `📋 *Subject:* ${subject}`,
-      `👨‍⚕️ *Doctor:* ${doctor}`,
-      `📅 *Date:* ${date}`,
-      `⏰ *Time:* ${time}`,
-      `📝 *Additional Info:* ${message}`,
-      "----------------------------------",
-      "",
-      "✅ *Please confirm your appointment details above.*",
-      "",
-      "Thank you for choosing Hospital Uniso!",
-      "We look forward to serving you. 💚",
-    ].join("\n");
+    try {
+      const appointmentData = {
+        fullname,
+        email,
+        phone,
+        date: new Date(date).toISOString(),
+        time,
+        reason,
+        doctorId,
+      };
 
-    const phone = "252618332419";
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank");
+      const response = await fetch("https://cms-hospitalunisoso-production-3ec8.up.railway.app/api/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(appointmentData),
+      });
 
-    // Reset form fields after submission
-    setName("");
+      if (response.ok) {
+        // Success - show success message and reset form
+        alert("Appointment request submitted successfully! We will contact you soon.");
+        resetForm();
+      } else {
+        // Error handling
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message || "Failed to submit appointment"}`);
+      }
+    } catch (error) {
+      console.error("Error submitting appointment:", error);
+      alert("Failed to submit appointment. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const resetForm = () => {
+    setFullname("");
     setEmail("");
-    setSubject("");
-    setDoctor("");
+    setPhone("");
     setDate("");
     setTime("");
-    setMessage("");
+    setReason("");
+    setDoctorId("");
+    setSelectedDoctor(null);
+  };
 
+  const handleDoctorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = e.target.value;
+    setDoctorId(selectedId);
+    
+    if (selectedId) {
+      const doctor = doctors.find(d => d.id === selectedId);
+      setSelectedDoctor(doctor || null);
+    } else {
+      setSelectedDoctor(null);
+    }
   };
 
   return (
@@ -112,16 +167,16 @@ export default function AppointmentPage() {
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-2">
                           <Label
-                            htmlFor="name"
+                            htmlFor="fullname"
                             className="text-gray-700 font-medium"
                           >
                             Full Name
                           </Label>
                           <Input
-                            id="name"
+                            id="fullname"
                             placeholder="Enter your full name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={fullname}
+                            onChange={(e) => setFullname(e.target.value)}
                             className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
                             required
                           />
@@ -146,45 +201,73 @@ export default function AppointmentPage() {
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="subject"
-                          className="text-gray-700 font-medium"
-                        >
-                          Subject
-                        </Label>
-                        <Input
-                          id="subject"
-                          placeholder="Reason for appointment"
-                          value={subject}
-                          onChange={(e) => setSubject(e.target.value)}
-                          className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
-                          required
-                        />
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="phone"
+                            className="text-gray-700 font-medium"
+                          >
+                            Phone Number
+                          </Label>
+                          <Input
+                            id="phone"
+                            type="tel"
+                            placeholder="Enter your phone number"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            className="rounded-lg border-gray-200 h-12 focus-visible:ring-[#00A651] focus-visible:border-[#00A651]"
+                            required
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="doctorId"
+                            className="text-gray-700 font-medium"
+                          >
+                            Select Doctor
+                          </Label>
+                          <select
+                            id="doctorId"
+                            className="w-full rounded-lg pl-2 border border-gray-200 h-12 focus:ring-[#00A651] focus:border-[#00A651]"
+                            value={doctorId}
+                            onChange={handleDoctorChange}
+                            required
+                          >
+                            <option value="" disabled>
+                              {isLoading ? "Loading doctors..." : "Select a doctor"}
+                            </option>
+                            {doctors.map((doctor) => (
+                              <option key={doctor.id} value={doctor.id}>
+                                Dr. {doctor.fullname} - {doctor.specialist}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label
-                          htmlFor="doctor"
-                          className="text-gray-700 font-medium"
-                        >
-                          Select Doctor
-                        </Label>
-                        <select
-                          id="doctor"
-                          className="w-full rounded-lg pl-2 border border-gray-200 h-12 focus:ring-[#00A651] focus:border-[#00A651]"
-                          value={doctor}
-                          onChange={(e) => setDoctor(e.target.value)}
-                          required
-                        >
-                          <option value="" disabled>
-                            Select a doctor
-                          </option>
-                          <option>Dr. Amiin</option>
-                          <option>Dr. Muna</option>
-                          <option>Dr. Hussein</option>
-                        </select>
-                      </div>
+                      {/* Doctor Availability Display */}
+                      {selectedDoctor && (
+                        <div className="space-y-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                          <h4 className="font-semibold text-blue-900 flex items-center gap-2">
+                            <Calendar className="w-5 h-5" />
+                            Dr. {selectedDoctor.fullname}'s Availability
+                          </h4>
+                          {selectedDoctor.availability && selectedDoctor.availability.length > 0 ? (
+                            <div className="flex flex-wrap gap-2">
+                              {selectedDoctor.availability.map((schedule, index) => (
+                                <div key={index} className="text-sm bg-white px-3 py-2 rounded border flex-shrink-0">
+                                  <span className="text-blue-800">{schedule}</span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-blue-700 text-sm italic">
+                              Availability information not available for this doctor.
+                            </p>
+                          )}
+                        </div>
+                      )}
 
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-2">
@@ -224,16 +307,16 @@ export default function AppointmentPage() {
 
                       <div className="space-y-2">
                         <Label
-                          htmlFor="message"
+                          htmlFor="reason"
                           className="text-gray-700 font-medium"
                         >
-                          Additional Information
+                          Reason for Appointment
                         </Label>
                         <Textarea
-                          id="message"
-                          placeholder="Please provide any additional details about your appointment request"
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
+                          id="reason"
+                          placeholder="Please describe the reason for your appointment"
+                          value={reason}
+                          onChange={(e) => setReason(e.target.value)}
                           className="rounded-lg border-gray-200 focus-visible:ring-[#00A651] focus-visible:border-[#00A651] min-h-[120px]"
                           required
                         />
@@ -241,10 +324,20 @@ export default function AppointmentPage() {
 
                       <Button
                         type="submit"
-                        className="w-full bg-[#00A651] hover:bg-[#008c44] text-white py-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg group"
+                        disabled={isSubmitting}
+                        className="w-full bg-[#00A651] hover:bg-[#008c44] text-white py-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg group disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <span>Send via WhatsApp</span>
-                        <ArrowRight className="ml-2 h-5 w-5 inline-block transition-transform group-hover:translate-x-1" />
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          <>
+                            <span>Submit Appointment Request</span>
+                            <ArrowRight className="ml-2 h-5 w-5 inline-block transition-transform group-hover:translate-x-1" />
+                          </>
+                        )}
                       </Button>
                     </form>
                   </CardContent>

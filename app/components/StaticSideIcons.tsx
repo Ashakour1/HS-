@@ -8,7 +8,7 @@ const StaticSideIcons = () => {
       {/* Make an Appointment */}
       <Link
         href="/appointment"
-        className="w-[100px] h-[100px] bg-[#0E74FC] hover:bg-[#00A651] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
+        className="w-[100px] h-[100px] bg-[#0902AF] hover:bg-[#0DA93E] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
       >
         <Calendar className="w-8 h-8 mb-1" />
         <span className="text-xs font-bold">Make an Appointment</span>
@@ -17,7 +17,7 @@ const StaticSideIcons = () => {
       {/* Find a Doctor */}
       <Link
         href="/doctors"
-        className="w-[100px] h-[100px] bg-[#0E74FC] hover:bg-[#00A651] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
+        className="w-[100px] h-[100px] bg-[#0902AF] hover:bg-[#0DA93E] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
       >
         <User2 className="w-8 h-8 mb-1" />
         <span className="text-xs font-bold">Find a Doctor</span>
@@ -26,7 +26,7 @@ const StaticSideIcons = () => {
       {/* Packages */}
       <Link
         href="/packages"
-        className="w-[100px] h-[100px] bg-[#0E74FC] hover:bg-[#00A651] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
+        className="w-[100px] h-[100px] bg-[#0902AF] hover:bg-[#0DA93E] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
       >
         <Package className="w-8 h-8 mb-1" />
         <span className="text-xs font-bold">Packages</span>
@@ -37,7 +37,7 @@ const StaticSideIcons = () => {
         href="https://wa.me/616590032"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-[100px] h-[100px] bg-[#00A651] hover:bg-[#0E74FC] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
+        className="w-[100px] h-[100px] bg-[#0DA93E] hover:bg-[#0902AF] transition-colors flex flex-col items-center justify-center text-white text-center p-2"
       >
         <FaWhatsapp className="w-8 h-8 mb-1" />
         <span className="text-xs font-bold">WhatsApp</span>

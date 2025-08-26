@@ -31,7 +31,7 @@ export default function DoctorProfilePage() {
         <div className="lg:w-2/3 space-y-8">
           <div>
             <h2 className="text-3xl font-bold text-slate-800">{member.name}</h2>
-            <p className="text-blue-600">{member.role}</p>
+            <p className="text-[#0902AF]">{member.role}</p>
           </div>
 
           <div className="space-y-2">
@@ -47,16 +47,16 @@ export default function DoctorProfilePage() {
             </div>
             <div className="flex gap-3">
               <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <Facebook className="w-5 h-5 text-blue-600" />
+                <Facebook className="w-5 h-5 text-[#0902AF]" />
               </button>
               <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <WhatsApp className="w-5 h-5 text-green-600" />
+                <WhatsApp className="w-5 h-5 text-[#0DA93E]" />
               </button>
               <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <Twitter className="w-5 h-5 text-blue-400" />
+                <Twitter className="w-5 h-5 text-[#0902AF]" />
               </button>
               <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <Linkedin className="w-5 h-5 text-blue-700" />
+                <Linkedin className="w-5 h-5 text-[#0902AF]" />
               </button>
             </div>
           </div>
@@ -67,16 +67,16 @@ export default function DoctorProfilePage() {
             <h3 className="text-lg font-semibold text-slate-800 mb-4">Contact Information</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-blue-600" />
+                <Phone className="w-5 h-5 text-[#0902AF]" />
                 <span className="text-slate-700">{member.phone}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-blue-600" />
+                <Mail className="w-5 h-5 text-[#0902AF]" />
                 <span className="text-slate-700">{member.email}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Download className="w-5 h-5 text-blue-600" />
-                <a href="#" className="text-blue-600 hover:underline">Click Here to Download</a>
+                <Download className="w-5 h-5 text-[#0902AF]" />
+                <a href="#" className="text-[#0902AF] hover:underline">Click Here to Download</a>
               </div>
             </div>
           </div>
@@ -95,8 +95,8 @@ export default function DoctorProfilePage() {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="bg-blue-500 text-white py-3 px-4 text-left">Day</th>
-                  <th className="bg-blue-500 text-white py-3 px-4 text-left">Time</th>
+                  <th className="bg-[#0902AF] text-white py-3 px-4 text-left">Day</th>
+                  <th className="bg-[#0902AF] text-white py-3 px-4 text-left">Time</th>
                 </tr>
               </thead>
               <tbody>

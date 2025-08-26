@@ -77,6 +77,7 @@ const Header = () => {
     },
     { name: "Appointment", href: "/appointment" },
     { name: "Doctors", href: "/doctors" },
+    { name: "News", href: "/news" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -88,7 +89,7 @@ const Header = () => {
           scrolled ? "bg-white/95 backdrop-blur-sm shadow-lg" : "bg-white"
         }`}
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 md:px-8 py-4 max-w-6xl">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
@@ -109,7 +110,7 @@ const Header = () => {
                       <>
                         <button
                           onClick={() => toggleDropdown(item.name)}
-                          className="flex items-center text-base font-medium text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600 focus:outline-none"
+                          className="flex items-center text-base font-medium text-heading transition-all duration-300 ease-in-out hover:text-accent focus:outline-none"
                           aria-expanded={activeDropdown === item.name}
                           aria-haspopup="true"
                         >
@@ -120,10 +121,10 @@ const Header = () => {
                             }`}
                           />
                         </button>
-                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full"></span>
                         {/* Enhanced Dropdown Menu */}
                         {activeDropdown === item.name && (
-                          <div className="absolute left-0 top-full mt-3 w-[600px] rounded-xl bg-white py-4 shadow-2xl ring-1 ring-gray-200/50 border border-gray-100">
+                          <div className="absolute left-0 top-full mt-3 w-[600px] rounded-xl bg-white py-4 shadow-2xl ring-1 ring-slate-200/50 border border-slate-100">
                             <div className="px-4">
                               {item.name === "Our Centers" ? (
                                 <div className="grid grid-cols-2 gap-3">
@@ -133,18 +134,18 @@ const Header = () => {
                                       <Link
                                         key={subItem.name}
                                         href={subItem.href}
-                                        className="group/item flex items-start gap-3 px-3 py-2 text-sm text-gray-700 transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 rounded-lg hover:shadow-sm"
+                                        className="group/item flex items-start gap-3 px-3 py-2 text-sm text-body transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-accent/5 hover:to-accent/5 hover:text-accent rounded-lg hover:shadow-sm"
                                         onClick={() => setActiveDropdown(null)}
                                       >
                                         <div className="flex-shrink-0 mt-0.5">
-                                          <IconComponent className="h-4 w-4 text-sky-600 group-hover/item:text-sky-700 transition-colors duration-200" />
+                                          <IconComponent className="h-4 w-4 text-accent group-hover/item:text-accent transition-colors duration-200" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                          <div className="font-medium text-gray-900 group-hover/item:text-sky-700 transition-colors duration-200 text-xs">
+                                          <div className="font-medium text-heading group-hover/item:text-accent transition-colors duration-200 text-xs">
                                             {subItem.name}
                                           </div>
                                           {subItem.description && (
-                                            <div className="text-xs text-gray-500 group-hover/item:text-gray-600 mt-0.5 leading-relaxed">
+                                            <div className="text-xs text-muted-foreground group-hover/item:text-body mt-0.5 leading-relaxed">
                                               {subItem.description}
                                             </div>
                                           )}
@@ -161,18 +162,18 @@ const Header = () => {
                                       <Link
                                         key={subItem.name}
                                         href={subItem.href}
-                                        className="group/item flex items-start gap-3 px-4 py-3 text-sm text-gray-700 transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 rounded-lg hover:shadow-sm"
+                                        className="group/item flex items-start gap-3 px-4 py-3 text-sm text-body transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-accent/5 hover:to-accent/5 hover:text-accent rounded-lg hover:shadow-sm"
                                         onClick={() => setActiveDropdown(null)}
                                       >
                                         <div className="flex-shrink-0 mt-0.5">
-                                          <IconComponent className="h-5 w-5 text-sky-600 group-hover/item:text-sky-700 transition-colors duration-200" />
+                                          <IconComponent className="h-5 w-5 text-accent group-hover/item:text-accent transition-colors duration-200" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                          <div className="font-medium text-gray-900 group-hover/item:text-sky-700 transition-colors duration-200">
+                                          <div className="font-medium text-heading group-hover/item:text-accent transition-colors duration-200">
                                             {subItem.name}
                                           </div>
                                           {subItem.description && (
-                                            <div className="text-xs text-gray-500 group-hover/item:text-gray-600 mt-0.5 leading-relaxed">
+                                            <div className="text-xs text-muted-foreground group-hover/item:text-body mt-0.5 leading-relaxed">
                                               {subItem.description}
                                             </div>
                                           )}
@@ -190,11 +191,11 @@ const Header = () => {
                       <>
                         <Link
                           href={item.href}
-                          className="text-base font-medium text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600"
+                          className="text-base font-medium text-heading transition-all duration-300 ease-in-out hover:text-accent"
                         >
                           {item.name}
                         </Link>
-                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full"></span>
                       </>
                     )}
                   </li>
@@ -205,7 +206,7 @@ const Header = () => {
             <div className="hidden lg:flex items-center space-x-4">
               <Button
                 onClick={() => (window.location.href = "/appointment")}
-                className="flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
+                className="flex items-center space-x-2 bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all duration-300 font-semibold transform hover:scale-105"
               >
                 <Calendar width={20} />
                 Book Appointment
@@ -215,7 +216,7 @@ const Header = () => {
             <div className="flex items-center gap-4 lg:hidden">
               <Button
                 onClick={() => (window.location.href = "/appointment")}
-                className="group relative flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
+                className="group relative flex items-center space-x-2 bg-gradient-primary text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all duration-300 font-semibold transform hover:scale-105"
                 asChild
               >
                 <Link href="/appointment">
@@ -223,12 +224,11 @@ const Header = () => {
                     <Calendar className="mr-1 h-4 w-4" />
                     Book Appointment
                   </span>
-                  <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
                 </Link>
               </Button>
               <button
                 onClick={toggleMenu}
-                className="rounded-full bg-gray-100 p-2 text-gray-700 transition-colors duration-300 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                className="rounded-full bg-slate-100 p-2 text-slate-700 transition-colors duration-300 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
                 aria-label="Toggle menu"
               >
                 {isMenuOpen ? (
@@ -245,17 +245,17 @@ const Header = () => {
               isMenuOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            <nav className="rounded-xl bg-white p-4 shadow-xl border border-gray-100">
+            <nav className="rounded-xl bg-white p-4 shadow-xl border border-slate-100">
               {navItems.map((item) => (
                 <div
                   key={item.name}
-                  className="border-b border-gray-100 last:border-0"
+                  className="border-b border-slate-100 last:border-0"
                 >
                   {item.dropdown ? (
                     <>
                       <button
                         onClick={() => toggleDropdown(item.name)}
-                        className="flex w-full items-center justify-between py-3 text-lg font-medium text-gray-800 transition-colors duration-300 hover:text-sky-600 focus:outline-none"
+                        className="flex w-full items-center justify-between py-3 text-lg font-medium text-heading transition-colors duration-300 hover:text-accent focus:outline-none"
                         aria-expanded={activeDropdown === item.name}
                       >
                         {item.name}
@@ -273,23 +273,23 @@ const Header = () => {
                             : "max-h-0 opacity-0"
                         }`}
                       >
-                        <div className="ml-4 space-y-2 border-l-2 border-sky-100 pl-4 pb-3">
+                        <div className="ml-4 space-y-2 border-l-2 border-accent/20 pl-4 pb-3">
                           {item.items?.map((subItem) => {
                             const IconComponent = subItem.icon;
                             return (
                               <Link
                                 key={subItem.name}
                                 href={subItem.href}
-                                className="group/item flex items-start gap-3 py-3 px-3 text-base text-gray-700 transition-all duration-300 ease-in-out hover:text-sky-600 rounded-lg hover:bg-sky-50"
+                                className="group/item flex items-start gap-3 py-3 px-3 text-base text-body transition-all duration-300 ease-in-out hover:text-accent rounded-lg hover:bg-accent/5"
                                 onClick={() => setIsMenuOpen(false)}
                               >
-                                <IconComponent className="h-5 w-5 text-sky-600 flex-shrink-0 mt-0.5" />
+                                <IconComponent className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                                 <div className="flex-1 min-w-0">
-                                  <div className="font-medium text-gray-900 group-hover/item:text-sky-700">
+                                  <div className="font-medium text-heading group-hover/item:text-accent">
                                     {subItem.name}
                                   </div>
                                   {subItem.description && (
-                                    <div className="text-sm text-gray-500 mt-1 leading-relaxed">
+                                    <div className="text-sm text-muted-foreground mt-1 leading-relaxed">
                                       {subItem.description}
                                     </div>
                                   )}
@@ -303,7 +303,7 @@ const Header = () => {
                   ) : (
                     <Link
                       href={item.href}
-                      className="flex items-center py-3 text-lg font-medium text-gray-800 transition-all duration-300 ease-in-out hover:text-sky-600"
+                      className="flex items-center py-3 text-lg font-medium text-heading transition-all duration-300 ease-in-out hover:text-accent"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
@@ -314,13 +314,12 @@ const Header = () => {
               <div className="mt-4 pt-2">
                 <Button
                   onClick={() => (window.location.href = "/appointment")}
-                  className="w-full group relative flex items-center space-x-2 bg-[#2521a0] text-white px-4 py-5 rounded hover:bg-[#36a058] transition-colors font-semibold  duration-700"
+                  className="w-full bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all duration-300 font-semibold transform hover:scale-105"
                 >
-                  <span className="relative z-10 flex items-center justify-center">
+                  <span className="flex items-center justify-center">
                     <Calendar className="mr-2 h-5 w-5" />
                     Book Appointment
                   </span>
-                  <span className="absolute inset-0 h-full w-full bg-gradient-to-r from-sky-600 to-sky-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
                 </Button>
               </div>
             </nav>

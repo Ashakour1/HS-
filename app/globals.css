@@ -2,11 +2,33 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Custom Brand Colors - Improved Color Scheme */
+:root {
+  --brand-blue: #0902AF;
+  --brand-blue-light: #1a1bff;
+  --brand-blue-dark: #07018a;
+  --brand-green: #0DA93E;
+  --brand-green-light: #1dbd4f;
+  --brand-green-dark: #0a8a32;
+  --accent-orange: #ff6b35;
+  --accent-orange-light: #ff8a5c;
+  --accent-orange-dark: #e55a2b;
+  --neutral-gray: #6b7280;
+  --neutral-gray-light: #9ca3af;
+  --neutral-gray-dark: #374151;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --background-light: #f9fafb;
+  --background-white: #ffffff;
+  --border-light: #e5e7eb;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
+  --font-mono: var(--font-poppins);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -44,71 +66,71 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: var(--background-white);
+  --foreground: var(--text-primary);
+  --card: var(--background-white);
+  --card-foreground: var(--text-primary);
+  --popover: var(--background-white);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--brand-blue);
+  --primary-foreground: var(--background-white);
+  --secondary: var(--background-light);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--background-light);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--brand-green);
+  --accent-foreground: var(--background-white);
+  --destructive: #ef4444;
+  --border: var(--border-light);
+  --input: var(--border-light);
+  --ring: var(--brand-blue);
+  --chart-1: var(--brand-blue);
+  --chart-2: var(--brand-green);
+  --chart-3: var(--accent-orange);
+  --chart-4: var(--neutral-gray);
+  --chart-5: var(--brand-blue-light);
+  --sidebar: var(--background-white);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--brand-blue);
+  --sidebar-primary-foreground: var(--background-white);
+  --sidebar-accent: var(--background-light);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-light);
+  --sidebar-ring: var(--brand-blue);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: var(--brand-blue-light);
+  --primary-foreground: #f8fafc;
+  --secondary: #334155;
+  --secondary-foreground: #f8fafc;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: var(--brand-green-light);
+  --accent-foreground: #f8fafc;
+  --destructive: #f87171;
+  --border: #334155;
+  --input: #334155;
+  --ring: var(--brand-blue-light);
+  --chart-1: var(--brand-blue-light);
+  --chart-2: var(--brand-green-light);
+  --chart-3: var(--accent-orange-light);
+  --chart-4: #94a3b8;
+  --chart-5: var(--brand-blue);
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: var(--brand-blue-light);
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #334155;
+  --sidebar-ring: var(--brand-blue-light);
 }
 
 @layer base {
@@ -116,7 +138,76 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* Typography Scale */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  p {
+    font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  
+  .text-heading {
+    font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .text-body {
+    font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  
+  .text-accent {
+    color: var(--brand-blue);
+  }
+  
+  .text-accent-green {
+    color: var(--brand-green);
+  }
+  
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-light) 100%);
+  }
+  
+  .bg-gradient-secondary {
+    background: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-green-light) 100%);
+  }
+  
+  .bg-gradient-accent {
+    background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-light) 100%);
   }
 }
 
@@ -131,6 +222,28 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 /* Custom WhatsApp Button Animations */

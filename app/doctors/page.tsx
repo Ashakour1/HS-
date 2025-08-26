@@ -3,135 +3,132 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Award,
-  BookOpen,
-  Calendar,
-  ChevronRight,
-  Clock,
-  Heart,
-  Mail,
+  Search,
+  Filter,
   MapPin,
-  Phone,
   Star,
-  User,
+  Calendar,
+  Clock,
+  Award,
+  Languages,
+  X,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import Doctors from "../components/Doctors";
+import { useState, useEffect, useCallback } from "react";
+import { fetchDoctors, Doctor } from "@/lib/api";
 
-// Doctor data
-const doctors = [
-  {
-    id: 1,
-    name: "Prof.Dr. Mohamed Amiin",
-    specialty: "Director of Hospital & Surgeon",
-    image: "/dr2.jpg",
-    education: "MD, Harvard Medical School",
-    experience: "15+ years",
-    languages: ["English", "Arabic"],
-    bio: "Dr. Mohamed Amiin is a highly skilled surgeon with over 15 years of experience in general and specialized surgical procedures. As the Director of the Hospital, he oversees all medical operations while maintaining an active surgical practice.",
-    specializations: [
-      "General Surgery",
-      "Laparoscopic Surgery",
-      "Trauma Surgery",
-    ],
-    availability: [
-      { day: "Monday", hours: "9:00 AM - 1:00 PM" },
-      { day: "Wednesday", hours: "2:00 PM - 6:00 PM" },
-      { day: "Friday", hours: "10:00 AM - 3:00 PM" },
-    ],
-    ratings: 4.9,
-    reviewCount: 127,
-  },
-  {
-    id: 2,
-    name: "Dr. Muna Ahmed",
-    specialty: "Pediatrician",
-    image: "/dr.jpg",
-    education: "MD, Johns Hopkins University",
-    experience: "10+ years",
-    languages: ["English", "Somali", "Arabic"],
-    bio: "Dr. Muna Ahmed is a compassionate pediatrician dedicated to providing comprehensive care for children from infancy through adolescence. She specializes in developmental pediatrics and preventive care.",
-    specializations: [
-      "General Pediatrics",
-      "Developmental Pediatrics",
-      "Preventive Care",
-    ],
-    availability: [
-      { day: "Tuesday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Thursday", hours: "9:00 AM - 5:00 PM" },
-      { day: "Saturday", hours: "10:00 AM - 2:00 PM" },
-    ],
-    ratings: 4.8,
-    reviewCount: 98,
-  },
-  {
-    id: 3,
-    name: "Dr. Hussein Abshir",
-    specialty: "Oncologist",
-    image: "/dr1.jpg",
-    education: "MD, Stanford University",
-    experience: "12+ years",
-    languages: ["English", "Arabic"],
-    bio: "Dr. Hussein Abshir is a dedicated oncologist specializing in the diagnosis and treatment of various types of cancer. He is committed to providing personalized care and innovative treatment options for his patients.",
-    specializations: ["Medical Oncology", "Hematology", "Cancer Research"],
-    availability: [
-      { day: "Monday", hours: "1:00 PM - 6:00 PM" },
-      { day: "Wednesday", hours: "9:00 AM - 1:00 PM" },
-      { day: "Thursday", hours: "1:00 PM - 6:00 PM" },
-    ],
-    ratings: 4.7,
-    reviewCount: 112,
-  },
+const specialties = [
+  "All Specialties",
+  "General Surgery",
+  "Internal Medicine",
+  "Pediatrics",
+  "Cardiology",
+  "Orthopedics",
+  "Neurology",
+  "Dermatology",
+  "Oncology",
+  "Emergency Medicine",
 ];
-
-// Testimonials data
-const testimonials = [
-  {
-    id: 1,
-    text: "The doctors at this hospital are exceptional. Dr. Mohamed performed my surgery with incredible skill and care. The entire staff was supportive throughout my recovery process.",
-    author: "Sarah Johnson",
-    role: "Patient",
-  },
-  {
-    id: 2,
-    text: "Dr. Muna has been our family pediatrician for years. Her gentle approach and thorough care have made all the difference for my children. I couldn't recommend her more highly.",
-    author: "Ahmed Hassan",
-    role: "Parent",
-  },
-  {
-    id: 3,
-    text: "When I was diagnosed with cancer, Dr. Hussein guided me through every step of my treatment with compassion and expertise. His knowledge and dedication gave me hope during a difficult time.",
-    author: "Maria Garcia",
-    role: "Cancer Survivor",
-  },
-];
-
-// News data
 
 export default function DoctorsPage() {
-  const [selectedDoctor, setSelectedDoctor] = useState<
-    null | (typeof doctors)[0]
-  >(null);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState("All Specialties");
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const openDoctorDetails = (doctor: (typeof doctors)[0] | null) => {
-    setSelectedDoctor(doctor);
+  useEffect(() => {
+    const loadDoctors = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchDoctors();
+        setDoctors(data);
+        setFilteredDoctors(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch doctors');
+        console.error('Error loading doctors:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDoctors();
+  }, []);
+
+  // Debounced search function
+  const debouncedSearch = useCallback(
+    (() => {
+      let timeoutId: NodeJS.Timeout;
+      return (search: string, specialty: string) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          let filtered = [...doctors];
+
+          // Filter by specialty
+          if (specialty !== "All Specialties") {
+            filtered = filtered.filter(doctor => 
+              doctor.specialist.toLowerCase() === specialty.toLowerCase()
+            );
+          }
+
+          // Filter by search term
+          if (search.trim()) {
+            const searchLower = search.toLowerCase().trim();
+            filtered = filtered.filter(doctor =>
+              doctor.fullname.toLowerCase().includes(searchLower) ||
+              doctor.specialist.toLowerCase().includes(searchLower) ||
+              (doctor.bio && doctor.bio.toLowerCase().includes(searchLower))
+            );
+          }
+
+          setFilteredDoctors(filtered);
+        }, 300);
+      };
+    })(),
+    [doctors]
+  );
+
+  // Update search when search term or specialty changes
+  useEffect(() => {
+    debouncedSearch(searchTerm, selectedSpecialty);
+  }, [searchTerm, selectedSpecialty, debouncedSearch]);
+
+  // Clear search function
+  const clearSearch = () => {
+    setSearchTerm("");
+    setSelectedSpecialty("All Specialties");
   };
 
-  const closeDoctorDetails = () => {
-    setSelectedDoctor(null);
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#00A651] mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading doctors...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">Error: {error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-4 py-2 bg-[#00A651] text-white rounded hover:bg-[#008f45]"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -155,281 +152,205 @@ export default function DoctorsPage() {
         </div>
       </section>
 
-      {/* Doctors Grid */}
-      <Doctors />
-      {/* Testimonial Section */}
-      <section className="py-20 bg-[#00A651]/5">
+      {/* Search and Filter Section */}
+      <section className="py-12 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              What Our Patients Say
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Read testimonials from patients who have experienced our care
-              firsthand.
-            </p>
-          </div>
+          <div className="max-w-5xl mx-auto">
+            {/* Section Title */}
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Find Your Doctor</h2>
+              <p className="text-gray-600">Search by name, specialty, or browse our medical professionals</p>
+            </div>
 
-          <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-8 md:p-12">
-              <p className="text-xl md:text-2xl text-gray-700 italic mb-8 leading-relaxed">
-                {testimonials[activeTestimonial].text}
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-[#00A651] rounded-full flex items-center justify-center text-white">
-                  <User className="w-6 h-6" />
-                </div>
-                <div className="ml-4">
-                  <h4 className="font-bold text-gray-800">
-                    {testimonials[activeTestimonial].author}
-                  </h4>
-                  <p className="text-gray-600">
-                    {testimonials[activeTestimonial].role}
-                  </p>
-                </div>
+            {/* Search and Filter Controls */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              {/* Specialty Filter */}
+              <div className="relative w-full sm:w-64">
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <select
+                  className="w-full h-12 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-[#00A651] bg-white transition-all duration-200"
+                  value={selectedSpecialty}
+                  onChange={(e) => setSelectedSpecialty(e.target.value)}
+                >
+                  {specialties.map((specialty) => (
+                    <option key={specialty} value={specialty}>
+                      {specialty}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Search Input */}
+              <div className="relative w-full sm:w-64">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input
+                  type="text"
+                  placeholder="Search doctors..."
+                  className="w-full h-12 pl-10 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A651] focus:border-[#00A651] bg-white transition-all duration-200"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm("")}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </div>
-          </div>
 
-          <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  index === activeTestimonial
-                    ? "bg-[#00A651] w-6"
-                    : "bg-gray-300"
-                }`}
-                onClick={() => setActiveTestimonial(index)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* News Section */}
-
-      {/* Contact Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Contact Us
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              We are here to help. Reach out to us through any of these
-              channels.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Emergency",
-                content: "+1 234 567 890",
-                icon: Phone,
-                color: "bg-[#00A651]",
-                iconColor: "text-white",
-                textColor: "text-white",
-              },
-              {
-                title: "Location",
-                content: "123 Medical Center Dr",
-                icon: MapPin,
-                color: "bg-white",
-                iconColor: "text-[#00A651]",
-                textColor: "text-gray-800",
-              },
-              {
-                title: "Email",
-                content: "info@hospital.com",
-                icon: Mail,
-                color: "bg-white",
-                iconColor: "text-[#00A651]",
-                textColor: "text-gray-800",
-              },
-              {
-                title: "Working Hours",
-                content: "Mon-Fri: 9AM-5PM",
-                icon: Clock,
-                color: "bg-white",
-                iconColor: "text-[#00A651]",
-                textColor: "text-gray-800",
-              },
-            ].map((item, index) => (
-              <Card
-                key={index}
-                className={`text-center ${item.color} shadow-md hover:shadow-lg transition-shadow`}
-              >
-                <CardContent className="p-6">
-                  <div
-                    className={`w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center ${
-                      index === 0 ? "bg-white" : "bg-[#00A651]/10"
-                    }`}
-                  >
-                    <item.icon className={`w-7 h-7 ${item.iconColor}`} />
-                  </div>
-                  <h3 className={`font-bold text-lg mb-2 ${item.textColor}`}>
-                    {item.title}
-                  </h3>
-                  <p
-                    className={`${item.textColor} ${
-                      index === 0 ? "opacity-90" : "text-gray-600"
-                    }`}
-                  >
-                    {item.content}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Doctor Details Modal */}
-      <Dialog open={selectedDoctor !== null} onOpenChange={closeDoctorDetails}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden">
-          {selectedDoctor && (
-            <div className="flex flex-col md:flex-row">
-              {/* Doctor Image - Left Side */}
-              <div className="md:w-2/5 relative h-[300px] md:h-auto">
-                <Image
-                  src={
-                    selectedDoctor.image ||
-                    "/placeholder.svg?height=600&width=400"
-                  }
-                  alt={selectedDoctor.name}
-                  fill
-                  className="object-cover"
-                />
+            {/* Active Filters Display */}
+            {(searchTerm || selectedSpecialty !== "All Specialties") && (
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="text-sm text-gray-600">Active filters:</span>
+                  {selectedSpecialty !== "All Specialties" && (
+                    <Badge variant="secondary" className="bg-[#00A651]/10 text-[#00A651] border-[#00A651]/20">
+                      {selectedSpecialty}
+                      <button
+                        onClick={() => setSelectedSpecialty("All Specialties")}
+                        className="ml-2 hover:text-[#00A651] transition-colors"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  )}
+                  {searchTerm && (
+                    <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-blue-200">
+                      "{searchTerm}"
+                      <button
+                        onClick={() => setSearchTerm("")}
+                        className="ml-2 hover:text-blue-800 transition-colors"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  )}
+                </div>
               </div>
+            )}
+          </div>
+        </div>
+      </section>
 
-              {/* Doctor Details - Right Side */}
-              <div className="md:w-3/5 p-6 max-h-[80vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl font-bold text-gray-800">
-                    {selectedDoctor.name}
-                  </DialogTitle>
-                  <DialogDescription className="text-[#00A651] font-medium">
-                    {selectedDoctor.specialty}
-                  </DialogDescription>
-                </DialogHeader>
+      {/* Doctors Grid */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          {filteredDoctors.length === 0 ? (
+            <div className="text-center py-16">
+              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-12 h-12 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">No doctors found</h3>
+              <p className="text-gray-600 mb-6">
+                {searchTerm || selectedSpecialty !== "All Specialties" 
+                  ? "Try adjusting your search criteria or specialty filter"
+                  : "No doctors available at the moment"
+                }
+              </p>
+              {(searchTerm || selectedSpecialty !== "All Specialties") && (
+                <Button 
+                  onClick={clearSearch}
+                  variant="outline"
+                >
+                  Clear All Filters
+                </Button>
+              )}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredDoctors.map((doctor) => (
+                <Link key={doctor.id} href={`/doctors/${doctor.id}`}>
+                  <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-0 bg-white">
+                    <CardContent className="p-0 overflow-hidden">
+                      {/* Doctor Image */}
+                      <div className="relative h-64 bg-gray-200 overflow-hidden">
+                        <Image
+                          src={doctor.image || "/dr.jpg"}
+                          alt={doctor.fullname}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        {/* Overlay on hover */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+                        
+                        {/* Experience Badge */}
+                        <div className="absolute top-4 left-4">
+                          <Badge className="bg-[#00A651] text-white px-3 py-1">
+                            {doctor.experience} Years
+                          </Badge>
+                        </div>
 
-                <div className="mt-4 space-y-6">
-                  {/* Quick Info */}
-                  <div className="flex flex-wrap gap-4">
-                    <div className="flex items-center">
-                      <Star
-                        className="w-5 h-5 text-yellow-400 mr-1"
-                        fill="#FACC15"
-                      />
-                      <span className="font-medium">
-                        {selectedDoctor.ratings}
-                      </span>
-                      <span className="text-gray-500 ml-1">
-                        ({selectedDoctor.reviewCount} reviews)
-                      </span>
-                    </div>
-                    <Badge
-                      variant="outline"
-                      className="flex items-center gap-1 px-3 py-1"
-                    >
-                      <Award className="w-4 h-4" />
-                      {selectedDoctor.experience}
-                    </Badge>
-                    <Badge
-                      variant="outline"
-                      className="flex items-center gap-1 px-3 py-1"
-                    >
-                      <BookOpen className="w-4 h-4" />
-                      {selectedDoctor.education}
-                    </Badge>
-                  </div>
-
-                  {/* Tabs for different sections */}
-                  <Tabs defaultValue="about" className="w-full">
-                    <TabsList className="grid grid-cols-3 mb-4">
-                      <TabsTrigger value="about">About</TabsTrigger>
-                      <TabsTrigger value="specializations">
-                        Specializations
-                      </TabsTrigger>
-                      <TabsTrigger value="schedule">Schedule</TabsTrigger>
-                    </TabsList>
-
-                    <TabsContent value="about" className="space-y-4">
-                      <div>
-                        <h4 className="font-semibold text-gray-800 mb-2">
-                          Biography
-                        </h4>
-                        <p className="text-gray-600">{selectedDoctor.bio}</p>
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold text-gray-800 mb-2">
-                          Languages
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedDoctor.languages.map((language, index) => (
-                            <Badge key={index} variant="secondary">
-                              {language}
-                            </Badge>
-                          ))}
+                        {/* View Profile Button */}
+                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <Button size="sm" className="bg-white text-[#00A651] hover:bg-gray-100">
+                            View Profile
+                          </Button>
                         </div>
                       </div>
-                    </TabsContent>
 
-                    <TabsContent value="specializations" className="space-y-4">
-                      <h4 className="font-semibold text-gray-800 mb-2">
-                        Areas of Expertise
-                      </h4>
-                      <ul className="space-y-2">
-                        {selectedDoctor.specializations.map(
-                          (specialization, index) => (
-                            <li key={index} className="flex items-start">
-                              <Heart className="w-5 h-5 text-[#00A651] mr-2 mt-0.5" />
-                              <span>{specialization}</span>
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </TabsContent>
-
-                    <TabsContent value="schedule" className="space-y-4">
-                      <h4 className="font-semibold text-gray-800 mb-2">
-                        Available Hours
-                      </h4>
-                      <div className="space-y-3">
-                        {selectedDoctor.availability.map((slot, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center justify-between p-3 border rounded-lg"
-                          >
-                            <div className="flex items-center">
-                              <Calendar className="w-5 h-5 text-[#00A651] mr-2" />
-                              <span className="font-medium">{slot.day}</span>
-                            </div>
-                            <span className="text-gray-600">{slot.hours}</span>
+                      {/* Doctor Info */}
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#00A651] transition-colors duration-300">
+                          {doctor.fullname}
+                        </h3>
+                        <p className="text-[#00A651] font-medium mb-3">
+                          {doctor.specialist}
+                        </p>
+                        
+                        {/* Quick Stats */}
+                        <div className="grid grid-cols-2 gap-3 mb-4">
+                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <Languages className="w-4 h-4 text-[#00A651]" />
+                            <span>{doctor.languages.length} Languages</span>
                           </div>
-                        ))}
-                      </div>
-                    </TabsContent>
-                  </Tabs>
+                          {doctor.consultationFee && (
+                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                              <Award className="w-4 h-4 text-[#00A651]" />
+                              <span>${doctor.consultationFee}</span>
+                            </div>
+                          )}
+                        </div>
 
-                  {/* Appointment Button */}
-                  <div className="pt-4">
-                    <Link
-                      href="/appointment"
-                      className="w-full px-4 py-2 rounded text-white  bg-[#00A651] hover:bg-[#008f45]"
-                    >
-                      Book an Appointment
-                    </Link>
-                  </div>
-                </div>
-              </div>
+                        {/* Book Appointment Button */}
+                        <Button className="w-full bg-[#00A651] hover:bg-[#008f45] text-white">
+                          Book Appointment
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
           )}
-        </DialogContent>
-      </Dialog>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-16 bg-[#00A651]/5">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            Can't Find the Right Doctor?
+          </h2>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            Our team is here to help you find the perfect specialist for your needs. Contact us for personalized assistance.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact">
+              <Button className="bg-[#00A651] hover:bg-[#008f45] text-white px-8 py-3 text-lg">
+                Contact Us
+              </Button>
+            </Link>
+            <Link href="/appointment">
+              <Button variant="outline" className="px-8 py-3 text-lg">
+                Book General Appointment
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

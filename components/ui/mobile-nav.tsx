@@ -42,9 +42,9 @@ const MobileNav = () => {
 
           const baseClasses =
             "w-full h-full flex flex-col items-center justify-center text-xs font-bold transition-colors duration-300";
-          const activeClasses = "bg-[#00A651] text-white";
+          const activeClasses = "bg-[#0DA93E] text-white";
           const inactiveClasses =
-            "bg-[#0E74FC] text-white hover:bg-[#00A651] border border-white";
+            "bg-[#0902AF] text-white hover:bg-[#0DA93E] border border-white";
 
           return item.external ? (
             <a

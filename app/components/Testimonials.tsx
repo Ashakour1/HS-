@@ -62,7 +62,7 @@ const Testimonials = () => {
     };
 
     return (
-        <section className="w-full py-16 md:py-20 bg-white">
+        <section className="w-full py-16 md:py-20 bg-gradient-to-br from-slate-50 to-white">
         <motion.div 
             ref={containerRef}
             className="container mx-auto px-6 md:px-8 max-w-6xl"
@@ -74,13 +74,13 @@ const Testimonials = () => {
             className="text-center mb-12"
             variants={scrollUpVariants}
           >
-            <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-2 bg-gradient-secondary text-white text-sm font-medium rounded-full mb-4 shadow-lg">
               Patient Recommendations
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-heading mb-4">
               What Our Patients Say
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-body max-w-2xl mx-auto leading-relaxed">
               Your trust and satisfaction are our greatest achievements. Read what our patients have to say about their experience at Hospital UNISO.
             </p>
           </motion.div>
@@ -91,7 +91,7 @@ const Testimonials = () => {
           >
             {/* Testimonial 1 */}
             <motion.div variants={cardVariants}>
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="flex text-yellow-400">
@@ -100,17 +100,17 @@ const Testimonials = () => {
                       ))}
                     </div>
                   </div>
-                  <Quote className="w-8 h-8 text-blue-200 mb-4" />
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <Quote className="w-8 h-8 text-accent/20 mb-4" />
+                  <p className="text-body mb-4 leading-relaxed">
                     "The care I received at Hospital UNISO was exceptional. The doctors were professional, caring, and the facilities are world-class. I highly recommend this hospital."
                   </p>
                   <div className="flex items-center">
-                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                      <span className="text-blue-600 font-semibold text-sm">A</span>
+                    <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white font-semibold text-sm">A</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Ahmed Hassan</p>
-                      <p className="text-sm text-gray-500">Patient</p>
+                      <p className="font-semibold text-heading">Ahmed Hassan</p>
+                      <p className="text-sm text-muted-foreground">Patient</p>
                     </div>
                   </div>
                 </CardContent>
@@ -119,7 +119,7 @@ const Testimonials = () => {
 
             {/* Testimonial 2 */}
             <motion.div variants={cardVariants}>
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="flex text-yellow-400">
@@ -128,17 +128,17 @@ const Testimonials = () => {
                       ))}
                     </div>
                   </div>
-                  <Quote className="w-8 h-8 text-blue-200 mb-4" />
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <Quote className="w-8 h-8 text-accent/20 mb-4" />
+                  <p className="text-body mb-4 leading-relaxed">
                     "The medical team at UNISO Hospital is outstanding. They treated me with compassion and provided excellent medical care. I'm grateful for their expertise."
                   </p>
                   <div className="flex items-center">
-                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                      <span className="text-green-600 font-semibold text-sm">F</span>
+                    <div className="w-10 h-10 bg-gradient-secondary rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white font-semibold text-sm">F</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Fatima Ali</p>
-                      <p className="text-sm text-gray-500">Patient</p>
+                      <p className="font-semibold text-heading">Fatima Ali</p>
+                      <p className="text-sm text-muted-foreground">Patient</p>
                     </div>
                   </div>
                 </CardContent>
@@ -147,7 +147,7 @@ const Testimonials = () => {
 
             {/* Testimonial 3 */}
             <motion.div variants={cardVariants}>
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="flex text-yellow-400">
@@ -156,17 +156,17 @@ const Testimonials = () => {
                       ))}
                     </div>
                   </div>
-                  <Quote className="w-8 h-8 text-blue-200 mb-4" />
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <Quote className="w-8 h-8 text-accent/20 mb-4" />
+                  <p className="text-body mb-4 leading-relaxed">
                     "From the moment I walked in, I felt cared for. The staff is friendly, the facilities are clean, and the medical care is top-notch. Highly recommended!"
                   </p>
                   <div className="flex items-center">
-                    <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                      <span className="text-purple-600 font-semibold text-sm">M</span>
+                    <div className="w-10 h-10 bg-gradient-accent rounded-full flex items-center justify-center mr-3">
+                      <span className="text-white font-semibold text-sm">M</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Mohamed Omar</p>
-                      <p className="text-sm text-gray-500">Patient</p>
+                      <p className="font-semibold text-heading">Mohamed Omar</p>
+                      <p className="text-sm text-muted-foreground">Patient</p>
                     </div>
                   </div>
                 </CardContent>
@@ -179,20 +179,20 @@ const Testimonials = () => {
             className="text-center"
             variants={scrollUpVariants}
           >
-            <Card className="border-0 shadow-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-8">
+            <Card className="border-0 shadow-2xl bg-gradient-to-r from-slate-50 to-white p-8">
               <CardContent className="p-0">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl font-bold text-heading mb-4">
                   Share Your Experience
                 </h3>
-                <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                <p className="text-body mb-6 max-w-2xl mx-auto leading-relaxed">
                   Had a great experience at Hospital UNISO? We'd love to hear from you! Your feedback helps us improve and helps others make informed decisions about their healthcare.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+                  <Button className="bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white px-8 py-3 shadow-lg hover:shadow-xl transform hover:scale-105">
                     <Phone className="w-4 h-4 mr-2" />
                     Call to Recommend
                   </Button>
-                  <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3">
+                  <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-white px-8 py-3 transition-all duration-300">
                     <MoveRight className="w-4 h-4 mr-2" />
                     Visit Our Center
                   </Button>

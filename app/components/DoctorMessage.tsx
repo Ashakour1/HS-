@@ -9,7 +9,7 @@ export default function HospitalDirectorSection() {
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="order-2 md:order-1 space-y-6">
             <div className="inline-block bg-[#e6f7ef] px-4 py-2 rounded-md">
-              <h3 className="text-[#00A651] font-medium">About Us</h3>
+              <h3 className="text-[#0DA93E] font-medium">About Us</h3>
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">
               Hospital Director Message
@@ -30,7 +30,7 @@ export default function HospitalDirectorSection() {
             </div>
             <Button
               variant="outline"
-              className="mt-4 border-2 border-[#00A651] text-[#00A651] hover:bg-[#00A651] hover:text-white px-8 py-6 rounded-md bg-transparent group h-auto"
+              className="mt-4 border-2 border-[#0DA93E] text-[#0DA93E] hover:bg-[#0DA93E] hover:text-white px-8 py-6 rounded-md bg-transparent group h-auto"
             >
               Read More
               <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -51,8 +51,8 @@ export default function HospitalDirectorSection() {
                 {/* If you have the dr2.jpg image, use: src="/dr2.jpg" */}
               </div>
             </div>
-            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#00A651]/10 rounded-full -z-10"></div>
-            <div className="absolute -top-4 -right-4 w-32 h-32 bg-[#00A651]/10 rounded-full -z-10"></div>
+            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#0DA93E]/10 rounded-full -z-10"></div>
+            <div className="absolute -top-4 -right-4 w-32 h-32 bg-[#0DA93E]/10 rounded-full -z-10"></div>
           </div>
         </div>
       </div>

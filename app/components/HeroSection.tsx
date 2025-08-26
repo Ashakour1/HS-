@@ -79,43 +79,45 @@ const HeroCarousel: React.FC = () => {
                 alt={item.title}
                 className="object-cover md:hidden w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/50" />
             </div>
 
             {/* Content */}
-            {/* <div className="max-w-[1250px] hidden  mx-auto relative mt-50  h-full md:flex items-center justify-start px-4">
-              <div className="max-w-4xl text-left ">
-                <Link
+            <div className="max-w-[1250px] mx-auto relative h-full flex items-center justify-start px-4 md:px-8">
+              <div className="max-w-4xl text-left space-y-6">
+                {/* <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-heading">
+                  {item.title}
+                </h1>
+                <p className="text-lg md:text-xl text-white/90 text-body max-w-2xl">
+                  {item.description}
+                </p> */}
+                {/* <Link
                   href={item.link}
-                  className="bg-[#2521a0] hover:bg-[#36a058] text-white px-8 py-3 rounded-md font-semibold transition-all duration-300 text-lg  animate-fadeInUp"
-                  style={{
-                    animationDelay: "0.7s",
-                    animationFillMode: "forwards",
-                  }}
+                  className="inline-block bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   {item.buttonText}
-                </Link>
+                </Link> */}
               </div>
-            </div> */}
+            </div>
           </div>
         ))}
       </div>
 
       {/* Navigation Arrows */}
-      {/* <button
+      <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white p-2 rounded-full transition-colors duration-200 z-10"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-3 rounded-full transition-colors duration-200 z-10 hover:scale-110"
         aria-label="Previous slide"
       >
         <ChevronLeft size={24} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-sm text-white p-2 rounded-full transition-colors duration-200 z-10"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-3 rounded-full transition-colors duration-200 z-10 hover:scale-110"
         aria-label="Next slide"
       >
         <ChevronRight size={24} />
-      </button> */}
+      </button>
 
       {/* Indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2 z-10">

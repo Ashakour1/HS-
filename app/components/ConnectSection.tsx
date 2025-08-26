@@ -22,7 +22,7 @@ export default function ConnectSection() {
           </h2>
           <p className="mb-6 text-base text-neutral-600">Highly Rated by Our Patients</p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-            <Button asChild className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-3 rounded-lg">
+            <Button asChild className="bg-[#0902AF] text-white hover:bg-[#0DA93E] px-6 py-3 rounded-lg">
               <Link href="/contact">
                 <Phone className="mr-2 h-5 w-5" /> Contact Us
               </Link>

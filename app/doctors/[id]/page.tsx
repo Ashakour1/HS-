@@ -1,156 +1,310 @@
 "use client";
 
-import {
-  Share2,
-  Facebook,
-  Twitter,
-  Linkedin,
-  Phone,
-  Mail,
-  Download
-} from "lucide-react";
-import { FaWhatsapp as WhatsApp } from "react-icons/fa";
-import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useParams, notFound } from "next/navigation";
-import { doctors } from "@/data/doctors";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Award,
+  BookOpen,
+  Calendar,
+  Clock,
+  Heart,
+  Mail,
+  MapPin,
+  Phone,
+  Star,
+  User,
+  ArrowLeft,
+  GraduationCap,
+  Languages,
+  Clock3,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { fetchDoctorById, Doctor } from "@/lib/api";
 
-// Define the Doctor type
-type Doctor = {
-  id: string;
-  name: string;
-  title: string;
-  image: string;
-  exp: string;
-  specialty: string;
-  phone?: string;
-  email?: string;
-  certifications?: string[];
-  schedule?: {
-    day: string;
-    time: string;
-  }[];
-};
-
-export default function DoctorProfilePage() {
+export default function DoctorDetailsPage() {
   const params = useParams();
-  const doctorId = params.id as string;
+  const router = useRouter();
+  const [doctor, setDoctor] = useState<Doctor | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const member: Doctor | undefined = doctors.find((doc) => doc.id === doctorId);
+  useEffect(() => {
+    const loadDoctor = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchDoctorById(params.id as string);
+        setDoctor(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch doctor details');
+        console.error('Error loading doctor:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!member) return notFound();
+    if (params.id) {
+      loadDoctor();
+    }
+  }, [params.id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#00A651] mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading doctor details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !doctor) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">Error: {error || 'Doctor not found'}</p>
+          <Button 
+            onClick={() => router.back()} 
+            className="bg-[#00A651] hover:bg-[#008f45]"
+          >
+            Go Back
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-4 md:p-10 max-w-screen-xl mx-auto">
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Left Section */}
-        <div className="lg:w-2/3 space-y-8">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-800">{member.name}</h2>
-            <p className="text-blue-600">{member.title}</p>
-          </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Back Button */}
+      <div className="container mx-auto px-4 py-6">
+        <Button
+          variant="ghost"
+          onClick={() => router.back()}
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Doctors
+        </Button>
+      </div>
 
-          <div className="space-y-2">
-            <p><strong>Specialty:</strong> {member.specialty}</p>
-            <p><strong>Experience:</strong> {member.exp}</p>
-          </div>
-
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Share2 className="w-5 h-5 text-slate-600" />
-              <span className="text-slate-600 font-medium">Share This Profile:</span>
-            </div>
-            <div className="flex gap-3">
-              <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <Facebook className="w-5 h-5 text-blue-600" />
-              </button>
-              <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <WhatsApp className="w-5 h-5 text-green-600" />
-              </button>
-              <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <Twitter className="w-5 h-5 text-blue-400" />
-              </button>
-              <button className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors">
-                <Linkedin className="w-5 h-5 text-blue-700" />
-              </button>
-            </div>
-          </div>
-
-          <Button className="w-full bg-amber-400 hover:bg-amber-500 text-black">
-            Book an Appointment
-          </Button>
-
-          {member.phone || member.email ? (
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-4">Contact Information</h3>
-              <div className="space-y-3">
-                {member.phone && (
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-blue-600" />
-                    <span className="text-slate-700">{member.phone}</span>
-                  </div>
-                )}
-                {member.email && (
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-blue-600" />
-                    <span className="text-slate-700">{member.email}</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-3">
-                  <Download className="w-5 h-5 text-blue-600" />
-                  <a href="#" className="text-blue-600 hover:underline">Click Here to Download</a>
+      {/* Doctor Profile Section */}
+      <section className="py-8">
+        <div className="container mx-auto px-4">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            {/* Hero Section */}
+            <div className="relative h-64 md:h-80 bg-gradient-to-r from-blue-600 to-[#00A651]">
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="relative z-10 h-full flex items-center justify-center">
+                <div className="text-center text-white">
+                  <h1 className="text-3xl md:text-4xl font-bold mb-2">
+                    {doctor.fullname}
+                  </h1>
+                  <p className="text-xl md:text-2xl opacity-90">
+                    {doctor.specialist}
+                  </p>
                 </div>
               </div>
             </div>
-          ) : null}
 
-          {member.certifications && (
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-4">Certifications & Qualifications</h3>
-              <ul className="list-disc pl-5 space-y-2 text-slate-700">
-                {member.certifications.map((cert, index) => (
-                  <li key={index}>{cert}</li>
-                ))}
-              </ul>
+            {/* Doctor Info Grid */}
+            <div className="p-6 md:p-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Left Column - Doctor Image and Quick Info */}
+                <div className="lg:col-span-1">
+                  <div className="sticky top-6">
+                    {/* Doctor Image */}
+                    <div className="relative w-full h-80 rounded-xl overflow-hidden mb-6">
+                      <Image
+                        src={doctor.image || "/dr.jpg"}
+                        alt={doctor.fullname}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+
+                    {/* Quick Info Cards */}
+                    <div className="space-y-4">
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-10 h-10 bg-[#00A651]/10 rounded-full flex items-center justify-center">
+                              <Award className="w-5 h-5 text-[#00A651]" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-600">Experience</p>
+                              <p className="font-semibold text-lg">{doctor.experience} Years</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {doctor.consultationFee && (
+                        <Card>
+                          <CardContent className="p-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <BookOpen className="w-5 h-5 text-blue-600" />
+                              </div>
+                              <div>
+                                <p className="text-sm text-gray-600">Consultation Fee</p>
+                                <p className="font-semibold text-lg">${doctor.consultationFee}</p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      )}
+
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                              <Languages className="w-5 h-5 text-purple-600" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-600">Languages</p>
+                              <p className="font-semibold text-lg">{doctor.languages.length}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Book Appointment Button */}
+                      <Link href="/appointment" className="block">
+                        <Button className="w-full bg-[#00A651] hover:bg-[#008f45] text-white py-3 text-lg">
+                          Book Appointment
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column - All Information Without Tabs */}
+                <div className="lg:col-span-2 space-y-8">
+                  {/* About Section */}
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <User className="w-5 h-5 text-[#00A651]" />
+                        Biography
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed text-lg">
+                        {doctor.bio}
+                      </p>
+                    </CardContent>
+                  </Card>
+
+                  {/* Languages Section */}
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <Languages className="w-5 h-5 text-[#00A651]" />
+                        Languages Spoken
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {doctor.languages.map((language, index) => (
+                          <Badge key={index} variant="secondary" className="px-3 py-1 text-sm">
+                            {language}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Qualifications Section */}
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <GraduationCap className="w-5 h-5 text-[#00A651]" />
+                        Qualifications & Certifications
+                      </h3>
+                      <div className="space-y-3">
+                        {doctor.qualifications.map((qualification, index) => (
+                          <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                            <Heart className="w-5 h-5 text-[#00A651] mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">{qualification}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Schedule Section */}
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <Clock3 className="w-5 h-5 text-[#00A651]" />
+                        Available Hours
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {doctor.availability.map((slot, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#00A651] transition-colors"
+                          >
+                            <Calendar className="w-5 h-5 text-[#00A651]" />
+                            <span className="font-medium text-gray-700">{slot}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Contact Section */}
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <Mail className="w-5 h-5 text-[#00A651]" />
+                        Contact Information
+                      </h3>
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                          <Mail className="w-5 h-5 text-[#00A651]" />
+                          <span className="text-gray-700">{doctor.email}</span>
+                        </div>
+                        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                          <Phone className="w-5 h-5 text-[#00A651]" />
+                          <span className="text-gray-700">Contact via hospital</span>
+                        </div>
+                        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                          <MapPin className="w-5 h-5 text-[#00A651]" />
+                          <span className="text-gray-700">Available at our hospital</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
             </div>
-          )}
-
-          {member.schedule && (
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-4">Clinic Schedule</h3>
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th className="bg-blue-500 text-white py-3 px-4 text-left">Day</th>
-                    <th className="bg-blue-500 text-white py-3 px-4 text-left">Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {member.schedule.map((slot, index) => (
-                    <tr key={index} className={index % 2 === 0 ? "bg-slate-100" : "bg-white"}>
-                      <td className="py-3 px-4 border-b border-slate-200">{slot.day}</td>
-                      <td className="py-3 px-4 border-b border-slate-200">{slot.time}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-
-        {/* Right Section */}
-        <div className="lg:w-1/3 space-y-8">
-          <div className="w-full max-w-[300px] mx-auto">
-            <Image
-              src={member.image || "/placeholder.svg"}
-              alt={member.name}
-              width={300}
-              height={400}
-              className="w-full h-auto object-cover rounded-lg shadow-md"
-            />
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-16 bg-[#00A651]/5">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            Ready to Book Your Appointment?
+          </h2>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            Schedule a consultation with {doctor.fullname} and take the first step towards better health.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/appointment">
+              <Button className="bg-[#00A651] hover:bg-[#008f45] text-white px-8 py-3 text-lg">
+                Book Appointment
+              </Button>
+            </Link>
+            <Button variant="outline" onClick={() => router.back()}>
+              View Other Doctors
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

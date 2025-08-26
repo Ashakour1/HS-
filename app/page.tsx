@@ -1,5 +1,6 @@
 import HeroCarousel from "./components/HeroSection";
 import Others from "./components/Home";
+import AwarenessSection from "./components/AwarenessSection";
 import Head from "next/head";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
 
       </Head>
       <HeroCarousel />
+      <AwarenessSection />
       <Others />
 
       {/* WhatsApp Floating Button */}
