@@ -210,7 +210,7 @@ export const departments: Record<string, any> = {
     doctors: [
       {
         id: 13,
-        name: "Dr. Amiin",
+        name: "Dr. Muna",
         title: "Emergency Medicine Specialist",
         image: "/dr.jpg",
         exp: "25 years",
