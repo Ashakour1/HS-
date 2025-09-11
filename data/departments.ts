@@ -110,6 +110,15 @@ export const departments: Record<string, any> = {
     href: "/emergency",
     description:
       "Our Emergency Medicine Department provides life-saving care 24/7 for patients experiencing medical emergencies. With a highly trained and responsive team, we are prepared to handle trauma, cardiac events, respiratory issues, and other urgent conditions at any time.\n\nWe are equipped with advanced emergency equipment and facilities that allow us to quickly stabilize, diagnose, and treat patients under critical conditions.\n\nRapid assessment, immediate intervention, and coordinated follow-up care are the pillars of our emergency services.\n\nWe strive to deliver swift, effective, and compassionate care when it matters most.",
+    doctors: [
+      {
+        id: 13,
+        name: "Dr. Muna",
+        title: "Emergency Medicine Specialist",
+        image: "/dr.jpg",
+        exp: "25 years",
+      },
+    ],
     icon: Ambulance,
   },
   diagnostics: {
