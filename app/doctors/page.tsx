@@ -262,66 +262,59 @@ export default function DoctorsPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredDoctors.map((doctor) => (
-                <Link key={doctor.id} href={`/doctors/${doctor.id}`}>
-                  <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-0 bg-white">
-                    <CardContent className="p-0 overflow-hidden">
-                      {/* Doctor Image */}
-                      <div className="relative h-64 bg-gray-200 overflow-hidden">
-                        <Image
-                          src={doctor.image || "/dr.jpg"}
-                          alt={doctor.fullname}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        {/* Overlay on hover */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
-                        
-                        {/* Experience Badge */}
-                        <div className="absolute top-4 left-4">
-                          <Badge className="bg-[#00A651] text-white px-3 py-1">
-                            {doctor.experience} Years
-                          </Badge>
-                        </div>
+                <Card key={doctor.id} className="group hover:shadow-xl transition-all duration-300 border-0 bg-white p-0">
+                  <CardContent className="p-0 overflow-hidden">
+                    {/* Doctor Image */}
+                    <div className="relative h-64 bg-gray-200 overflow-hidden">
+                      <Image
+                        src={doctor.image || "/dr.jpg"}
+                        alt={doctor.fullname}
+                        fill
+                        className="object-cover  group-hover:scale-105 transition-transform duration-300"
+                      />
+                      {/* Overlay on hover */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+                      
+                      {/* Experience Badge */}
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-[#00A651] text-white px-3 py-1">
+                          {doctor.experience} Years
+                        </Badge>
+                      </div>
+                    </div>
 
-                        {/* View Profile Button */}
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <Button size="sm" className="bg-white text-[#00A651] hover:bg-gray-100">
-                            View Profile
-                          </Button>
+                    {/* Doctor Info */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#00A651] transition-colors duration-300">
+                        {doctor.fullname}
+                      </h3>
+                      <p className="text-[#00A651] font-medium mb-3">
+                        {doctor.specialist}
+                      </p>
+                      
+                      {/* Quick Stats */}
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <Languages className="w-4 h-4 text-[#00A651]" />
+                          <span>{doctor.languages.length} Languages</span>
                         </div>
+                        {doctor.consultationFee && (
+                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <Award className="w-4 h-4 text-[#00A651]" />
+                            <span>${doctor.consultationFee}</span>
+                          </div>
+                        )}
                       </div>
 
-                      {/* Doctor Info */}
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#00A651] transition-colors duration-300">
-                          {doctor.fullname}
-                        </h3>
-                        <p className="text-[#00A651] font-medium mb-3">
-                          {doctor.specialist}
-                        </p>
-                        
-                        {/* Quick Stats */}
-                        <div className="grid grid-cols-2 gap-3 mb-4">
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
-                            <Languages className="w-4 h-4 text-[#00A651]" />
-                            <span>{doctor.languages.length} Languages</span>
-                          </div>
-                          {doctor.consultationFee && (
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                              <Award className="w-4 h-4 text-[#00A651]" />
-                              <span>${doctor.consultationFee}</span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Book Appointment Button */}
+                      {/* Book Appointment Button */}
+                      <Link href="/appointment">
                         <Button className="w-full bg-[#00A651] hover:bg-[#008f45] text-white">
                           Book Appointment
                         </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           )}

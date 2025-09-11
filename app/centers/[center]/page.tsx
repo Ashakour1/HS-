@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Users, Award, Clock, MapPin } from "lucide-react";
+import { Award, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { departments } from "@/data/departments";
@@ -68,18 +67,6 @@ const InternalMedicinePage = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
             </div>
             
-            {/* Floating stats card */}
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-6 border border-gray-100">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-blue-100 rounded-full">
-                  <Users className="h-6 w-6 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">{centerData.doctors.length}</p>
-                  <p className="text-sm text-gray-600">Specialists</p>
-                </div>
-              </div>
-            </div>
           </div>
           
           <div className="space-y-6">
@@ -115,63 +102,6 @@ const InternalMedicinePage = () => {
         </div>
       </section>
 
-      {/* Enhanced Doctors Section */}
-      <section className="max-w-[1400px] mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Meet Our {centerData.name} Specialists
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Our team of experienced professionals is dedicated to providing exceptional care with the latest medical advancements
-          </p>
-        </div>
-        
-        <div className="flex flex-row flex-nowrap justify-start gap-6 overflow-x-auto">
-          {centerData.doctors.map((doctor: any) => (
-            <div
-              key={doctor.id}
-              className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 w-80"
-            >
-              {/* Doctor image with proper height to show full face */}
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src={doctor.image}
-                  alt={doctor.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              
-              <div className="p-6">
-                <div className="mb-4">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {doctor.name}
-                  </h3>
-                  <div className="text-green-600 font-semibold text-lg mb-2">
-                    {doctor.title}
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Clock className="h-4 w-4 text-blue-600" />
-                    <span className="text-sm font-medium">{doctor.exp} experience</span>
-                  </div>
-                </div>
-
-                {/* CTA button with redirect to appointment */}
-                <Button
-                  onClick={() => window.location.href = '/appointment'}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-200"
-                >
-                  Book Appointment
-                  <ArrowUpRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-              
-              {/* Simple accent bar */}
-              <div className="h-1 w-full bg-blue-600"></div>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 };

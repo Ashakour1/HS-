@@ -7,6 +7,9 @@ import { DoctorCard } from "./DoctorCard";
 
 // Dummy data for doctors
 interface Doctor {
+  consultationFee: any;
+  languages: any;
+  experience: any;
   id: string;
   fullname: string;
   specialist: string;
@@ -90,7 +93,7 @@ export function DoctorsSection() {
         
         <motion.div 
           variants={fadeUpVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 overflow-x-auto pb-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 overflow-x-auto pb-4"
         >
           {loading ? (
             // Show skeleton loading cards
@@ -118,6 +121,9 @@ export function DoctorsSection() {
                   name={doctor.fullname}
                   specialty={doctor.specialist}
                   image={doctor.image}
+                  experience={doctor.experience}
+                  languages={doctor.languages}
+                  consultationFee={doctor.consultationFee}
                 />
               </motion.div>
             ))
