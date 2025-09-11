@@ -76,7 +76,7 @@ const Header = () => {
       ],
     },
     { name: "Appointment", href: "/appointment" },
-    { name: "Doctors", href: "/doctors" },
+    { name: "Find a Doctor", href: "/doctors" },
     { name: "News", href: "/news" },
     { name: "Contact", href: "/contact" },
   ];
