@@ -13,7 +13,7 @@ import React from "react";
 
 const TopHeader = () => {
   return (
-    <header className="hidden md:block bg-gray-900 text-white py-3 shadow-lg border-b border-blue-300/20">
+    <header className="hidden md:block bg-[#16204F] text-white py-3 shadow-lg border-b border-blue-300/20">
       <div className="flex justify-between items-center max-w-[1400px] mx-auto px-4">
         {/* Left Section: Time, Email, Location */}
         <div className="flex items-center space-x-8">
