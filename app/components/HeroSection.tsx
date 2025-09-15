@@ -10,7 +10,7 @@ export const carouselItems = [
     description:
       "Our state-of-the-art facilities and expert medical team are dedicated to providing exceptional healthcare.",
     buttonText: "Book an Appointment",
-    image: "/banner4.jpg",
+    image: "/hero-cover.jpg",
     link: "/appointment",
   },
 ];
@@ -63,7 +63,7 @@ const HeroCarousel: React.FC = () => {
             key={item.id}
             className={`absolute inset-0 transition-opacity duration-1000 ${
               index === currentSlide
-                ? "opacity-100"
+                ? "opacity-"
                 : "opacity-0 pointer-events-none"
             }`}
           >
@@ -72,14 +72,14 @@ const HeroCarousel: React.FC = () => {
               <img
                 src={item.image}
                 alt={item.title}
-                className="object-cover hidden md:block w-full h-full"
+                className="object-cover hidden md:block w- h-full"
               />
               <img
                 src="/mobileview.jpg"
                 alt={item.title}
                 className="object-cover md:hidden w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/50" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-black/20" />
             </div>
 
             {/* Content */}
@@ -104,7 +104,7 @@ const HeroCarousel: React.FC = () => {
       </div>
 
       {/* Navigation Arrows */}
-      <button
+      {/* <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-3 rounded-full transition-colors duration-200 z-10 hover:scale-110"
         aria-label="Previous slide"
@@ -117,7 +117,7 @@ const HeroCarousel: React.FC = () => {
         aria-label="Next slide"
       >
         <ChevronRight size={24} />
-      </button>
+      </button> */}
 
       {/* Indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
