@@ -12,7 +12,6 @@ import {
   Mail,
   Clock,
   MapPin,
-  Calendar,
   ArrowRight,
   CheckCircle,
   Loader2,
@@ -25,7 +24,6 @@ interface Doctor {
   fullname: string;
   specialist: string;
   experience: number;
-  availability?: string[];
 }
 
 export default function AppointmentPage() {
@@ -37,7 +35,6 @@ export default function AppointmentPage() {
   const [reason, setReason] = useState("");
   const [doctorId, setDoctorId] = useState("");
   const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -82,8 +79,33 @@ export default function AppointmentPage() {
       });
 
       if (response.ok) {
+        // Send WhatsApp message
+        const selectedDoctor = doctors.find(d => d.id === doctorId);
+        const doctorName = selectedDoctor ? `Dr. ${selectedDoctor.fullname} (${selectedDoctor.specialist})` : 'Selected Doctor';
+        
+        const whatsappMessage = `*New Appointment Request* 
+
+ *Patient Details:*
+ Name: ${fullname}
+ Email: ${email}
+ Phone: ${phone}
+
+*Doctor:* ${doctorName}
+
+ *Appointment Details:*
+• Date: ${new Date(date).toLocaleDateString()}
+• Time: ${time}
+• Reason: ${reason}
+
+Please confirm this appointment.`;
+
+        const whatsappUrl = `https://wa.me/252618332419?text=${encodeURIComponent(whatsappMessage)}`;
+        
+        // Open WhatsApp in new tab
+        window.open(whatsappUrl, '_blank');
+        
         // Success - show success message and reset form
-        alert("Appointment request submitted successfully! We will contact you soon.");
+        alert("Appointment request submitted successfully! WhatsApp message sent. We will contact you soon.");
         resetForm();
       } else {
         // Error handling
@@ -106,19 +128,11 @@ export default function AppointmentPage() {
     setTime("");
     setReason("");
     setDoctorId("");
-    setSelectedDoctor(null);
   };
 
   const handleDoctorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = e.target.value;
     setDoctorId(selectedId);
-    
-    if (selectedId) {
-      const doctor = doctors.find(d => d.id === selectedId);
-      setSelectedDoctor(doctor || null);
-    } else {
-      setSelectedDoctor(null);
-    }
   };
 
   return (
@@ -246,28 +260,6 @@ export default function AppointmentPage() {
                         </div>
                       </div>
 
-                      {/* Doctor Availability Display */}
-                      {selectedDoctor && (
-                        <div className="space-y-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                          <h4 className="font-semibold text-blue-900 flex items-center gap-2">
-                            <Calendar className="w-5 h-5" />
-                            Dr. {selectedDoctor.fullname}'s Availability
-                          </h4>
-                          {selectedDoctor.availability && selectedDoctor.availability.length > 0 ? (
-                            <div className="flex flex-wrap gap-2">
-                              {selectedDoctor.availability.map((schedule, index) => (
-                                <div key={index} className="text-sm bg-white px-3 py-2 rounded border flex-shrink-0">
-                                  <span className="text-blue-800">{schedule}</span>
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <p className="text-blue-700 text-sm italic">
-                              Availability information not available for this doctor.
-                            </p>
-                          )}
-                        </div>
-                      )}
 
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-2">
@@ -486,7 +478,7 @@ export default function AppointmentPage() {
                 title: "Modern Facilities",
                 description:
                   "Our hospital is equipped with state-of-the-art technology for accurate diagnosis and treatment.",
-                icon: Calendar,
+                icon: CheckCircle,
               },
             ].map((feature, index) => (
               <Card
