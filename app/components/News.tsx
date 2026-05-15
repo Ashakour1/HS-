@@ -35,7 +35,7 @@ export default function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/news')
+        const response = await fetch('https://cms-hospitalunisoso-production-3ec8.up.railway.app/api/news')
         if (!response.ok) {
           throw new Error('Failed to fetch news')
         }
