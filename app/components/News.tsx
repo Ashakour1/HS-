@@ -3,9 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion, easeOut } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, CalendarDays, Eye } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Eye } from "lucide-react"
 import { useEffect, useState } from "react"
 
 interface NewsArticle {
@@ -37,7 +35,7 @@ export default function News() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch('https://cms-hospitalunisoso-production-3ec8.up.railway.app/api/news')
+        const response = await fetch('http://localhost:5001/api/news')
         if (!response.ok) {
           throw new Error('Failed to fetch news')
         }
@@ -159,78 +157,72 @@ export default function News() {
           {newsArticles.length > 0 ? (
             newsArticles.map((article) => (
               <motion.div key={article.id} variants={itemVariants}>
-                <Link href={`/news/${article.id}`} passHref>
-                  <Card className="group p-0 flex flex-col rounded-2xl border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden bg-gradient-to-br from-white to-slate-50/50 hover:from-white hover:to-accent/5 cursor-pointer hover:-translate-y-2">
-                    <div className="relative w-full h-56 overflow-hidden">
-                      <Image
-                        src={article.image || "/All-2.jpg"}
-                        alt={article.title}
-                        width={400}
-                        height={250}
-                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                      <span className="absolute top-4 left-4 bg-white/90 text-sm font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm text-heading shadow-sm border border-slate-200/50">
+                <Link
+                  href={`/news/${article.id}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white transition-colors duration-300 hover:bg-slate-50"
+                >
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl bg-slate-100">
+                    <Image
+                      src={article.image || "/All-2.jpg"}
+                      alt={article.title}
+                      width={400}
+                      height={300}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+
+                  <div className="flex flex-1 flex-col gap-4 p-6">
+                    <div className="flex items-center gap-3 text-xs">
+                      <span className="inline-flex items-center rounded-full bg-accent/10 px-2.5 py-1 font-medium text-accent">
                         {article.category || "Health"}
                       </span>
-                      <div className="absolute bottom-4 right-4 bg-white/90 text-xs font-medium px-2.5 py-1.5 rounded-lg backdrop-blur-sm text-body shadow-sm">
-                        {formatDate(article.createdAt)}
-                      </div>
+                      <span className="text-body/60">·</span>
+                      <time className="text-body/70">{formatDate(article.createdAt)}</time>
                     </div>
-                    <CardHeader className="space-y-3 px-6 pt-6 pb-4">
-                      <CardTitle className="text-xl font-bold text-heading leading-tight group-hover:text-accent transition-colors duration-300">
-                        {article.title}
-                      </CardTitle>
-                      <CardDescription className="text-base text-body leading-relaxed">
-                        {article.excerpt || article.content.substring(0, 120) + "..."}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="px-6 pb-6 pt-0 flex-grow flex items-end">
-                      <div className="w-full flex items-center justify-between">
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <Eye className="w-4 h-4 mr-1" />
-                          {article.views} views
-                        </div>
-                        <Button 
-                          variant="outline" 
-                          className="border-accent/20 text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 font-medium py-2.5 rounded-xl group-hover:shadow-md"
-                        >
-                          Read More
-                          <svg className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </Button>
+
+                    <h3 className="text-lg font-semibold leading-snug text-heading transition-colors duration-300 group-hover:text-accent">
+                      {article.title}
+                    </h3>
+
+                    <p className="line-clamp-2 text-sm leading-relaxed text-body/80">
+                      {article.excerpt || article.content.substring(0, 140) + "..."}
+                    </p>
+
+                    <div className="mt-auto flex items-center justify-between pt-2 text-sm">
+                      <div className="flex items-center gap-1.5 text-body/60">
+                        <Eye className="h-4 w-4" />
+                        <span>{article.views} views</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <span className="inline-flex items-center gap-1.5 font-medium text-accent transition-transform duration-300 group-hover:translate-x-0.5">
+                        Read more
+                        <ArrowUpRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                  </div>
                 </Link>
               </motion.div>
             ))
           ) : (
-            <div className="col-span-full text-center py-12">
+            <div className="col-span-full py-12 text-center">
               <p className="text-body text-lg">No news articles available at the moment.</p>
             </div>
           )}
         </motion.div>
-        
+
         {/* View All News Button */}
-        <motion.div 
-          className="flex justify-center mt-8"
+        <motion.div
+          className="mt-8 flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          
-          <Link 
+          <Link
             href="/news"
-            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-primary text-white font-semibold text-lg rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden"
+            className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-medium text-white transition-colors duration-300 hover:bg-accent/90"
           >
-            <span className="absolute inset-0 bg-gradient-secondary opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-            <span className="relative z-10 flex items-center gap-3">
-              View All News Articles
-              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </span>
+            View all news articles
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
           </Link>
         </motion.div>
       </div>

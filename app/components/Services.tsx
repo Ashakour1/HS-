@@ -1,85 +1,90 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
-import { departments } from "@/data/departments"; // Import departments data
+import { departments } from "@/data/departments";
 
 export default function HealthcareServices() {
-  // Animation variants for department cards
   const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 24 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.42, 0, 0.58, 1], // Correct cubic bezier
-      },
+      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
     },
   };
-  // Animation variants for header text
+
   const headerVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 16 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.42, 0, 0.58, 1],
-      },
+      transition: { duration: 0.45, ease: [0.42, 0, 0.58, 1] },
     },
   };
 
   const departmentList = Object.values(departments);
 
+  // Alternating soft brand tones — flat fills, no gradients, no shadows.
+  const palettes = [
+    {
+      iconBg: "bg-[#0902AF]/10",
+      iconText: "text-[#0902AF]",
+      linkText: "text-[#0902AF]",
+    },
+    {
+      iconBg: "bg-[#0DA93E]/10",
+      iconText: "text-[#0DA93E]",
+      linkText: "text-[#0DA93E]",
+    },
+  ];
+
   return (
-    <section className="py-20 bg-[#16204F]">
-      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+    <section className="bg-slate-50 py-20 md:py-28">
+      <div className="container mx-auto px-4 md:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="mx-auto mb-14 max-w-2xl text-center">
           <motion.span
-            className="inline-block px-4 py-2 bg-gradient-primary text-white text-sm font-medium rounded-full mb-4"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             variants={headerVariants}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#0902AF]"
           >
-            HEALTH SERVICES
+            <span className="h-1.5 w-1.5 rounded-full bg-[#0DA93E]" />
+            Health services
           </motion.span>
+
           <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-6 text-white text-heading"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             variants={headerVariants}
+            className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-heading sm:text-4xl md:text-[2.75rem] md:leading-[1.15]"
           >
-            Healthcare services for your well-being
+            Healthcare services for your{" "}
+            <span className="text-[#0902AF]">well‑being</span>
           </motion.h2>
+
           <motion.p
-            className="text-lg text-white/90 max-w-2xl mx-auto text-body"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             variants={headerVariants}
+            className="mt-4 text-base leading-relaxed text-body sm:text-lg"
           >
-            Comprehensive medical care across multiple specialties, delivered with expertise and compassion
+            Comprehensive medical care across multiple specialties, delivered
+            with expertise and compassion.
           </motion.p>
         </div>
-        
+
         {/* Department Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {departmentList.slice(0, 6).map((department, index: number) => {
-            // Use only the two specified colors alternating
-            const iconColors = [
-              "bg-[#16204F]", // First color
-              "bg-[#043A17]", // Second color
-              "bg-[#16204F]", // First color
-              "bg-[#043A17]", // Second color
-              "bg-[#16204F]", // First color
-              "bg-[#043A17]", // Second color
-            ];
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {departmentList.slice(0, 6).map((department, index) => {
+            const palette = palettes[index % palettes.length];
+            const Icon = department.icon;
+            const description = department.description.split("\n")[0];
 
             return (
               <motion.div
@@ -88,42 +93,46 @@ export default function HealthcareServices() {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={cardVariants}
-                className="h-full"
               >
-                <Card className="bg-transparent text-left shadow-lg rounded-2xl border border-slate-700 hover:shadow-2xl hover:-translate-y-2 hover:border-accent transition-all duration-300 h-full group">
-                  <CardContent className="p-6 flex flex-col items-start h-full">
-                    <div className={`w-14 h-14 mb-4 ${iconColors[index]} rounded-2xl flex items-center justify-center transition-all duration-300`}>
-                      <department.icon className="w-7 h-7 text-white" />
-                    </div>
-                    <h3 className="font-semibold text-white mb-3 text-lg group-hover:text-accent transition-colors duration-300 text-heading">
-                      {department.name}
-                    </h3>
-                    <p className="text-gray-300 mb-4 flex-grow leading-relaxed text-sm text-body">
-                      {department.description.split("\n")[0]}...
-                    </p>
-                    <Link
-                      href={`/centers/${department.href}`}
-                      className="inline-flex items-center gap-2 text-accent hover:text-accent-green font-medium transition-colors duration-300 mt-auto group-hover:underline"
-                      aria-label={`Learn more about ${department.name}`}
-                    >
-                      Learn more
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </CardContent>
-                </Card>
+                <Link
+                  href={`/centers/${department.href}`}
+                  aria-label={`Learn more about ${department.name}`}
+                  className="group flex h-full flex-col rounded-2xl bg-white p-6 transition-colors duration-300 hover:bg-white/70"
+                >
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${palette.iconBg} ${palette.iconText}`}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </div>
+
+                  <h3 className="mt-5 text-lg font-semibold leading-snug text-heading">
+                    {department.name}
+                  </h3>
+
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-body/80">
+                    {description}
+                  </p>
+
+                  <span
+                    className={`mt-6 inline-flex items-center gap-1.5 text-sm font-medium ${palette.linkText} transition-transform duration-300 group-hover:translate-x-0.5`}
+                  >
+                    Learn more
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </Link>
               </motion.div>
             );
           })}
         </div>
 
-        {/* View All Departments Link */}
-        <div className="mt-20 text-center">
+        {/* View All */}
+        <div className="mt-14 flex justify-center md:mt-16">
           <Link
             href="/departments"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white font-semibold transition-all duration-300 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="group inline-flex items-center gap-2 rounded-full bg-[#0902AF] px-7 py-3 text-sm font-medium text-white transition-colors duration-300 hover:bg-[#07018a]"
           >
-            View All Departments
-            <ArrowRight className="w-4 h-4" />
+            View all departments
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
           </Link>
         </div>
       </div>

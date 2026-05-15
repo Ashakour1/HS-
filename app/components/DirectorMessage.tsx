@@ -40,7 +40,7 @@ const DirectorMessage = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
     >
-    <div className="container mx-auto px-6 md:px-8 max-w-6xl">
+    <div className="container mx-auto px-6 md:px-8">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         {/* Text Content Section */}
         <div className={`space-y-6 order-2 lg:order-1 transition-all duration-700 delay-200 ease-out ${

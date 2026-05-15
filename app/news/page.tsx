@@ -4,9 +4,8 @@ import { useEffect, useState, Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Eye, Calendar, Search } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, Eye, Search } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 
 interface NewsArticle {
@@ -41,7 +40,7 @@ function NewsPageContent() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch('https://cms-hospitalunisoso-production-3ec8.up.railway.app/api/news')
+        const response = await fetch('http://localhost:5001/api/news')
         if (!response.ok) {
           throw new Error('Failed to fetch news')
         }
@@ -118,45 +117,48 @@ function NewsPageContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-6">
+      <div className="bg-white">
+        <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-between">
-            <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to home
             </Link>
-            <h1 className="text-3xl font-bold text-gray-900">Latest News</h1>
-            <div></div> {/* Spacer for centering */}
+            <h1 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+              Latest news
+            </h1>
+            <div className="w-[120px]" />
           </div>
         </div>
       </div>
 
       {/* Search and Filters */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* Search */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+      <div className="bg-white">
+        <div className="container mx-auto px-4 pb-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center">
+            <div className="relative flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search news articles..."
+                placeholder="Search news articles…"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full rounded-full bg-gray-100 py-2.5 pl-9 pr-4 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30"
               />
             </div>
-            
-            {/* Category Filter */}
-            <div className="flex gap-2">
+
+            <div className="flex flex-wrap gap-1.5">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category || "all")}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
                     selectedCategory === category
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? "bg-gray-900 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
                   {category === "all" ? "All" : category}
@@ -168,7 +170,7 @@ function NewsPageContent() {
       </div>
 
       {/* News Grid */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-10">
         {filteredArticles.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8">
             {filteredArticles.map((article) => (
@@ -176,67 +178,65 @@ function NewsPageContent() {
                 key={article.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.5 }}
               >
-                <Link href={`/news/${article.id}`} passHref>
-                  <Card className="group p-0 flex flex-col rounded-2xl border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden bg-gradient-to-br from-white to-gray-50/50 hover:from-white hover:to-blue-50/30 cursor-pointer h-full">
-                    <div className="relative w-full h-56 overflow-hidden">
-                      <Image
-                        src={article.image || "/All-2.jpg"}
-                        alt={article.title}
-                        width={400}
-                        height={250}
-                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                      <span className="absolute top-4 left-4 bg-white/90 text-sm font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm text-gray-800 shadow-sm border border-gray-200/50">
+                <Link
+                  href={`/news/${article.id}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white transition-colors duration-300 hover:bg-gray-50"
+                >
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl bg-gray-100">
+                    <Image
+                      src={article.image || "/All-2.jpg"}
+                      alt={article.title}
+                      width={400}
+                      height={300}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+
+                  <div className="flex flex-1 flex-col gap-4 p-6">
+                    <div className="flex items-center gap-3 text-xs">
+                      <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-1 font-medium text-blue-700">
                         {article.category || "Health"}
                       </span>
-                      <div className="absolute bottom-4 right-4 bg-white/90 text-xs font-medium px-2.5 py-1.5 rounded-lg backdrop-blur-sm text-gray-600 shadow-sm">
-                        {formatDate(article.createdAt)}
-                      </div>
+                      <span className="text-gray-300">·</span>
+                      <time className="text-gray-500">{formatDate(article.createdAt)}</time>
                     </div>
-                    <CardHeader className="space-y-3 px-6 pt-6 pb-4">
-                      <CardTitle className="text-xl font-bold text-gray-900 leading-tight group-hover:text-blue-600 transition-colors duration-300">
-                        {article.title}
-                      </CardTitle>
-                      <CardDescription className="text-base text-gray-600 leading-relaxed">
-                        {article.excerpt || article.content.substring(0, 120) + "..."}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="px-6 pb-6 pt-0 flex-grow flex items-end">
-                      <div className="w-full flex items-center justify-between">
-                        <div className="flex items-center text-sm text-gray-500">
-                          <Eye className="w-4 h-4 mr-1" />
-                          {article.views} views
-                        </div>
-                        <Button 
-                          variant="outline" 
-                          className="border-blue-200 text-blue-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 font-medium py-2.5 rounded-xl group-hover:shadow-md"
-                        >
-                          Read More
-                          <svg className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </Button>
+
+                    <h3 className="text-lg font-semibold leading-snug text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
+                      {article.title}
+                    </h3>
+
+                    <p className="line-clamp-2 text-sm leading-relaxed text-gray-600">
+                      {article.excerpt || article.content.substring(0, 140) + "..."}
+                    </p>
+
+                    <div className="mt-auto flex items-center justify-between pt-2 text-sm">
+                      <div className="flex items-center gap-1.5 text-gray-500">
+                        <Eye className="h-4 w-4" />
+                        <span>{article.views} views</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <span className="inline-flex items-center gap-1.5 font-medium text-blue-600 transition-transform duration-300 group-hover:translate-x-0.5">
+                        Read more
+                        <ArrowUpRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                  </div>
                 </Link>
               </motion.div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No news articles found matching your criteria.</p>
-            <Button 
+          <div className="rounded-2xl bg-white py-16 text-center">
+            <p className="text-base text-gray-500">No news articles found matching your criteria.</p>
+            <Button
               onClick={() => {
                 setSearchTerm("")
                 setSelectedCategory("all")
               }}
               className="mt-4"
             >
-              Clear Filters
+              Clear filters
             </Button>
           </div>
         )}

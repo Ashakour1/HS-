@@ -1,32 +1,60 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Calendar, User, Eye, Tag, Clock, Phone } from "lucide-react"
+import {
+  ArrowLeft,
+  Calendar,
+  User,
+  Eye,
+  Tag,
+  Clock,
+  Phone,
+  ChevronRight,
+  FileText,
+} from "lucide-react"
 
 interface NewsArticle {
-  id: string;
-  title: string;
-  content: string;
-  excerpt?: string;
-  category?: string;
-  status: string;
-  authorId?: string;
+  id: string
+  title: string
+  content: string
+  excerpt?: string
+  category?: string
+  status: string
+  authorId?: string
   author?: {
-    id: string;
-    name: string;
-    username: string;
-  };
-  views: number;
-  tags: string[];
-  image?: string;
-  imagePublicId?: string;
-  createdAt: Date;
-  updatedAt: Date;
+    id: string
+    name: string
+    username: string
+  }
+  views: number
+  tags: string[]
+  image?: string
+  imagePublicId?: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+const API_BASE = "https://cms-hospitalunisoso-production-3ec8.up.railway.app/api"
+
+const formatDate = (dateString: string | Date) =>
+  new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+
+const initialOf = (text?: string) => (text || "N").trim()[0]?.toUpperCase() || "N"
+
+const estimateReadingTime = (html: string) => {
+  const plain = (html || "").replace(/<[^>]+>/g, " ")
+  const words = plain.trim().split(/\s+/).filter(Boolean).length
+  const minutes = Math.max(1, Math.round(words / 220))
+  return `${minutes} min read`
 }
 
 export default function NewsDetailPage() {
@@ -40,14 +68,12 @@ export default function NewsDetailPage() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(`https://cms-hospitalunisoso-production-3ec8.up.railway.app/api/news/${params.id}`)
-        if (!response.ok) {
-          throw new Error('Failed to fetch article')
-        }
+        const response = await fetch(`${API_BASE}/news/${params.id}`)
+        if (!response.ok) throw new Error("Failed to fetch article")
         const data = await response.json()
         setArticle(data)
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
+        setError(err instanceof Error ? err.message : "An error occurred")
       } finally {
         setLoading(false)
       }
@@ -55,20 +81,23 @@ export default function NewsDetailPage() {
 
     const fetchRecentArticles = async () => {
       try {
-        const response = await fetch('https://cms-hospitalunisoso-production-3ec8.up.railway.app/api/news')
-        if (response.ok) {
-          const data = await response.json()
-          const publishedNews = data.filter((article: NewsArticle) => article.status === 'published')
-          // Get 3 most recent articles, excluding current article
-          const recent = publishedNews
-            .filter((a: NewsArticle) => a.id !== params.id)
-            .sort((a: NewsArticle, b: NewsArticle) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-            .slice(0, 3)
-          setRecentArticles(recent)
-          setAllArticles(publishedNews)
-        }
+        const response = await fetch(`${API_BASE}/news`)
+        if (!response.ok) return
+        const data = await response.json()
+        const publishedNews = data.filter(
+          (a: NewsArticle) => a.status === "published",
+        )
+        const recent = publishedNews
+          .filter((a: NewsArticle) => a.id !== params.id)
+          .sort(
+            (a: NewsArticle, b: NewsArticle) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          )
+          .slice(0, 4)
+        setRecentArticles(recent)
+        setAllArticles(publishedNews)
       } catch (err) {
-        console.error('Failed to fetch recent articles:', err)
+        console.error("Failed to fetch recent articles:", err)
       }
     }
 
@@ -78,55 +107,49 @@ export default function NewsDetailPage() {
     }
   }, [params.id])
 
-  // Calculate category counts
-  const getCategoryCount = (category: string) => {
-    return allArticles.filter(article => article.category === category).length
-  }
-
-  // Get unique categories with counts
-  const categoriesWithCounts = Array.from(new Set(allArticles.map(article => article.category).filter(Boolean)))
-    .map(category => ({
-      name: category!,
-      count: getCategoryCount(category!)
-    }))
-    .sort((a, b) => b.count - a.count)
-
-  const formatDate = (dateString: string | Date) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+  const categoriesWithCounts = useMemo(() => {
+    const counts = new Map<string, number>()
+    allArticles.forEach((a) => {
+      if (!a.category) return
+      counts.set(a.category, (counts.get(a.category) || 0) + 1)
     })
-  }
+    return Array.from(counts.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count)
+  }, [allArticles])
 
-  const formatTime = (dateString: string | Date) => {
-    const date = new Date(dateString)
-    return date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-  }
+  const readingTime = useMemo(
+    () => (article ? estimateReadingTime(article.content) : "1 min read"),
+    [article],
+  )
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-gray-200 border-t-blue-600" />
       </div>
     )
   }
 
   if (error || !article) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
-          <p className="text-gray-600 mb-6">{error || 'The article you are looking for does not exist.'}</p>
-          <Link href="/">
-            <Button>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
-            </Button>
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+        <div className="max-w-md text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-400">
+            <FileText className="h-5 w-5" />
+          </div>
+          <h1 className="text-xl font-semibold tracking-tight text-gray-900">
+            Article not found
+          </h1>
+          <p className="mt-2 text-sm text-gray-500">
+            {error || "The article you are looking for does not exist."}
+          </p>
+          <Link
+            href="/news"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-gray-800"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to news
           </Link>
         </div>
       </div>
@@ -135,231 +158,267 @@ export default function NewsDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
+      {/* Top bar */}
+      <div className="bg-white">
+        <div className="container mx-auto flex items-center justify-between px-4 py-5">
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to news
           </Link>
+          {/* Breadcrumb */}
+          <nav
+            aria-label="Breadcrumb"
+            className="hidden items-center gap-1.5 text-xs text-gray-500 sm:flex"
+          >
+            <Link href="/" className="hover:text-gray-900">
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-gray-300" />
+            <Link href="/news" className="hover:text-gray-900">
+              News
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 text-gray-300" />
+            <span className="max-w-[200px] truncate text-gray-900">
+              {article.title}
+            </span>
+          </nav>
         </div>
       </div>
 
-      {/* Hero Section with Background Image */}
-      <div className="relative h-32 md:h-80 lg:h-64">
-        <Image
-          src="/hero.png"
-          alt="News Hero"
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 flex flex-col justify-center">
-          <div className="container mx-auto px-4">
-            {/* Breadcrumb */}
-            <div className="mb-4">
-              <div className="inline-block bg-blue-600/90 text-white px-4 py-2 rounded-lg">
-                <span className="text-sm">Home - Blog Detail</span>
-              </div>
-            </div>
-            {/* News Title */}
-            <div className="max-w-4xl">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                {article.title}
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content with Sidebar */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Article Content - Left Side */}
-          <div className="lg:col-span-2">
+      {/* Main */}
+      <div className="container mx-auto px-4 py-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          {/* Article column */}
+          <article className="lg:col-span-2">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
             >
-              {/* Article Header */}
-              <div className="mb-8">
-                <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
+              {/* Header */}
+              <header className="mb-8">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-gray-500">
+                  <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-1 font-medium text-blue-700">
                     {article.category || "Health"}
                   </span>
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
+                  <span className="text-gray-300">·</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Calendar className="h-3.5 w-3.5" />
                     {formatDate(article.createdAt)}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {formatTime(article.createdAt)}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Eye className="w-4 h-4" />
-                    {article.views} views
-                  </div>
+                  </span>
+                  <span className="text-gray-300">·</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5" />
+                    {readingTime}
+                  </span>
+                  <span className="text-gray-300">·</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Eye className="h-3.5 w-3.5" />
+                    {article.views.toLocaleString()} views
+                  </span>
                 </div>
 
+                <h1 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-gray-900 sm:text-4xl md:text-[2.5rem] md:leading-[1.15]">
+                  {article.title}
+                </h1>
+
                 {article.excerpt && (
-                  <p className="text-xl text-gray-600 leading-relaxed mb-6">
+                  <p className="mt-5 text-lg leading-relaxed text-gray-600">
                     {article.excerpt}
                   </p>
                 )}
 
                 {article.author && (
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <User className="w-5 h-5" />
-                    <span>By {article.author.name}</span>
+                  <div className="mt-6 flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-sm font-semibold text-blue-700">
+                      {initialOf(article.author.name)}
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">
+                        {article.author.name}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Published on {formatDate(article.createdAt)}
+                      </p>
+                    </div>
                   </div>
                 )}
-              </div>
+              </header>
 
-              {/* Featured Image */}
+              {/* Featured image — only if present */}
               {article.image && (
-                <div className="mb-8">
-                  <div className="relative w-full h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-lg">
+                <figure className="mb-10 overflow-hidden rounded-2xl bg-gray-100">
+                  <div className="relative aspect-[16/9] w-full">
                     <Image
                       src={article.image}
                       alt={article.title}
                       fill
                       className="object-cover"
                       priority
+                      sizes="(min-width: 1024px) 768px, 100vw"
                     />
                   </div>
-                </div>
+                </figure>
               )}
 
-              {/* Article Content */}
-              <div className="prose prose-lg max-w-none">
-                <div 
-                  className="text-gray-700 leading-relaxed text-lg"
-                  dangerouslySetInnerHTML={{ __html: article.content.replace(/\n/g, '<br>') }}
+              {/* Content */}
+              <div className="prose prose-lg max-w-none prose-headings:tracking-tight prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-img:rounded-xl">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: article.content.replace(/\n/g, "<br>"),
+                  }}
                 />
               </div>
 
               {/* Tags */}
               {article.tags && article.tags.length > 0 && (
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Tag className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium text-gray-900">Tags:</span>
+                <div className="mt-10">
+                  <div className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-gray-400">
+                    <Tag className="h-3.5 w-3.5" />
+                    Tags
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {article.tags.map((tag, index) => (
+                    {article.tags.map((tag) => (
                       <span
-                        key={index}
-                        className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-200 transition-colors"
+                        key={tag}
+                        className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700 transition-colors hover:bg-gray-200"
                       >
-                        {tag}
+                        #{tag}
                       </span>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Article Footer */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div className="text-sm text-gray-600">
-                    <p>Last updated: {formatDate(article.updatedAt)}</p>
-                  </div>
-                  <Link href="/">
-                    <Button variant="outline">
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Home
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+              {/* Footer */}
+              <footer className="mt-12 flex flex-col items-start justify-between gap-4 rounded-2xl bg-white px-5 py-4 sm:flex-row sm:items-center">
+                <p className="text-xs text-gray-500">
+                  Last updated {formatDate(article.updatedAt)}
+                </p>
+                <Link
+                  href="/news"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to all news
+                </Link>
+              </footer>
             </motion.div>
-          </div>
+          </article>
 
-          {/* Right Sidebar */}
-          <div className="lg:col-span-1">
+          {/* Sidebar */}
+          <aside className="lg:col-span-1">
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-8"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="space-y-6 lg:sticky lg:top-6"
             >
-              {/* Recent Posts */}
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Recent Posts</h3>
-                <div className="space-y-4">
-                  {recentArticles.map((recentArticle) => (
-                    <Link 
-                      key={recentArticle.id} 
-                      href={`/news/${recentArticle.id}`}
-                      className="block group"
+              {/* Recent posts */}
+              <section className="rounded-2xl bg-white p-5">
+                <h3 className="text-sm font-semibold text-gray-900">
+                  Recent posts
+                </h3>
+                <p className="mt-0.5 text-xs text-gray-500">
+                  Latest stories from our team
+                </p>
+
+                <div className="mt-4 space-y-1">
+                  {recentArticles.length === 0 && (
+                    <p className="py-4 text-center text-xs text-gray-400">
+                      No other posts yet.
+                    </p>
+                  )}
+                  {recentArticles.map((post) => (
+                    <Link
+                      key={post.id}
+                      href={`/news/${post.id}`}
+                      className="group flex items-start gap-3 rounded-xl px-2 py-2.5 transition-colors hover:bg-gray-50"
                     >
-                      <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
+                      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                        {post.image ? (
                           <Image
-                            src={recentArticle.image || "/All-2.jpg"}
-                            alt={recentArticle.title}
+                            src={post.image}
+                            alt={post.title}
                             fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                            sizes="56px"
+                            className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
                           />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
-                            {recentArticle.title}
-                          </h4>
-                          <p className="text-sm text-gray-500 mt-1">
-                            {formatDate(recentArticle.createdAt)}
-                          </p>
-                        </div>
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-base font-semibold text-blue-700">
+                            {initialOf(post.title)}
+                          </div>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h4 className="line-clamp-2 text-sm font-medium leading-snug text-gray-900 transition-colors group-hover:text-blue-600">
+                          {post.title}
+                        </h4>
+                        <p className="mt-1 text-xs text-gray-500">
+                          {formatDate(post.createdAt)}
+                        </p>
                       </div>
                     </Link>
                   ))}
                 </div>
-              </div>
+              </section>
 
-              {/* Emergency Call Section */}
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className="relative h-48">
-                  <Image
-                    src="/dr.jpg"
-                    alt="Emergency Call"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 to-black/90" />
-                  <div className="relative p-6 text-white h-full flex flex-col justify-center">
-                    <h3 className="text-xl font-bold mb-3">Emergency Call</h3>
-                    <p className="text-blue-100 text-sm mb-4">
-                      Lorem Ipsum is simply dummy text of the printing typesetting industry beautiful worldlorem ipsum.
-                    </p>
-                    <Button className="bg-white text-blue-600 hover:bg-gray-100 w-full">
-                      <Phone className="w-4 h-4 mr-2" />
-                      Call Us Now
-                    </Button>
-                  </div>
+              {/* Emergency call */}
+              <section className="overflow-hidden rounded-2xl bg-blue-600 p-5 text-white">
+                <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-blue-100">
+                  <Phone className="h-3.5 w-3.5" />
+                  24/7 helpline
                 </div>
-              </div>
+                <h3 className="mt-2 text-lg font-semibold">
+                  Need urgent care?
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-blue-100/90">
+                  Speak with our emergency desk anytime. We're here whenever
+                  you need us.
+                </p>
+                <Button
+                  asChild
+                  className="mt-4 w-full rounded-full bg-white text-blue-700 shadow-none hover:bg-blue-50"
+                >
+                  <Link href="tel:+0000000000">
+                    <Phone className="h-4 w-4" />
+                    Call us now
+                  </Link>
+                </Button>
+              </section>
 
               {/* Categories */}
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Categories</h3>
-                <div className="space-y-3">
-                  {categoriesWithCounts.map((category) => (
-                    <Link 
-                      key={category.name} 
-                      href={`/news?category=${category.name}`}
-                      className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                      <span className="text-gray-700">{category.name}</span>
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
-                        {category.count}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              {categoriesWithCounts.length > 0 && (
+                <section className="rounded-2xl bg-white p-5">
+                  <h3 className="text-sm font-semibold text-gray-900">
+                    Categories
+                  </h3>
+                  <p className="mt-0.5 text-xs text-gray-500">
+                    Browse by topic
+                  </p>
+
+                  <ul className="mt-4 space-y-1">
+                    {categoriesWithCounts.map((category) => (
+                      <li key={category.name}>
+                        <Link
+                          href={`/news?category=${encodeURIComponent(category.name)}`}
+                          className="flex items-center justify-between rounded-xl px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                        >
+                          <span className="capitalize">{category.name}</span>
+                          <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 group-hover:bg-blue-50 group-hover:text-blue-700">
+                            {category.count}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
             </motion.div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>

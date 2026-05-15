@@ -37,29 +37,29 @@ const Services = () => {
       title: "Emergency",
       content: "+1 234 567 890",
       icon: Phone,
-      color: "bg-emerald-600", // Changed to a more direct green
-      text: "text-white",
+      tile: "bg-rose-500/10",
+      iconText: "text-rose-600",
     },
     {
       title: "Location",
       content: "Howlwadaag Street, Mogadishu",
       icon: MapPin,
-      color: "bg-blue-50", // Lighter blue for contrast
-      text: "text-gray-800",
+      tile: "bg-[#0902AF]/10",
+      iconText: "text-[#0902AF]",
     },
     {
       title: "Email",
       content: "info@hospital.com",
       icon: Mail,
-      color: "bg-blue-50",
-      text: "text-gray-800",
+      tile: "bg-emerald-500/10",
+      iconText: "text-emerald-600",
     },
     {
       title: "Working Hours",
       content: "Mon-Fri: 9AM - 5PM",
       icon: Clock,
-      color: "bg-blue-50",
-      text: "text-gray-800",
+      tile: "bg-amber-500/10",
+      iconText: "text-amber-600",
     },
   ];
 
@@ -67,22 +67,30 @@ const Services = () => {
     {
       title: "Modern Equipment",
       description: "Advanced tools for accurate diagnosis and treatment.",
-      icon: Stethoscope, // Example icon
+      icon: Stethoscope,
+      tile: "bg-blue-500/10",
+      iconText: "text-blue-600",
     },
     {
       title: "Trusted Doctors",
       description: "Highly skilled and experienced medical professionals.",
-      icon: HeartPulse, // Example icon
+      icon: HeartPulse,
+      tile: "bg-rose-500/10",
+      iconText: "text-rose-600",
     },
     {
       title: "Patient First",
       description: "Our services revolve around your comfort and care.",
-      icon: FlaskConical, // Example icon
+      icon: FlaskConical,
+      tile: "bg-emerald-500/10",
+      iconText: "text-emerald-600",
     },
     {
       title: "24/7 Access",
       description: "We are here for you anytime, day or night.",
-      icon: Ambulance, // Example icon
+      icon: Ambulance,
+      tile: "bg-amber-500/10",
+      iconText: "text-amber-600",
     },
   ];
 
@@ -125,26 +133,30 @@ const Services = () => {
       title: "Minimally Invasive Surgery",
       description: "Advanced surgical techniques for faster recovery and less pain",
       icon: Stethoscope,
-      color: "bg-blue-500"
+      tile: "bg-blue-500/10",
+      iconText: "text-blue-600",
     },
     {
       title: "Interventional Radiology",
       description: "Image-guided procedures for precise diagnosis and treatment",
       icon: Brain,
-      color: "bg-purple-500"
+      tile: "bg-purple-500/10",
+      iconText: "text-purple-600",
     },
     {
       title: "Genetic Medicine",
       description: "Personalized treatment based on genetic profiling",
       icon: FlaskConical,
-      color: "bg-green-500"
+      tile: "bg-emerald-500/10",
+      iconText: "text-emerald-600",
     },
     {
       title: "Regenerative Medicine",
       description: "Cutting-edge therapies for tissue repair and regeneration",
       icon: Heart,
-      color: "bg-red-500"
-    }
+      tile: "bg-rose-500/10",
+      iconText: "text-rose-600",
+    },
   ];
 
   const healthTips = [
@@ -244,8 +256,8 @@ const Services = () => {
         </div> */}
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-10">
-          {departmentList.map((department, index: number) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 py-10">
+          {departmentList.map((department) => (
             <motion.div
               key={department.id}
               initial="hidden"
@@ -253,27 +265,25 @@ const Services = () => {
               viewport={{ once: true, amount: 0.2 }}
               variants={cardVariants}
             >
-              <Card className="text-left shadow-sm rounded-xl border border-gray-200 hover:shadow-md transition-shadow duration-200">
-                <CardContent className="p-6 flex flex-col items-start">
-                  <div className="w-12 h-12 mb-4 bg-blue-600 rounded-full flex items-center justify-center">
-                    <department.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2 text-lg">
-                    {department.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {department.description.split("\n")[0]}...
-                  </p>{" "}
-                  {/* Display first line of description */}
-                  <Link
-                    href={`/centers/${department.href}`}
-                    className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition-colors duration-200"
-                    aria-label={`Learn more about ${department.name}`}
-                  >
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-                </CardContent>
-              </Card>
+              <Link
+                href={`/centers/${department.href}`}
+                aria-label={`Learn more about ${department.name}`}
+                className="group flex h-full flex-col rounded-2xl bg-white p-6 transition-colors duration-300 hover:bg-slate-50"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0902AF]/10 text-[#0902AF] transition-colors duration-300 group-hover:bg-[#0902AF] group-hover:text-white">
+                  <department.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold leading-snug text-heading transition-colors duration-300 group-hover:text-[#0902AF]">
+                  {department.name}
+                </h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-body/80">
+                  {department.description.split("\n")[0]}
+                </p>
+                <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[#0902AF] transition-transform duration-300 group-hover:translate-x-0.5">
+                  Learn more
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -323,23 +333,29 @@ const Services = () => {
         </div> */}
 
         {/* Medical Specialties Showcase */}
-        <section className="py-16 md:py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-16 md:py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={headerVariants}
-              className="text-center mb-12"
+              className="mx-auto mb-12 max-w-2xl text-center"
             >
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#0902AF]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#0902AF]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0DA93E]" />
+                Specialties
+              </span>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-heading sm:text-4xl">
                 Advanced Medical Specialties
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                We offer cutting-edge medical specialties that combine innovation with compassionate care
+              <p className="mt-3 text-base leading-relaxed text-body/80 sm:text-lg">
+                Cutting‑edge specialties that combine innovation with
+                compassionate care.
               </p>
             </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {medicalSpecialties.map((specialty, index) => (
                 <motion.div
                   key={index}
@@ -347,18 +363,19 @@ const Services = () => {
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                   variants={cardVariants}
+                  className="group flex h-full flex-col rounded-2xl bg-slate-50 p-6 transition-colors duration-300 hover:bg-slate-100"
                 >
-                  <Card className="text-center p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 h-full">
-                    <div className={`w-16 h-16 mx-auto mb-4 rounded-full ${specialty.color} flex items-center justify-center text-white`}>
-                      <specialty.icon className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">
-                      {specialty.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm">
-                      {specialty.description}
-                    </p>
-                  </Card>
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${specialty.tile} ${specialty.iconText}`}
+                  >
+                    <specialty.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-5 text-base font-semibold leading-snug text-heading sm:text-lg">
+                    {specialty.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-body/80">
+                    {specialty.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -367,49 +384,74 @@ const Services = () => {
 
         {/* Patient Testimonials */}
         <section className="py-16 md:py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto max-w-6xl px-4 md:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={headerVariants}
-              className="text-center mb-12"
+              className="mx-auto mb-12 max-w-2xl text-center"
             >
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-                What Our Patients Say
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#0902AF]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#0902AF]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0DA93E]" />
+                Testimonials
+              </span>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-heading sm:text-4xl">
+                What our patients say
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Real stories from patients who have experienced exceptional care in our departments
+              <p className="mt-3 text-base leading-relaxed text-body/80 sm:text-lg">
+                Real stories from patients who have experienced exceptional
+                care in our departments.
               </p>
             </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
-                  variants={cardVariants}
-                >
-                  <Card className="p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 h-full">
-                    <div className="flex items-center mb-4">
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {testimonials.map((testimonial, index) => {
+                const initials = testimonial.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .slice(0, 2)
+                  .join("")
+                  .toUpperCase();
+                return (
+                  <motion.div
+                    key={index}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={cardVariants}
+                    className="flex h-full flex-col rounded-2xl bg-slate-50 p-6 transition-colors duration-300 hover:bg-slate-100"
+                  >
+                    <div className="flex items-center gap-0.5">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                        <Star
+                          key={i}
+                          className="h-4 w-4 fill-amber-400 text-amber-400"
+                        />
                       ))}
                     </div>
-                    <p className="text-gray-700 mb-4 italic">
-                      "{testimonial.content}"
+                    <p className="mt-4 flex-1 text-sm leading-relaxed text-body/90">
+                      &ldquo;{testimonial.content}&rdquo;
                     </p>
-                    <div className="border-t pt-4">
-                      <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                      <p className="text-sm text-gray-600">{testimonial.role}</p>
-                      <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-2">
+                    <div className="mt-5 flex items-center gap-3 border-t border-slate-200/80 pt-5">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0902AF]/10 text-sm font-semibold text-[#0902AF]">
+                        {initials}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold text-heading">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-xs text-body/70">
+                          {testimonial.role}
+                        </p>
+                      </div>
+                      <span className="inline-flex items-center rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-[#0902AF]">
                         {testimonial.department}
                       </span>
                     </div>
-                  </Card>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -422,47 +464,99 @@ const Services = () => {
 
         {/* Get In Touch Section */}
         <section className="py-16 md:py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-center text-3xl md:text-4xl font-extrabold mb-12 text-gray-900">
-              Get In Touch
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="container mx-auto max-w-6xl px-4 md:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={headerVariants}
+              className="mx-auto mb-12 max-w-2xl text-center"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#0902AF]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#0902AF]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0DA93E]" />
+                Contact
+              </span>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-heading sm:text-4xl">
+                Get in touch
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-body/80 sm:text-lg">
+                Reach out — our team is ready to help with appointments,
+                directions, or any questions you have.
+              </p>
+            </motion.div>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {contacts.map((item, i) => (
-                <Card
+                <motion.div
                   key={i}
-                  className={`text-center p-6 rounded-lg shadow-sm ${item.color} ${item.text} hover:shadow-md transition-all duration-300`}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={cardVariants}
+                  className="flex flex-col rounded-2xl bg-slate-50 p-6 transition-colors duration-300 hover:bg-slate-100"
                 >
-                  <item.icon
-                    className={`w-10 h-10 mx-auto mb-4 ${item.text}`}
-                  />
-                  <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                  <p className="text-sm">{item.content}</p>
-                </Card>
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.tile} ${item.iconText}`}
+                  >
+                    <item.icon className="h-5 w-5" />
+                  </div>
+                  <p className="mt-5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                    {item.title}
+                  </p>
+                  <p className="mt-1 text-sm font-medium leading-relaxed text-heading">
+                    {item.content}
+                  </p>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className="py-16 md:py-24 ">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-center text-3xl md:text-4xl font-extrabold mb-12 text-gray-900">
-              Why Choose Us
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto max-w-6xl px-4 md:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={headerVariants}
+              className="mx-auto mb-12 max-w-2xl text-center"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#0902AF]/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#0902AF]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0DA93E]" />
+                Why us
+              </span>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-heading sm:text-4xl">
+                Why choose us
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-body/80 sm:text-lg">
+                Trusted care, modern facilities, and an experienced team —
+                every day, around the clock.
+              </p>
+            </motion.div>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {features.map((feature, idx) => (
-                <Card
+                <motion.div
                   key={idx}
-                  className="text-center p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={cardVariants}
+                  className="flex h-full flex-col rounded-2xl bg-slate-50 p-6 transition-colors duration-300 hover:bg-slate-100"
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-emerald-500 flex items-center justify-center text-white text-2xl font-bold">
-                    {feature.icon && <feature.icon className="w-8 h-8" />}
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${feature.tile} ${feature.iconText}`}
+                  >
+                    {feature.icon && <feature.icon className="h-5 w-5" />}
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  <h3 className="mt-5 text-base font-semibold leading-snug text-heading sm:text-lg">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
-                </Card>
+                  <p className="mt-2 text-sm leading-relaxed text-body/80">
+                    {feature.description}
+                  </p>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -470,21 +564,36 @@ const Services = () => {
 
         {/* CTA Section */}
       </div>
-      <section className="bg-gradient-to-r from-blue-600 to-emerald-600 text-white py-16 md:py-24 text-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Need Emergency Care?
-          </h2>
-          <p className="max-w-xl mx-auto mb-8 text-lg">
-            Our dedicated emergency team is always ready to assist you in urgent
-            situations, 24/7.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block bg-white text-emerald-700 hover:bg-gray-100 font-semibold py-3 px-8 rounded-full transition-all hover:shadow-lg text-lg"
-          >
-            Contact Emergency
-          </Link>
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto max-w-6xl px-4 md:px-8">
+          <div className="relative overflow-hidden rounded-2xl bg-[#0902AF] px-6 py-12 text-center sm:px-12 sm:py-16 md:py-20">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#0DA93E]" />
+              24/7 Emergency
+            </span>
+            <h2 className="mx-auto mt-5 max-w-2xl text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl">
+              Need emergency care?
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+              Our dedicated emergency team is always ready to assist you in
+              urgent situations — any time, day or night.
+            </p>
+            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                href="tel:+252618332419"
+                className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#0902AF] transition-colors hover:bg-gray-100 sm:w-auto"
+              >
+                <Phone className="h-4 w-4" />
+                Call +252 61 833 2419
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/20 sm:w-auto"
+              >
+                Contact us
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

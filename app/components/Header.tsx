@@ -2,48 +2,100 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, ChevronDown, Calendar, Building2, Users, Heart, Baby, Stethoscope, Pill, Bed, Syringe, Microscope, Ambulance, FlaskConical, UserCheck, Info } from "lucide-react";
+import { usePathname } from "next/navigation";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Calendar,
+  Building2,
+  Users,
+  Heart,
+  Baby,
+  Stethoscope,
+  Pill,
+  Bed,
+  Syringe,
+  Ambulance,
+  FlaskConical,
+  UserCheck,
+  Info,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TopHeader from "./TopHeader";
+
+type NavItem = {
+  name: string;
+  href: string;
+  dropdown?: boolean;
+  items?: Array<{
+    name: string;
+    href: string;
+    icon: React.ComponentType<{ className?: string }>;
+    description?: string;
+  }>;
+};
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLUListElement>(null);
+  const desktopNavRef = useRef<HTMLUListElement>(null);
+  const pathname = usePathname();
 
-  // Handle scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close dropdown on outside click / Escape / scroll
   useEffect(() => {
+    if (!activeDropdown) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        desktopNavRef.current &&
+        !desktopNavRef.current.contains(event.target as Node)
       ) {
         setActiveDropdown(null);
       }
     };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveDropdown(null);
+    };
+    const handleScroll = () => setActiveDropdown(null);
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [activeDropdown]);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // Close everything on route change
+  useEffect(() => {
+    setActiveDropdown(null);
+    setIsMenuOpen(false);
+  }, [pathname]);
 
-  const toggleDropdown = (name: string) => {
-    setActiveDropdown(activeDropdown === name ? null : name);
-  };
+  // Lock body scroll while mobile menu is open
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
-  const navItems = [
+  const toggleDropdown = (name: string) =>
+    setActiveDropdown((current) => (current === name ? null : name));
+
+  const navItems: NavItem[] = [
     { name: "Home", href: "/" },
     { name: "Departments", href: "/departments" },
     {
@@ -63,7 +115,7 @@ const Header = () => {
         { name: "Day Care Services", href: "/centers/daycare", icon: Building2, description: "Outpatient day care procedures" },
         { name: "Emergency Medicine", href: "/centers/emergency", icon: Ambulance, description: "24/7 emergency medical care" },
         { name: "Laboratory and Diagnostic Services", href: "/centers/diagnostics", icon: FlaskConical, description: "Advanced diagnostic testing" },
-        { name: "Obstetrics and Gynecology (OBG)", href: "/centers/obg", icon: Baby, description: "Women's health and pregnancy care" },
+        { name: "Obstetrics and Gynecology (OBG)", href: "/centers/obg", icon: Users, description: "Women's health and pregnancy care" },
       ],
     },
     {
@@ -81,247 +133,287 @@ const Header = () => {
     { name: "Contact", href: "/contact" },
   ];
 
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname?.startsWith(href);
+  };
+
   return (
     <>
       <TopHeader />
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-          scrolled ? "bg-white/95 backdrop-blur-sm shadow-lg" : "bg-white"
+        className={`sticky top-0 z-50 w-full transition-colors duration-200 ${
+          scrolled ? "bg-white/90 backdrop-blur-md" : "bg-white"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-4 max-w-6xl">
-          <div className="flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="flex h-16 items-center justify-between md:h-[72px]">
             {/* Logo */}
-            <div className="flex items-center">
+            <Link href="/" className="flex items-center" aria-label="Uniso home">
               <Image
                 src="/uniso-logo.png"
-                width={60}
-                height={60}
+                width={56}
+                height={56}
                 alt="Uniso Logo"
-                className="h-14 w-auto transition-transform duration-300 hover:scale-105"
+                className="h-11 w-auto md:h-12"
+                priority
               />
-            </div>
+            </Link>
+
             {/* Desktop Navigation */}
             <nav className="hidden lg:block">
-              <ul className="flex items-center space-x-8" ref={dropdownRef}>
-                {navItems.map((item) => (
-                  <li key={item.name} className="group relative">
-                    {item.dropdown ? (
-                      <>
+              <ul className="flex items-center gap-1" ref={desktopNavRef}>
+                {navItems.map((item) => {
+                  const active = item.dropdown
+                    ? item.items?.some((s) => isActive(s.href))
+                    : isActive(item.href);
+
+                  return (
+                    <li key={item.name} className="relative">
+                      {item.dropdown ? (
                         <button
+                          type="button"
                           onClick={() => toggleDropdown(item.name)}
-                          className="flex items-center text-base font-medium text-heading transition-all duration-300 ease-in-out hover:text-accent focus:outline-none"
                           aria-expanded={activeDropdown === item.name}
                           aria-haspopup="true"
+                          className={`flex items-center gap-1 rounded-full px-3 py-2 text-[14px] font-medium transition-colors ${
+                            active
+                              ? "text-accent"
+                              : "text-heading hover:text-accent"
+                          }`}
                         >
                           {item.name}
                           <ChevronDown
-                            className={`ml-1 h-4 w-4 opacity-70 transition-transform duration-300 ${
+                            className={`h-3.5 w-3.5 opacity-70 transition-transform duration-200 ${
                               activeDropdown === item.name ? "rotate-180" : ""
                             }`}
                           />
                         </button>
-                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full"></span>
-                        {/* Enhanced Dropdown Menu */}
-                        {activeDropdown === item.name && (
-                          <div className="absolute left-0 top-full mt-3 w-[600px] rounded-xl bg-white py-4 shadow-2xl ring-1 ring-slate-200/50 border border-slate-100">
-                            <div className="px-4">
-                              {item.name === "Our Centers" ? (
-                                <div className="grid grid-cols-2 gap-3">
-                                  {item.items?.map((subItem) => {
-                                    const IconComponent = subItem.icon;
-                                    return (
-                                      <Link
-                                        key={subItem.name}
-                                        href={subItem.href}
-                                        className="group/item flex items-start gap-3 px-3 py-2 text-sm text-body transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-accent/5 hover:to-accent/5 hover:text-accent rounded-lg hover:shadow-sm"
-                                        onClick={() => setActiveDropdown(null)}
-                                      >
-                                        <div className="flex-shrink-0 mt-0.5">
-                                          <IconComponent className="h-4 w-4 text-accent group-hover/item:text-accent transition-colors duration-200" />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                          <div className="font-medium text-heading group-hover/item:text-accent transition-colors duration-200 text-xs">
-                                            {subItem.name}
-                                          </div>
-                                          {subItem.description && (
-                                            <div className="text-xs text-muted-foreground group-hover/item:text-body mt-0.5 leading-relaxed">
-                                              {subItem.description}
-                                            </div>
-                                          )}
-                                        </div>
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
-                              ) : (
-                                <div className="space-y-1">
-                                  {item.items?.map((subItem) => {
-                                    const IconComponent = subItem.icon;
-                                    return (
-                                      <Link
-                                        key={subItem.name}
-                                        href={subItem.href}
-                                        className="group/item flex items-start gap-3 px-4 py-3 text-sm text-body transition-all duration-300 ease-in-out hover:bg-gradient-to-r hover:from-accent/5 hover:to-accent/5 hover:text-accent rounded-lg hover:shadow-sm"
-                                        onClick={() => setActiveDropdown(null)}
-                                      >
-                                        <div className="flex-shrink-0 mt-0.5">
-                                          <IconComponent className="h-5 w-5 text-accent group-hover/item:text-accent transition-colors duration-200" />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                          <div className="font-medium text-heading group-hover/item:text-accent transition-colors duration-200">
-                                            {subItem.name}
-                                          </div>
-                                          {subItem.description && (
-                                            <div className="text-xs text-muted-foreground group-hover/item:text-body mt-0.5 leading-relaxed">
-                                              {subItem.description}
-                                            </div>
-                                          )}
-                                        </div>
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <>
+                      ) : (
                         <Link
                           href={item.href}
-                          className="text-base font-medium text-heading transition-all duration-300 ease-in-out hover:text-accent"
+                          className={`block rounded-full px-3 py-2 text-[14px] font-medium transition-colors ${
+                            active
+                              ? "text-accent"
+                              : "text-heading hover:text-accent"
+                          }`}
                         >
                           {item.name}
                         </Link>
-                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full"></span>
-                      </>
-                    )}
-                  </li>
-                ))}
+                      )}
+
+                      {/* Active indicator */}
+                      {active && (
+                        <span className="pointer-events-none absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-accent" />
+                      )}
+
+                      {/* Dropdown */}
+                      {item.dropdown && activeDropdown === item.name && (
+                        <div
+                          role="menu"
+                          aria-label={item.name}
+                          className={`absolute top-full left-1/2 z-50 -translate-x-1/2 pt-2 ${
+                            item.name === "Our Centers"
+                              ? "w-[min(560px,calc(100vw-2rem))]"
+                              : "w-[300px]"
+                          }`}
+                        >
+                          <div className="dropdown-panel rounded-2xl bg-white p-2 ring-1 ring-slate-100">
+                            <div
+                              className={
+                                item.name === "Our Centers"
+                                  ? "grid grid-cols-2 gap-0.5"
+                                  : "space-y-0.5"
+                              }
+                            >
+                              {item.items?.map((subItem) => {
+                                const Icon = subItem.icon;
+                                const itemActive = isActive(subItem.href);
+                                return (
+                                  <Link
+                                    key={subItem.name}
+                                    role="menuitem"
+                                    href={subItem.href}
+                                    className={`group/item flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors ${
+                                      itemActive
+                                        ? "bg-accent/5"
+                                        : "hover:bg-slate-50"
+                                    }`}
+                                    onClick={() => setActiveDropdown(null)}
+                                  >
+                                    <div
+                                      className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                                        itemActive
+                                          ? "bg-accent/10 text-accent"
+                                          : "bg-slate-50 text-accent group-hover/item:bg-accent/10"
+                                      }`}
+                                    >
+                                      <Icon className="h-4 w-4" />
+                                    </div>
+                                    <div className="min-w-0">
+                                      <div className="text-sm font-medium leading-tight text-heading group-hover/item:text-accent">
+                                        {subItem.name}
+                                      </div>
+                                      {subItem.description && (
+                                        <div className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                                          {subItem.description}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
-            {/* Book Appointment Button - Desktop */}
-            <div className="hidden lg:flex items-center space-x-4">
+
+            {/* CTA — Desktop */}
+            <div className="hidden items-center gap-3 lg:flex">
               <Button
-                onClick={() => (window.location.href = "/appointment")}
-                className="flex items-center space-x-2 bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all duration-300 font-semibold transform hover:scale-105"
-              >
-                <Calendar width={20} />
-                Book Appointment
-              </Button>
-            </div>
-            {/* Mobile Navigation */}
-            <div className="flex items-center gap-4 lg:hidden">
-              <Button
-                onClick={() => (window.location.href = "/appointment")}
-                className="group relative flex items-center space-x-2 bg-gradient-primary text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all duration-300 font-semibold transform hover:scale-105"
                 asChild
+                className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-none transition-colors hover:bg-accent/90"
               >
                 <Link href="/appointment">
-                  <span className="relative z-10 flex items-center">
-                    <Calendar className="mr-1 h-4 w-4" />
-                    Book Appointment
-                  </span>
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Book appointment
+                </Link>
+              </Button>
+            </div>
+
+            {/* Mobile right side */}
+            <div className="flex items-center gap-2 lg:hidden">
+              <Button
+                asChild
+                size="sm"
+                className="rounded-full bg-accent px-4 text-xs font-medium text-white shadow-none hover:bg-accent/90"
+              >
+                <Link href="/appointment">
+                  <Calendar className="mr-1.5 h-3.5 w-3.5" />
+                  Book
                 </Link>
               </Button>
               <button
-                onClick={toggleMenu}
-                className="rounded-full bg-slate-100 p-2 text-slate-700 transition-colors duration-300 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-                aria-label="Toggle menu"
+                type="button"
+                onClick={() => setIsMenuOpen((open) => !open)}
+                className="rounded-full p-2 text-heading transition-colors hover:bg-slate-100"
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMenuOpen}
               >
-                {isMenuOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
+                {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
             </div>
           </div>
-          {/* Enhanced Mobile Menu Dropdown */}
-          <div
-            className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out lg:hidden ${
-              isMenuOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
-            }`}
-          >
-            <nav className="rounded-xl bg-white p-4 shadow-xl border border-slate-100">
-              {navItems.map((item) => (
-                <div
-                  key={item.name}
-                  className="border-b border-slate-100 last:border-0"
-                >
-                  {item.dropdown ? (
-                    <>
-                      <button
-                        onClick={() => toggleDropdown(item.name)}
-                        className="flex w-full items-center justify-between py-3 text-lg font-medium text-heading transition-colors duration-300 hover:text-accent focus:outline-none"
-                        aria-expanded={activeDropdown === item.name}
-                      >
-                        {item.name}
-                        <ChevronDown
-                          className={`h-5 w-5 opacity-70 transition-transform duration-300 ${
-                            activeDropdown === item.name ? "rotate-180" : ""
+        </div>
+
+        {/* Mobile menu */}
+        <div
+          className={`lg:hidden ${isMenuOpen ? "block" : "hidden"}`}
+          aria-hidden={!isMenuOpen}
+        >
+          <div className="border-t border-slate-100 bg-white">
+            <nav className="mx-auto max-w-6xl px-4 py-3 md:px-8">
+              <ul className="divide-y divide-slate-100">
+                {navItems.map((item) => {
+                  const active = item.dropdown
+                    ? item.items?.some((s) => isActive(s.href))
+                    : isActive(item.href);
+                  return (
+                    <li key={item.name}>
+                      {item.dropdown ? (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => toggleDropdown(item.name)}
+                            aria-expanded={activeDropdown === item.name}
+                            className={`flex w-full items-center justify-between py-3.5 text-base font-medium transition-colors ${
+                              active ? "text-accent" : "text-heading"
+                            }`}
+                          >
+                            {item.name}
+                            <ChevronDown
+                              className={`h-4 w-4 opacity-70 transition-transform duration-200 ${
+                                activeDropdown === item.name ? "rotate-180" : ""
+                              }`}
+                            />
+                          </button>
+                          <div
+                            className={`overflow-hidden transition-[max-height] duration-300 ease-out ${
+                              activeDropdown === item.name
+                                ? "max-h-[800px]"
+                                : "max-h-0"
+                            }`}
+                          >
+                            <ul className="space-y-0.5 pb-3 pl-1">
+                              {item.items?.map((subItem) => {
+                                const Icon = subItem.icon;
+                                const subActive = isActive(subItem.href);
+                                return (
+                                  <li key={subItem.name}>
+                                    <Link
+                                      href={subItem.href}
+                                      onClick={() => setIsMenuOpen(false)}
+                                      className={`flex items-start gap-3 rounded-xl px-2.5 py-2.5 ${
+                                        subActive
+                                          ? "bg-accent/5"
+                                          : "hover:bg-slate-50"
+                                      }`}
+                                    >
+                                      <div
+                                        className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                                          subActive
+                                            ? "bg-accent/10 text-accent"
+                                            : "bg-slate-50 text-accent"
+                                        }`}
+                                      >
+                                        <Icon className="h-4 w-4" />
+                                      </div>
+                                      <div className="min-w-0">
+                                        <div className="text-sm font-medium text-heading">
+                                          {subItem.name}
+                                        </div>
+                                        {subItem.description && (
+                                          <div className="mt-0.5 text-xs text-muted-foreground">
+                                            {subItem.description}
+                                          </div>
+                                        )}
+                                      </div>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        </>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className={`block py-3.5 text-base font-medium transition-colors ${
+                            active ? "text-accent" : "text-heading hover:text-accent"
                           }`}
-                        />
-                      </button>
-                      {/* Enhanced Mobile Dropdown Items */}
-                      <div
-                        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                          activeDropdown === item.name
-                            ? "max-h-96 opacity-100"
-                            : "max-h-0 opacity-0"
-                        }`}
-                      >
-                        <div className="ml-4 space-y-2 border-l-2 border-accent/20 pl-4 pb-3">
-                          {item.items?.map((subItem) => {
-                            const IconComponent = subItem.icon;
-                            return (
-                              <Link
-                                key={subItem.name}
-                                href={subItem.href}
-                                className="group/item flex items-start gap-3 py-3 px-3 text-base text-body transition-all duration-300 ease-in-out hover:text-accent rounded-lg hover:bg-accent/5"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <IconComponent className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                                <div className="flex-1 min-w-0">
-                                  <div className="font-medium text-heading group-hover/item:text-accent">
-                                    {subItem.name}
-                                  </div>
-                                  {subItem.description && (
-                                    <div className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                                      {subItem.description}
-                                    </div>
-                                  )}
-                                </div>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="flex items-center py-3 text-lg font-medium text-heading transition-all duration-300 ease-in-out hover:text-accent"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-                </div>
-              ))}
-              <div className="mt-4 pt-2">
-                <Button
-                  onClick={() => (window.location.href = "/appointment")}
-                  className="w-full bg-gradient-primary hover:bg-gradient-to-r hover:from-[#07018a] hover:to-[#0902AF] text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all duration-300 font-semibold transform hover:scale-105"
-                >
-                  <span className="flex items-center justify-center">
-                    <Calendar className="mr-2 h-5 w-5" />
-                    Book Appointment
-                  </span>
-                </Button>
-              </div>
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <Link
+                href="/appointment"
+                onClick={() => setIsMenuOpen(false)}
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent/90"
+              >
+                <Calendar className="h-4 w-4" />
+                Book appointment
+              </Link>
             </nav>
           </div>
         </div>

@@ -1,103 +1,82 @@
 import {
   Clock,
-  FacebookIcon,
-  InstagramIcon,
+  Facebook,
+  Instagram,
   Mail,
-  MapPinCheckInside,
+  MapPin,
   MessageCircle,
   Phone,
-  MapPin,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 const TopHeader = () => {
   return (
-    <header className="hidden md:block bg-[#16204F] text-white py-3 shadow-lg border-b border-blue-300/20">
-      <div className="flex justify-between items-center max-w-[1400px] mx-auto px-4">
-        {/* Left Section: Time, Email, Location */}
-        <div className="flex items-center space-x-8">
-          <div className="flex items-center space-x-2">
-            <div className="p-1.5 bg-white/10 rounded-full">
-              <MapPin width={16} className="text-blue-200" />
-            </div>
-            <span className="text-[14px] font-medium text-blue-100">
-              Howlwadaag Road, Mogadishu Banaadir
-            </span>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <div className="p-1.5 bg-white/10 rounded-full">
-              <Clock width={16} className="text-blue-200" />
-            </div>
-            <span className="text-[14px] font-medium text-blue-100">
-              Opening Hours Saturday to Friday 24/7
-            </span>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <div className="p-1.5 bg-white/10 rounded-full">
-              <Mail width={16} className="text-blue-200" />
-            </div>
-            <span className="text-[14px] font-medium text-blue-100">
-              info@hospital.so
-            </span>
-          </div>
-        </div>
+    <div className="hidden bg-[#16204F] text-white md:block">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-2 md:px-8">
+        {/* Left: contact + hours */}
+        <ul className="flex items-center divide-x divide-white/10 text-[13px] text-blue-100/90">
+          <li className="flex items-center gap-2 pr-5">
+            <MapPin className="h-3.5 w-3.5 text-blue-200/80" />
+            <span>Howlwadaag Road, Mogadishu</span>
+          </li>
+          <li className="flex items-center gap-2 px-5">
+            <Clock className="h-3.5 w-3.5 text-blue-200/80" />
+            <span>Open 24/7 · Sat – Fri</span>
+          </li>
+          <li className="flex items-center gap-2 pl-5">
+            <Mail className="h-3.5 w-3.5 text-blue-200/80" />
+            <Link
+              href="mailto:info@hospital.so"
+              className="transition-colors hover:text-white"
+            >
+              info@hospitaluniso.so
+            </Link>
+          </li>
+        </ul>
 
-        {/* Right Section: Phone Button and Socials */}
-        <div className="flex items-center space-x-6">
-          <button className="flex items-center space-x-2 bg-gradient-to-r from-white to-blue-50 text-[#0902AF] px-5 py-2.5 rounded-lg hover:from-blue-50 hover:to-white transition-all duration-300 font-semibold text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5 border border-[#0902AF]/20">
-            <Phone width={16} className="text-[#0902AF]" />
-            <span>CALL US: 61 8332419</span>
-          </button>
-          
-          <div className="flex items-center space-x-4">
+        {/* Right: call + socials */}
+        <div className="flex items-center gap-5">
+          <Link
+            href="tel:+252618332419"
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-white hover:text-[#0902AF]"
+          >
+            <Phone className="h-3.5 w-3.5" />
+            <span>+252 61 833 2419</span>
+          </Link>
+
+          <div className="flex items-center gap-1">
             <Link
               href="https://www.facebook.com/hospitaluniso"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
+              aria-label="Facebook"
+              className="rounded-md p-1.5 text-blue-200/80 transition-colors hover:bg-white/10 hover:text-white"
             >
-              <div className="p-2 bg-white/10 rounded-full hover:bg-[#0902AF] transition-all duration-300 transform hover:scale-110 hover:-translate-y-0.5">
-                <FacebookIcon
-                  width={18}
-                  className="cursor-pointer text-blue-200 group-hover:text-white transition-colors duration-300"
-                />
-              </div>
+              <Facebook className="h-4 w-4" />
             </Link>
-            
             <Link
               href="https://www.instagram.com/hospital_uniso/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
+              aria-label="Instagram"
+              className="rounded-md p-1.5 text-blue-200/80 transition-colors hover:bg-white/10 hover:text-white"
             >
-              <div className="p-2 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-110 hover:-translate-y-0.5">
-                <InstagramIcon
-                  width={18}
-                  className="cursor-pointer text-blue-200 group-hover:text-white transition-colors duration-300"
-                />
-              </div>
+              <Instagram className="h-4 w-4" />
             </Link>
-            
             <Link
               href="https://wa.me/252618332419"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
+              aria-label="WhatsApp"
+              className="rounded-md p-1.5 text-blue-200/80 transition-colors hover:bg-white/10 hover:text-white"
             >
-              <div className="p-2 bg-white/10 rounded-full hover:bg-[#0DA93E] transition-all duration-300 transform hover:scale-110 hover:-translate-y-0.5">
-                <MessageCircle
-                  width={18}
-                  className="cursor-pointer text-blue-200 group-hover:text-white transition-colors duration-300"
-                />
-              </div>
+              <MessageCircle className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 
