@@ -277,7 +277,7 @@ const Header = () => {
             <div className="hidden items-center gap-3 lg:flex">
               <Button
                 asChild
-                className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-none transition-colors hover:bg-accent/90"
+                className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-none transition-colors hover:bg-accent/90"
               >
                 <Link href="/appointment">
                   <Calendar className="mr-2 h-4 w-4" />
@@ -291,7 +291,7 @@ const Header = () => {
               <Button
                 asChild
                 size="sm"
-                className="rounded-full bg-accent px-4 text-xs font-medium text-white shadow-none hover:bg-accent/90"
+                className="rounded-lg bg-accent px-4 text-xs font-medium text-white shadow-none hover:bg-accent/90"
               >
                 <Link href="/appointment">
                   <Calendar className="mr-1.5 h-3.5 w-3.5" />
@@ -409,7 +409,7 @@ const Header = () => {
               <Link
                 href="/appointment"
                 onClick={() => setIsMenuOpen(false)}
-                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent/90"
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-accent/90"
               >
                 <Calendar className="h-4 w-4" />
                 Book appointment
