@@ -1,5 +1,5 @@
 // API service for fetching doctors data
-const API_BASE_URL = 'https://cms-hospitalunisoso-production-3ec8.up.railway.app/api';
+const API_BASE_URL = 'https://cms-hospitalunisoso-production-f6e7.up.railway.app/api';
 
 export interface Doctor {
   id: string;
